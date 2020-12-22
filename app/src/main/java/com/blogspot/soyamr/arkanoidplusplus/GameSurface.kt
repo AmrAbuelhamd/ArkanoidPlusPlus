@@ -6,6 +6,8 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import com.blogspot.soyamr.arkanoidplusplus.model.IModel
+import com.blogspot.soyamr.arkanoidplusplus.model.Model
 
 class GameSurface(context: Context) : SurfaceView(context),
     SurfaceHolder.Callback, Controller {

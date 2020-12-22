@@ -1,4 +1,4 @@
-package com.blogspot.soyamr.arkanoidplusplus
+package com.blogspot.soyamr.arkanoidplusplus.model
 
 import android.graphics.Canvas
 
