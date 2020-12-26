@@ -5,14 +5,24 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
+    lateinit var gameSurface: GameSurface
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val view = GameSurface(this)
-        view.layoutParams = ViewGroup.LayoutParams(
+        gameSurface = GameSurface(this)
+        gameSurface.layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
-        setContentView(view)
-        println("Main " + Thread.currentThread().name)
+        setContentView(gameSurface)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        gameSurface.pause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        gameSurface.resume()
     }
 }

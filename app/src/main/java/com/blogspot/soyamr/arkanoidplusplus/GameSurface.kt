@@ -17,16 +17,12 @@ class GameSurface(context: Context) : SurfaceView(context),
         // Make Game Surface focusable so it can handle events.
         this.isFocusable = true
 
-        // Set callback.
-
-        // Set callback.
-        this.holder!!.addCallback(this)
+        this.holder.addCallback(this)
 
         model = Model(context, this)
     }
 
     override fun update() {
-        //update something
         model.update()
     }
 
@@ -47,10 +43,10 @@ class GameSurface(context: Context) : SurfaceView(context),
         setWillNotDraw(false)
     }
 
-    // Implements method of SurfaceHolder.Callback
+
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {}
 
-    // Implements method of SurfaceHolder.Callback
+
     override fun surfaceDestroyed(holder: SurfaceHolder) {
         pause()
     }

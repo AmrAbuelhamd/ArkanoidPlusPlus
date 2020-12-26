@@ -3,11 +3,9 @@ package com.blogspot.soyamr.arkanoidplusplus
 import android.graphics.Canvas
 import android.view.SurfaceHolder
 
-class GameThread(private val gameSurface: Controller): Thread() {
-    private val waitTime: Long = 100
+class GameThread(private val gameSurface: Controller) : Thread() {
     private val surfaceHolder: SurfaceHolder = gameSurface.getHolder()
-    private lateinit var canvas: Canvas
-    private var lastTime: Long = 0
+    private var canvas: Canvas? = null
     private var running = false;
 
     override fun run() {
@@ -17,23 +15,27 @@ class GameThread(private val gameSurface: Controller): Thread() {
             try {
                 canvas = surfaceHolder.lockCanvas()
                 synchronized(surfaceHolder) {
-//                    gameSurface.draw(canvas)
-                    gameSurface.invalidate()
+                    if (canvas != null) {
+//                        gameSurface.draw(canvas!!)//freezing canvas
+                        gameSurface.invalidate()//working {but at certain moments the ball is moving faster for 1 or two seconds}
+                    }
                 }
             } finally {
-                surfaceHolder.unlockCanvasAndPost(canvas)
+                if (canvas != null)
+                    surfaceHolder.unlockCanvasAndPost(canvas)
             }
             val now = System.nanoTime()
 
             var waitTime: Long = (now - startTime) / 1000000
             if (waitTime < 100) {
                 waitTime = 100 - waitTime
+                try {
+                    sleep(waitTime)
+                } catch (ignored: InterruptedException) {
+                    ignored.printStackTrace()
+                }
             }
-            try {
-                sleep(waitTime)
-            } catch (ignored: InterruptedException) {
-                ignored.printStackTrace()
-            }
+
             startTime = System.nanoTime()
         }
     }
