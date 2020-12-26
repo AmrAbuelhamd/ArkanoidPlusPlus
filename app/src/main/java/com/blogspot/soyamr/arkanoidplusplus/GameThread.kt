@@ -2,60 +2,43 @@ package com.blogspot.soyamr.arkanoidplusplus
 
 import android.graphics.Canvas
 import android.view.SurfaceHolder
-import java.util.concurrent.Executors
-import java.util.concurrent.ScheduledExecutorService
-import java.util.concurrent.TimeUnit
 
-class GameThread(private val gameSurface: Controller) {
+class GameThread(private val gameSurface: Controller): Thread() {
     private val waitTime: Long = 100
-    val executor: ScheduledExecutorService = Executors.newSingleThreadScheduledExecutor()
-    private val surfaceHolder: SurfaceHolder? = gameSurface.getHolder()
-    var canvas: Canvas? = null
+    private val surfaceHolder: SurfaceHolder = gameSurface.getHolder()
+    private lateinit var canvas: Canvas
     private var lastTime: Long = 0
-    private var delta: Long = 0
-    private var frameCount = 0
-    private fun initialize() {
-        lastTime = System.currentTimeMillis()
-        frameRate = "FPS 0"
-    }
+    private var running = false;
 
-    private fun calculate() {
-        val current = System.currentTimeMillis()
-        delta += current - lastTime
-        lastTime = current
-        frameCount++
-        if (delta > 1000) {
-            delta -= 1000
-            frameRate = String.format("FPS %s", frameCount)
-            frameCount = 0
+    override fun run() {
+        var startTime = System.nanoTime()
+        while (running) {
+            gameSurface.update()
+            try {
+                canvas = surfaceHolder.lockCanvas()
+                synchronized(surfaceHolder) {
+//                    gameSurface.draw(canvas)
+                    gameSurface.invalidate()
+                }
+            } finally {
+                surfaceHolder.unlockCanvasAndPost(canvas)
+            }
+            val now = System.nanoTime()
+
+            var waitTime: Long = (now - startTime) / 1000000
+            if (waitTime < 100) {
+                waitTime = 100 - waitTime
+            }
+            try {
+                sleep(waitTime)
+            } catch (ignored: InterruptedException) {
+                ignored.printStackTrace()
+            }
+            startTime = System.nanoTime()
         }
     }
 
-    private fun run() {
-        println(Thread.currentThread().name)
-        calculate()
-        if (!surfaceHolder!!.surface.isValid) {
-            return
-        }
-        canvas = surfaceHolder.lockCanvas()
-        gameSurface.update()
-        gameSurface.invalidate()
-        surfaceHolder.unlockCanvasAndPost(canvas)
-        //
-    }
-
-    companion object {
-        var frameRate: String? = null
-            private set
-    }
-
-    init {
-        initialize()
-        executor.scheduleWithFixedDelay(
-            { this@GameThread.run() },
-            0,
-            waitTime,
-            TimeUnit.MILLISECONDS
-        )
+    fun setRunning(running: Boolean) {
+        this.running = running;
     }
 }

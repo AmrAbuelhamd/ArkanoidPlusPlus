@@ -3,28 +3,26 @@ package com.blogspot.soyamr.arkanoidplusplus
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Paint
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import com.blogspot.soyamr.arkanoidplusplus.model.IModel
 import com.blogspot.soyamr.arkanoidplusplus.model.Model
 
 class GameSurface(context: Context) : SurfaceView(context),
-    SurfaceHolder.Callback, Controller {
-    private var gameThread: GameThread? = null
-    lateinit var model: IModel
+    SurfaceHolder.Callback, Controller, IGameSurface {
+    private lateinit var gameThread: GameThread
+    var model: IModel
 
     init {
-
         // Make Game Surface focusable so it can handle events.
-        this.setFocusable(true)
+        this.isFocusable = true
 
         // Set callback.
 
         // Set callback.
         this.holder!!.addCallback(this)
 
-        model = Model(context)
+        model = Model(context, this)
     }
 
     override fun update() {
@@ -32,28 +30,12 @@ class GameSurface(context: Context) : SurfaceView(context),
         model.update()
     }
 
-    override fun draw(canvas: Canvas) {
-        super.draw(canvas)
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
         canvas.save()
 
-        //draw something
-
+        canvas.drawColor(Color.WHITE)
         model.draw(canvas)
-
-
-        val paint = Paint()
-
-        paint.setTextSize(60f)
-        paint.setAntiAlias(true)
-        paint.setColor(Color.YELLOW)
-        paint.setStyle(Paint.Style.FILL)
-
-        canvas.drawText(
-            GameThread.frameRate.toString(),
-            150F,
-           150F,
-            paint
-        )
 
         canvas.restore()
     }
@@ -74,10 +56,22 @@ class GameSurface(context: Context) : SurfaceView(context),
     }
 
     fun pause() {
-        gameThread?.executor?.shutdown()
+        var retry = true;
+        while (retry) {
+            try {
+                gameThread.setRunning(false)
+                gameThread.join()
+                retry = false;
+            } catch (e: Exception) {
+                e.stackTrace
+            }
+        }
+
     }
 
     fun resume() {
         gameThread = GameThread(this)
+        gameThread.setRunning(true)
+        gameThread.start()
     }
 }

@@ -6,6 +6,6 @@ import android.view.SurfaceHolder
 interface Controller {
     fun update()
     fun draw(canvas: Canvas)
-    fun getHolder(): SurfaceHolder?
+    fun getHolder(): SurfaceHolder
     fun invalidate()
 }
