@@ -1,42 +1,63 @@
 package com.blogspot.soyamr.arkanoidplusplus
 
 import android.graphics.Canvas
+import android.os.SystemClock
 import android.view.SurfaceHolder
+
+var avgFPS = 0
+fun getAvgFPS(): String {
+    return "fps: " + avgFPS
+}
 
 class GameThread(private val gameSurface: Controller) : Thread() {
     private val surfaceHolder: SurfaceHolder = gameSurface.getHolder()
     private var canvas: Canvas? = null
-    private var running = false;
+    private var running = false
+
 
     override fun run() {
-        var startTime = System.nanoTime()
+        var startTime: Long
+        var endTime: Long
+        val targetWaitTime: Long = 100
+        var actualWaitTime: Long
+        var totalTime: Long = 0
+        var frameCount = 0
         while (running) {
+            startTime = SystemClock.uptimeMillis()
+
             gameSurface.update()
             try {
                 canvas = surfaceHolder.lockCanvas()
                 synchronized(surfaceHolder) {
                     if (canvas != null) {
-//                        gameSurface.draw(canvas!!)//freezing canvas
-                        gameSurface.invalidate()//working {but at certain moments the ball is moving faster for 1 or two seconds}
+                        gameSurface.drawScene(canvas!!)
                     }
                 }
             } finally {
                 if (canvas != null)
                     surfaceHolder.unlockCanvasAndPost(canvas)
             }
-            val now = System.nanoTime()
 
-            var waitTime: Long = (now - startTime) / 1000000
-            if (waitTime < 100) {
-                waitTime = 100 - waitTime
+            endTime = SystemClock.uptimeMillis()
+
+            actualWaitTime = endTime - startTime
+            if (actualWaitTime < targetWaitTime) {
+                actualWaitTime = targetWaitTime - actualWaitTime
                 try {
-                    sleep(waitTime)
-                } catch (ignored: InterruptedException) {
-                    ignored.printStackTrace()
+                    sleep(actualWaitTime)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
                 }
+                endTime = SystemClock.uptimeMillis()
             }
-
-            startTime = System.nanoTime()
+            totalTime += endTime - startTime
+            ++frameCount
+            if (totalTime > 1000) {
+                avgFPS = frameCount
+                println(avgFPS)
+                totalTime -= 1000
+                frameCount = 0
+            }
         }
     }
 

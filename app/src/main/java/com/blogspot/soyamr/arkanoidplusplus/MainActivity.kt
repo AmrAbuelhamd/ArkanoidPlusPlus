@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
             ViewGroup.LayoutParams.MATCH_PARENT
         )
         setContentView(gameSurface)
+
     }
 
     override fun onPause() {

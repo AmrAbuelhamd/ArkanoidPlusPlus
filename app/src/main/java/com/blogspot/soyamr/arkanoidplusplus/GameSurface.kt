@@ -26,43 +26,37 @@ class GameSurface(context: Context) : SurfaceView(context),
         model.update()
     }
 
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        canvas.save()
+    override fun drawScene(canvas: Canvas) {
 
+        canvas.save()
         canvas.drawColor(Color.WHITE)
         model.draw(canvas)
-
         canvas.restore()
+
     }
 
-
-    // Implements method of SurfaceHolder.Callback
     override fun surfaceCreated(holder: SurfaceHolder) {
         resume()
         setWillNotDraw(false)
     }
 
-
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {}
-
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
         pause()
     }
 
     fun pause() {
-        var retry = true;
+        var retry = true
         while (retry) {
             try {
                 gameThread.setRunning(false)
                 gameThread.join()
-                retry = false;
+                retry = false
             } catch (e: Exception) {
                 e.stackTrace
             }
         }
-
     }
 
     fun resume() {

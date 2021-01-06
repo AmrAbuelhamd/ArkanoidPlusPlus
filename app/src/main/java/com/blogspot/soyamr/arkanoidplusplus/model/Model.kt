@@ -8,10 +8,10 @@ import com.blogspot.soyamr.arkanoidplusplus.R
 import com.blogspot.soyamr.arkanoidplusplus.model.game_elements.Ball
 
 
-class Model : IModel {
+class Model(context: Context, gameSurface: IGameSurface) : IModel {
     val balls: List<Ball>
 
-    constructor(context: Context, gameSurface: IGameSurface) {
+    init {
         val bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.ball)
         val bitmap2 = BitmapFactory.decodeResource(context.resources, R.drawable.ball2)
         balls = listOf(

@@ -6,7 +6,13 @@ import com.blogspot.soyamr.arkanoidplusplus.IGameSurface
 import kotlin.math.abs
 
 
-class Ball : GameObject {
+class Ball(private val gameSurface: IGameSurface, image: Bitmap, x: Int, y: Int) : GameObject(
+    image,
+    4,
+    4,
+    x,
+    y
+) {
 
     private val ROW_TOP_TO_BOTTOM = 0
     private val ROW_LEFT_TO_RIGHT = 1
@@ -18,10 +24,10 @@ class Ball : GameObject {
 
     private var colUsing = 0
 
-    private var leftToRights: Array<Bitmap?>
-    private var rightToLefts: Array<Bitmap?>
-    private var topToBottoms: Array<Bitmap?>
-    private var bottomToTops: Array<Bitmap?>
+    private var leftToRights: Array<Bitmap?> = arrayOfNulls(colCount)
+    private var rightToLefts: Array<Bitmap?> = arrayOfNulls(colCount)
+    private var topToBottoms: Array<Bitmap?> = arrayOfNulls(colCount)
+    private var bottomToTops: Array<Bitmap?> = arrayOfNulls(colCount)
 
     // Velocity of game character (pixel/millisecond)
     val VELOCITY = .3f
@@ -31,20 +37,7 @@ class Ball : GameObject {
 
     private var lastDrawNanoTime: Long = -1
 
-    private val gameSurface: IGameSurface
-
-    constructor(gameSurface: IGameSurface, image: Bitmap, x: Int, y: Int) : super(
-        image,
-        4,
-        4,
-        x,
-        y
-    ) {
-        this.gameSurface = gameSurface
-        topToBottoms = arrayOfNulls(colCount)
-        rightToLefts = arrayOfNulls(colCount)
-        leftToRights = arrayOfNulls(colCount)
-        bottomToTops = arrayOfNulls(colCount)
+    init {
         for (col in 0 until colCount) {
             topToBottoms[col] = createSubImageAt(ROW_TOP_TO_BOTTOM, col)
             rightToLefts[col] = createSubImageAt(ROW_RIGHT_TO_LEFT, col)

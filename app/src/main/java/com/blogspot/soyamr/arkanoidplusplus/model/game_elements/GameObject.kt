@@ -5,31 +5,24 @@ import android.graphics.Canvas
 import com.blogspot.soyamr.arkanoidplusplus.model.IModel
 
 
-abstract class GameObject : IModel {
+abstract class GameObject(
+    protected val image: Bitmap,
+    protected var rowCount: Int,
+    protected var colCount: Int,
+    protected var x: Int,
+    protected var y: Int
+) : IModel {
     var isAlive = true
-    protected var x = 0
-    protected var y = 0
     protected val WIDTH: Int
     protected val HEIGHT: Int
-    protected val image: Bitmap
-    protected var rowCount = 0
-    protected var colCount = 0
 
     protected val width: Int
     protected val height: Int
 
 
-    constructor(image: Bitmap, rowCount: Int, colCount: Int, x: Int, y: Int) {
-        this.image = image
-        this.rowCount = rowCount
-        this.colCount = colCount
-
-        this.x = x
-        this.y = y
-
+    init {
         this.WIDTH = image.width
         this.HEIGHT = image.height
-
         this.width = this.WIDTH / colCount
         this.height = this.HEIGHT / rowCount
     }
