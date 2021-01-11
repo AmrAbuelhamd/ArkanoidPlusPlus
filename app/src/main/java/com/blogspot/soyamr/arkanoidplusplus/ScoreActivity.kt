@@ -16,6 +16,5 @@ class ScoreActivity : Activity() {
         findViewById<TextView>(R.id.scoreTextView).apply {
             text = "${intent.getIntExtra(SCORE, 0)}"
         }
-
     }
 }
