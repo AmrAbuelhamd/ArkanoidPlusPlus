@@ -12,6 +12,6 @@ class LevelSelectActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_level_select)
 
-        startActivity(Intent(this, GameActivity::class.java))
+        //startActivity(Intent(this, GameActivity::class.java))
     }
 }
