@@ -6,31 +6,31 @@ import com.blogspot.soyamr.arkanoidplusplus.game_stuff.IGameSurface
 class Brick(
     private val gameSurface: IGameSurface,
     image: Bitmap,
-    row: Int,
-    col: Int,
-    brickWidth: Int,
-    brickHeight: Int
+    x: Int,
+    y: Int
 ) :
     GameObject(
         image, 1, 1,
-        col * brickWidth + 10,
-        row * brickHeight + 10
+        x, y
     ) {
     public val rect = Rect()
     val paint = Paint()
 
     init {
-        rect.set(x, y, x + brickWidth - 20, y + brickHeight - 20)
+        rect.set(
+            x, y,
+            x + image.width,
+            y + image.height
+        )
         paint.color = Color.RED
     }
 
-    var padding = 1
     override fun update(fps: Int) {
 //        TODO("Not yet implemented")
     }
 
     override fun draw(canvas: Canvas) {
-        canvas.drawRect(rect, paint)
+        canvas.drawBitmap(image, x.toFloat(), y.toFloat(), null)
     }
 
     fun setInvisible() {

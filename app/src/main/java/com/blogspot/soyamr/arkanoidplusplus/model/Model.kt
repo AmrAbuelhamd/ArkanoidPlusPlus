@@ -1,12 +1,14 @@
 package com.blogspot.soyamr.arkanoidplusplus.model
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.media.AudioManager
 import android.media.SoundPool
 import android.util.Log
+import com.blogspot.soyamr.arkanoidplusplus.Dimensions
 import com.blogspot.soyamr.arkanoidplusplus.R
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.IGameSurface
 import com.blogspot.soyamr.arkanoidplusplus.model.game_elements.Ball
@@ -38,17 +40,45 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
     val brickWidth: Int = gameSurface.getScreenWidth() / 8
     val brickHeight: Int = gameSurface.getScreenHeight() / 10
 
+    var brick: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.element_purple_polygon_glossy)
 
-    val ball = BitmapFactory.decodeResource(context.resources, R.drawable.ball)
+    private val dimensions: Dimensions =
+        Dimensions(gameSurface.getScreenWidth(), gameSurface.getScreenHeight())
 
     init {
-        val ball = BitmapFactory.decodeResource(context.resources, R.drawable.ball)
-        val ball2 = BitmapFactory.decodeResource(context.resources, R.drawable.ball2)
-        val ball3 = BitmapFactory.decodeResource(context.resources, R.drawable.sphere)
-        val ball4 = BitmapFactory.decodeResource(context.resources, R.drawable.ball4)
-        val paddleImg = BitmapFactory.decodeResource(context.resources, R.drawable.paddle)
-        balls = listOf(Ball(this, gameSurface, ball4))
-        paddle = Paddle(gameSurface, paddleImg)
+
+        brick = Bitmap.createScaledBitmap(
+            brick,
+            dimensions.polygonWidth,
+            dimensions.polygonHeight,
+            false
+        )
+
+        var ball = BitmapFactory.decodeResource(context.resources, R.drawable.ball_blue)
+        ball = Bitmap.createScaledBitmap(ball, dimensions.ballWidth, dimensions.ballHeight, false)
+        var paddleImg = BitmapFactory.decodeResource(context.resources, R.drawable.paddle_blu)
+        paddleImg = Bitmap.createScaledBitmap(
+            paddleImg,
+            dimensions.paddleWidth,
+            dimensions.paddleHeight,
+            false
+        )
+        balls = listOf(
+            Ball(
+                this,
+                gameSurface,
+                ball,
+                dimensions.screenWidth / 2,
+                dimensions.screenHeight - dimensions.paddleInitialYPosition - dimensions.ballHeight
+            )
+        )
+        paddle = Paddle(
+            gameSurface,
+            paddleImg,
+            dimensions.screenWidth / 4,
+            dimensions.screenHeight - dimensions.paddleInitialYPosition
+        )
 
         // Build a wall of bricks
 
@@ -69,18 +99,24 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
         createBricksAndRestart()
     }
 
-    fun createBricksAndRestart() {
+    private fun createBricksAndRestart() {
         balls.forEach { it.reset() }
         for (column in 0..7) {
             for (row in 0..2) {
-                bricks[numBricks] = Brick(gameSurface, ball, row, column, brickWidth, brickHeight)
+                bricks[numBricks] =
+                    Brick(
+                        gameSurface,
+                        brick,
+                        column * dimensions.polygonWidth + dimensions.padding * (column + 3),
+                        row * dimensions.polygonHeight + dimensions.padding * (row + 1)
+                    )
                 ++numBricks
             }
         }
 
         // Reset scores and lives
         score = 0;
-        lives = 1;
+        lives = 3;
     }
 
 
@@ -158,7 +194,7 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
 //            startScoreScreen(score)
 //        }
 
-        if (score == numBricks * 10 || lives <= 0){
+        if (score == numBricks * 10 || lives <= 0) {
             pause()
             startScoreScreen(score)
         }
