@@ -5,7 +5,7 @@ import android.graphics.Canvas
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.IGameSurface
 import com.blogspot.soyamr.arkanoidplusplus.model.ModelBallInterface
 
-class Star(
+class ScreenElement(
     private val model: ModelBallInterface,
     private val gameSurface: IGameSurface,
     image: Bitmap,
