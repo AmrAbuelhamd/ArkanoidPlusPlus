@@ -7,5 +7,4 @@ interface ModelBallInterface {
     fun playSoundRight()
     fun playSoundTop()
     fun playSoundBottom()
-
 }
