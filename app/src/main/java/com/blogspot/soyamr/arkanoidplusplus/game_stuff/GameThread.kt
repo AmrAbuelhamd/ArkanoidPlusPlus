@@ -11,6 +11,7 @@ class GameThread(private val gameSurface: Controller) : Thread() {
     private var canvas: Canvas? = null
     private var running = false
     var fps = 1
+    var paused = true
 
     companion object {
         var avgFPS = 0
@@ -23,7 +24,7 @@ class GameThread(private val gameSurface: Controller) : Thread() {
     override fun run() {
         var startTime: Long
         var endTime: Long
-        val targetWaitTime: Long = 100
+        val targetWaitTime: Long = 10
         var actualWaitTime: Long
         var totalTime: Long = 0
         var frameCount = 0
@@ -79,6 +80,4 @@ class GameThread(private val gameSurface: Controller) : Thread() {
     fun setRunning(running: Boolean) {
         this.running = running;
     }
-
-    var paused = true
 }

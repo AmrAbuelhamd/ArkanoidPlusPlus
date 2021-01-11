@@ -22,13 +22,8 @@ class Ball(
     x, y
 ) {
 
-    constructor(model: Model, gameSurface: IGameSurface, image: Bitmap) : this(
-        model,
-        gameSurface,
-        image,
-        gameSurface.getScreenWidth() / 2,
-        gameSurface.getScreenHeight() - 200
-    )
+    val initialX = x;
+    val initialY = y;
 
     private val ROW_TOP_TO_BOTTOM = 0
     private val ROW_LEFT_TO_RIGHT = 1
@@ -156,8 +151,8 @@ class Ball(
     }
 
     fun reset() {
-        this.x = gameSurface.getScreenWidth() / 2
-        this.y = gameSurface.getScreenHeight() - 200
+        this.x = initialX
+        this.y = initialY
     }
 
     val ballRect = Rect();

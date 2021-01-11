@@ -6,11 +6,10 @@ import android.graphics.Rect
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.IGameSurface
 
 
-class Paddle(private val gameSurface: IGameSurface, image: Bitmap) :
+class Paddle(private val gameSurface: IGameSurface, image: Bitmap, x: Int, y: Int) :
     GameObject(
         image, 1, 1,
-        gameSurface.getScreenWidth() / 4,
-        gameSurface.getScreenHeight() - 100
+        x,y
     ) {
 
     var paddleState: IState = State.STOPPED
