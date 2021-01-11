@@ -1,6 +1,8 @@
 package com.blogspot.soyamr.arkanoidplusplus
 
 interface IGameSurface {
-    fun getWidth(): Int
-    fun getHeight(): Int
+    fun getScreenWidth(): Int
+    fun getScreenHeight(): Int
+    fun setPaused(paused: Boolean)
+    fun startScoreActivity(score: Int)
 }

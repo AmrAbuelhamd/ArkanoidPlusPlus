@@ -1,8 +1,7 @@
 package com.blogspot.soyamr.arkanoidplusplus.model
 
-import android.graphics.Canvas
+import com.blogspot.soyamr.arkanoidplusplus.model.game_elements.State
 
-interface IModel {
-    fun update()
-    fun draw(canvas: Canvas)
+interface IModel : GlobalBehavior {
+    fun setMovementState(state: State)
 }

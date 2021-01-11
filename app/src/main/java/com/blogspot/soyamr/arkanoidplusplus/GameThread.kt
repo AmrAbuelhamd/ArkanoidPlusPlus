@@ -4,16 +4,20 @@ import android.graphics.Canvas
 import android.os.SystemClock
 import android.view.SurfaceHolder
 
-var avgFPS = 0
-fun getAvgFPS(): String {
-    return "fps: " + avgFPS
-}
 
 class GameThread(private val gameSurface: Controller) : Thread() {
     private val surfaceHolder: SurfaceHolder = gameSurface.getHolder()
     private var canvas: Canvas? = null
     private var running = false
+    var fps = 1
 
+    companion object {
+        var avgFPS = 0
+
+        fun getAvgFPS(): String {
+            return "fps: " + avgFPS
+        }
+    }
 
     override fun run() {
         var startTime: Long
@@ -22,15 +26,18 @@ class GameThread(private val gameSurface: Controller) : Thread() {
         var actualWaitTime: Long
         var totalTime: Long = 0
         var frameCount = 0
+        var delta: Int
         while (running) {
             startTime = SystemClock.uptimeMillis()
 
-            gameSurface.update()
             try {
                 canvas = surfaceHolder.lockCanvas()
                 synchronized(surfaceHolder) {
                     if (canvas != null) {
-                        gameSurface.drawScene(canvas!!)
+                        if (!paused)
+                            gameSurface.update(fps)
+                        if (running)
+                            gameSurface.drawScene(canvas!!)
                     }
                 }
             } finally {
@@ -50,11 +57,18 @@ class GameThread(private val gameSurface: Controller) : Thread() {
                 }
                 endTime = SystemClock.uptimeMillis()
             }
-            totalTime += endTime - startTime
+
+            //to be used for smooth movements in the game
+            delta = (endTime - startTime).toInt();
+
+            if (delta >= 1) {
+                fps = 1000 / delta
+            }
+            //to calculate average fps
+            totalTime += delta
             ++frameCount
             if (totalTime > 1000) {
                 avgFPS = frameCount
-                println(avgFPS)
                 totalTime -= 1000
                 frameCount = 0
             }
@@ -64,4 +78,6 @@ class GameThread(private val gameSurface: Controller) : Thread() {
     fun setRunning(running: Boolean) {
         this.running = running;
     }
+
+    var paused = true
 }

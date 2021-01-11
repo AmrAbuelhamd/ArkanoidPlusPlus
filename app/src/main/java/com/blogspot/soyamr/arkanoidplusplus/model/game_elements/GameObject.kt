@@ -2,7 +2,7 @@ package com.blogspot.soyamr.arkanoidplusplus.model.game_elements
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import com.blogspot.soyamr.arkanoidplusplus.model.IModel
+import com.blogspot.soyamr.arkanoidplusplus.model.GlobalBehavior
 
 
 abstract class GameObject(
@@ -11,11 +11,11 @@ abstract class GameObject(
     protected var colCount: Int,
     protected var x: Int,
     protected var y: Int
-) : IModel {
+) : GlobalBehavior {
     var isAlive = true
     protected val WIDTH: Int
     protected val HEIGHT: Int
-
+    var isVisible = true;
     protected val width: Int
     protected val height: Int
 
@@ -27,7 +27,7 @@ abstract class GameObject(
         this.height = this.HEIGHT / rowCount
     }
 
-    abstract override fun update();
+    abstract override fun update(fps: Int);
     abstract override fun draw(canvas: Canvas)
 
     protected open fun createSubImageAt(row: Int, col: Int): Bitmap {
