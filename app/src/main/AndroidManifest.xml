@@ -9,22 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen">
+        <activity android:name=".menu.SettingsActivity"></activity>
         <activity
-            android:name=".LevelSelectActivity"
+            android:name=".level_select.LevelSelectActivity"
             android:label="@string/title_activity_level_select"
             android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
-
         <activity
             android:name=".game_stuff.GameActivity"
             android:label="@string/title_activity_game"
             android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
-
         <activity
-            android:name=".ScoreActivity"
+            android:name=".menu.ScoreActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
         <activity
-            android:name=".MainActivity"
+            android:name=".menu.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
