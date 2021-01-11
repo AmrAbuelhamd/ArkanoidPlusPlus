@@ -12,6 +12,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -59,13 +60,6 @@
                 android:text="@string/music"
                 android:textAlignment="center"
                 android:textColor="@color/white" />
-
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:text="anime"
-                android:layout_width="50dp"
-                android:layout_height="50dp">
-
-            </com.google.android.material.switchmaterial.SwitchMaterial>
 
             <TextView
                 android:id="@+id/currScoreTextView"
