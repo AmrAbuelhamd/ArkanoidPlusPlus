@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.Display
 import android.view.ViewGroup
-import com.blogspot.soyamr.arkanoidplusplus.ScoreActivity
 
 class GameActivity : Activity() {
     lateinit var gameSurface: GameSurface
@@ -65,12 +64,12 @@ class GameActivity : Activity() {
 
 
     fun startScoreActivity(score: Int) {
-        this@GameActivity.runOnUiThread {
+/*        this@GameActivity.runOnUiThread {
             val intent = Intent(this@GameActivity, ScoreActivity::class.java).apply {
                 putExtra(ScoreActivity.SCORE, score)
             }
             (this@GameActivity).finish()
             startActivity(intent)
-        }
+        }*/
     }
 }
