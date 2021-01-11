@@ -2,20 +2,23 @@ package com.blogspot.soyamr.arkanoidplusplus.game_stuff
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.Display
 import android.view.ViewGroup
+import com.blogspot.soyamr.arkanoidplusplus.ScoreActivity
 
 class GameActivity : Activity() {
     lateinit var gameSurface: GameSurface
+    var firstTime: Boolean = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val height = getHeight(this)
         val width = getWidth(this)
-
+        firstTime = true;
         gameSurface = GameSurface(this, height, width)
         gameSurface.layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
@@ -60,8 +63,14 @@ class GameActivity : Activity() {
         gameSurface.pause()
     }
 
-    override fun onResume() {
-        super.onResume()
-        gameSurface.resume()
+
+    fun startScoreActivity(score: Int) {
+        this@GameActivity.runOnUiThread {
+            val intent = Intent(this@GameActivity, ScoreActivity::class.java).apply {
+                putExtra(ScoreActivity.SCORE, score)
+            }
+            (this@GameActivity).finish()
+            startActivity(intent)
+        }
     }
 }

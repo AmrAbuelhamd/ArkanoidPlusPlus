@@ -7,8 +7,8 @@ import android.graphics.Paint
 import android.media.AudioManager
 import android.media.SoundPool
 import android.util.Log
-import com.blogspot.soyamr.arkanoidplusplus.game_stuff.IGameSurface
 import com.blogspot.soyamr.arkanoidplusplus.R
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.IGameSurface
 import com.blogspot.soyamr.arkanoidplusplus.model.game_elements.Ball
 import com.blogspot.soyamr.arkanoidplusplus.model.game_elements.Brick
 import com.blogspot.soyamr.arkanoidplusplus.model.game_elements.Paddle
@@ -163,6 +163,7 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
             startScoreScreen(score)
         }
 
+
     }
 
     override fun reduceLive() {
@@ -189,7 +190,7 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
         soundPool!!.play(loseLifeID, 1F, 1F, 0, 0, 1F);
     }
 
-    fun startScoreScreen(score: Int) {
+    private fun startScoreScreen(score: Int) {
         gameSurface.startScoreActivity(score)
     }
 }
