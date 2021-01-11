@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import com.blogspot.soyamr.arkanoidplusplus.R
 
 
@@ -52,7 +53,7 @@ class ScoreFragment : Fragment() {
         }
 
         goBackButton!!.setOnClickListener{
-            startActivity(Intent(activity, MainActivity::class.java))
+            findNavController().navigate(R.id.action_scoreFragment_to_mainFragment)
         }
 
 

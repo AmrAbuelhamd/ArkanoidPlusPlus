@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
+import androidx.navigation.fragment.findNavController
 import com.blogspot.soyamr.arkanoidplusplus.LevelSelectActivity
 import com.blogspot.soyamr.arkanoidplusplus.R
 
@@ -54,10 +55,12 @@ class MainFragment : Fragment() {
         }
 
         settingsButton!!.setOnClickListener{
+            findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
             //startActivity(Intent(activity, SettingsActivity::class.java))
         }
 
         scoreButton!!.setOnClickListener{
+            findNavController().navigate(R.id.action_mainFragment_to_scoreFragment)
             //startActivity(Intent(activity, ScoreActivity::class.java))
         }
 
