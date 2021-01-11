@@ -15,4 +15,11 @@
 
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="FormButton" parent="Theme.MaterialComponents">
+        <item name="colorPrimary">@android:color/white</item>
+        <item name="colorOnSurface">@android:color/white</item>
+        <item name="fontFamily">@font/aldrich</item>
+
+    </style>
+
 </resources>
