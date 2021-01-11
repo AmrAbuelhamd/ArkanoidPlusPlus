@@ -19,9 +19,11 @@
 
     <string name="game_name">ArkanoidPlusPlus</string>
     <string name="HITS">H I T S</string>
-    <string name="start_game">START</string>
-    <string name="settings">SETTINGS</string>
-    <string name="scoreboard">SCOREBOARD</string>
+    <string name="button_start_game">START</string>
+    <string name="button_settings">SETTINGS</string>
+    <string name="button_scoreboard">SCOREBOARD</string>
 
+    <string name="button_reset">RESET</string>
+    <string name="button_go_main_menu">GO BACK</string>
 
 </resources>

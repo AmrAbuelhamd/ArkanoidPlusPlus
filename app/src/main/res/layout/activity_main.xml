@@ -28,7 +28,7 @@
                 android:layout_height="75dp"
                 android:layout_marginStart="64dp"
                 android:layout_marginEnd="64dp"
-                android:text="@string/start_game"
+                android:text="@string/button_start_game"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                 android:theme="@style/FormButton" />
 
@@ -40,7 +40,7 @@
                 android:layout_marginStart="64dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="64dp"
-                android:text="@string/scoreboard"
+                android:text="@string/button_scoreboard"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                 android:theme="@style/FormButton" />
 
@@ -52,13 +52,13 @@
                 android:layout_marginStart="64dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="64dp"
-                android:text="@string/settings"
+                android:text="@string/button_settings"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                 android:theme="@style/FormButton" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textViewGame"
+            android:id="@+id/textViewScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/aldrich"

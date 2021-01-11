@@ -5,9 +5,15 @@ import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.widget.Button
 import android.widget.FrameLayout
 
 class MainActivity : Activity() {
+
+    var startButton: Button?=null
+    var settingsButton: Button?=null
+    var scoreButton: Button?=null
+
 
     // animated background
     var animationDrawable: AnimationDrawable? = null
@@ -27,7 +33,23 @@ class MainActivity : Activity() {
         // start animation
         animationDrawable!!.start()
 
-        //startActivity(Intent(this, LevelSelectActivity::class.java))
+        startButton = findViewById(R.id.buttonStart)
+        settingsButton = findViewById(R.id.buttonSettings)
+        scoreButton = findViewById(R.id.buttonScore)
+
+        startButton!!.setOnClickListener{
+            startActivity(Intent(this, LevelSelectActivity::class.java))
+        }
+
+        settingsButton!!.setOnClickListener{
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
+
+        scoreButton!!.setOnClickListener{
+            startActivity(Intent(this, ScoreActivity::class.java))
+        }
+
+        //
     }
 
 }
