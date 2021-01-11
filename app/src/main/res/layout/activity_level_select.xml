@@ -89,7 +89,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonLevel6"
-                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="150dp"
                 android:layout_height="75dp"
                 android:layout_marginLeft="16dp"
