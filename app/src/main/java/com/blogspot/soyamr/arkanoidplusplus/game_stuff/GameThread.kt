@@ -40,6 +40,7 @@ class GameThread(private val gameSurface: Controller) : Thread() {
                             gameSurface.update(fps)
                         if (running)
                             gameSurface.drawScene(canvas!!)
+
                     }
                 }
             } finally {

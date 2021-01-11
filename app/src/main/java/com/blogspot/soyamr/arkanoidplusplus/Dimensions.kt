@@ -2,7 +2,11 @@ package com.blogspot.soyamr.arkanoidplusplus
 
 class Dimensions(screenWidth: Int, screenHeight: Int) {
 
+
     private val _paddleYPosition = 100
+
+    private val _starHeight = 20
+    private val _starWidth = 20
 
     private val targetPixelsX = 1080
     private val targetPixelsY = 2260
@@ -45,4 +49,7 @@ class Dimensions(screenWidth: Int, screenHeight: Int) {
     val padding = (_padding / scalingFactorX).toInt();
 
     val paddleInitialYPosition: Int = (_paddleYPosition / scalingFactorY).toInt();
+
+    val starHeight: Int = (_starHeight / scalingFactorY).toInt()
+    val starWidth: Int = (_starWidth / scalingFactorX).toInt()
 }
