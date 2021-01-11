@@ -46,7 +46,7 @@ class MainFragment : Fragment() {
         // start animation
         animationDrawable!!.start()
 
-        startButton = view.findViewById(R.id.buttonStart)
+        startButton = view.findViewById(R.id.buttonLevel1)
         settingsButton = view.findViewById(R.id.buttonSettings)
         scoreButton = view.findViewById(R.id.buttonScore)
 

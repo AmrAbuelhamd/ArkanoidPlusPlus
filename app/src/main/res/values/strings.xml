@@ -33,5 +33,6 @@
     <string name="button_save">SAVE</string>
     <string name="settings_radio_button_option1">Touch</string>
     <string name="settings_radio_button_option2">Gyroscope</string>
+    <string name="level_choose">LEVEL CHOOSE</string>
 
 </resources>

@@ -1,6 +1,7 @@
 package com.blogspot.soyamr.arkanoidplusplus.menu
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import com.blogspot.soyamr.arkanoidplusplus.R
 
