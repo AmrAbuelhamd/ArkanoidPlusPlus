@@ -1,9 +1,7 @@
 package com.blogspot.soyamr.arkanoidplusplus.game_stuff
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.hardware.Sensor
@@ -14,13 +12,9 @@ import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import com.blogspot.soyamr.arkanoidplusplus.Controller
-import com.blogspot.soyamr.arkanoidplusplus.ScoreActivity
 import com.blogspot.soyamr.arkanoidplusplus.model.IModel
 import com.blogspot.soyamr.arkanoidplusplus.model.Model
 import com.blogspot.soyamr.arkanoidplusplus.model.game_elements.State
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 
 enum class PaddleControlMode {
@@ -29,16 +23,16 @@ enum class PaddleControlMode {
 
 @SuppressLint("ViewConstructor")
 class GameSurface(
-    context: Context,
+    gameActivity: GameActivity,
     private val phoneScreenHeight: Int,
     private val phoneScreenWidth: Int
 ) :
-    SurfaceView(context),
+    SurfaceView(gameActivity),
     SurfaceHolder.Callback, Controller, IGameSurface, SensorEventListener {
 
-
-    private lateinit var gameThread: GameThread
-    private val model: IModel
+    private lateinit var gameActivity: GameActivity
+    private var gameThread: GameThread? = null
+    private lateinit var model: IModel
     private var controlMode = PaddleControlMode.GYROSCOPE
 
     private val sManager: SensorManager
@@ -48,10 +42,11 @@ class GameSurface(
         // Make Game Surface focusable so it can handle events.
         this.isFocusable = true
 
+        this.gameActivity = gameActivity
+
         this.holder.addCallback(this)
 
         model = Model(context, this)
-
         //get sensors
         sManager = context.getSystemService(Context.SENSOR_SERVICE) as (SensorManager)
         if (sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
@@ -60,7 +55,6 @@ class GameSurface(
         } else {
             accelerometer = null
         }
-
     }
 
 
@@ -93,20 +87,21 @@ class GameSurface(
         sManager.unregisterListener(this);
         while (retry) {
             try {
-                gameThread.setRunning(false)
-                gameThread.join()
+                gameThread?.setRunning(false)
+                gameThread?.join()
                 retry = false
             } catch (e: Exception) {
                 e.stackTrace
             }
         }
+        gameThread = null
     }
 
     fun resume() {
         sManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         gameThread = GameThread(this)
-        gameThread.setRunning(true)
-        gameThread.start()
+        gameThread?.setRunning(true)
+        gameThread?.start()
     }
 
     override fun getScreenWidth(): Int {
@@ -118,19 +113,11 @@ class GameSurface(
     }
 
     override fun setPaused(paused: Boolean) {
-        gameThread.paused = paused
+        gameThread?.paused = paused
     }
 
     override fun startScoreActivity(score: Int) {
-        val intent = Intent(context, ScoreActivity::class.java).apply {
-            putExtra(ScoreActivity.SCORE, score)
-        }
-        gameThread.setRunning(false)
-        println("starting")
-        GlobalScope.launch{(Dispatchers.Main)
-            context.startActivity(intent)
-            (context as Activity).finish()
-        }
+        gameActivity.startScoreActivity(score)
     }
 
     @SuppressLint("ClickableViewAccessibility")
