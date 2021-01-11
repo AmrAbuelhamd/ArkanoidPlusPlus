@@ -11,15 +11,15 @@ import android.util.Log
 import com.blogspot.soyamr.arkanoidplusplus.Dimensions
 import com.blogspot.soyamr.arkanoidplusplus.R
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.IGameSurface
-import com.blogspot.soyamr.arkanoidplusplus.model.game_elements.Ball
-import com.blogspot.soyamr.arkanoidplusplus.model.game_elements.Brick
-import com.blogspot.soyamr.arkanoidplusplus.model.game_elements.Paddle
-import com.blogspot.soyamr.arkanoidplusplus.model.game_elements.State
+import com.blogspot.soyamr.arkanoidplusplus.model.game_elements.*
 import java.io.IOException
+import java.util.*
 
 
 class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBallInterface {
+    val numberOfStars = 200
     val balls: List<Ball>
+    val stars: Array<Star?> = arrayOfNulls<Star>(numberOfStars)
     val paddle: Paddle
     val bricks = arrayOfNulls<Brick>(200)
     var numBricks = 0
@@ -43,6 +43,13 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
     var brick: Bitmap =
         BitmapFactory.decodeResource(context.resources, R.drawable.element_purple_polygon_glossy)
 
+    var star: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.particle_star)
+    var star2: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.particle_small_star)
+    var star3: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.particle_cartoon_star)
+
     private val dimensions: Dimensions =
         Dimensions(gameSurface.getScreenWidth(), gameSurface.getScreenHeight())
 
@@ -52,6 +59,25 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
             brick,
             dimensions.polygonWidth,
             dimensions.polygonHeight,
+            false
+        )
+
+        star = Bitmap.createScaledBitmap(
+            star,
+            dimensions.starWidth,
+            dimensions.starHeight,
+            false
+        )
+        star2 = Bitmap.createScaledBitmap(
+            star2,
+            dimensions.starWidth,
+            dimensions.starHeight,
+            false
+        )
+        star3 = Bitmap.createScaledBitmap(
+            star3,
+            dimensions.starWidth,
+            dimensions.starHeight,
             false
         )
 
@@ -96,7 +122,32 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
             // Print an error message to the console
             Log.e("error", "failed to load sound files")
         }
+
+        createSpace()
+
         createBricksAndRestart()
+    }
+
+    private fun createSpace() {
+        val random = Random()
+        var ctr = 0;
+        var currentStar = star
+        for (row in 0 until numberOfStars) {
+            val rn = random.nextInt(100)
+            if (rn < 30) {
+                currentStar = star2
+            } else if (rn < 40) {
+                currentStar = star3
+            }
+            stars[row] = Star(
+                this,
+                gameSurface,
+                currentStar,
+                random.nextInt(gameSurface.getScreenWidth()),
+                random.nextInt(gameSurface.getScreenHeight())
+            )
+            currentStar = star
+        }
     }
 
     private fun createBricksAndRestart() {
@@ -116,7 +167,7 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
 
         // Reset scores and lives
         score = 0;
-        lives = 3;
+        lives = 1;
     }
 
 
@@ -157,6 +208,7 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
 
     override fun draw(canvas: Canvas) {
         balls.forEach { it.draw(canvas) }
+        stars.forEach { it?.draw(canvas) }
         paddle.draw(canvas)
         // Draw the bricks if visible
         for (i in 0 until numBricks) {

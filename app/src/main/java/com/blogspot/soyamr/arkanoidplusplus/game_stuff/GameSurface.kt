@@ -63,15 +63,15 @@ class GameSurface(
     }
 
     override fun drawScene(canvas: Canvas) {
-
         canvas.save()
-        canvas.drawColor(Color.WHITE)
+        canvas.drawColor(Color.BLACK)
         model.draw(canvas)
         canvas.restore()
 
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
+        pause()
         resume()
         setWillNotDraw(false)
     }
@@ -117,6 +117,7 @@ class GameSurface(
     }
 
     override fun startScoreActivity(score: Int) {
+        gameThread?.setRunning(false)
         gameActivity.startScoreActivity(score)
     }
 
