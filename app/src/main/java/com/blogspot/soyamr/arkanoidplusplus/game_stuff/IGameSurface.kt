@@ -1,4 +1,4 @@
-package com.blogspot.soyamr.arkanoidplusplus
+package com.blogspot.soyamr.arkanoidplusplus.game_stuff
 
 interface IGameSurface {
     fun getScreenWidth(): Int

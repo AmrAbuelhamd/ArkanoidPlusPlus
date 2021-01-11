@@ -7,7 +7,7 @@ import android.graphics.Paint
 import android.media.AudioManager
 import android.media.SoundPool
 import android.util.Log
-import com.blogspot.soyamr.arkanoidplusplus.IGameSurface
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.IGameSurface
 import com.blogspot.soyamr.arkanoidplusplus.R
 import com.blogspot.soyamr.arkanoidplusplus.model.game_elements.Ball
 import com.blogspot.soyamr.arkanoidplusplus.model.game_elements.Brick
@@ -80,7 +80,7 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
 
         // Reset scores and lives
         score = 0;
-        lives = 3;
+        lives = 1;
     }
 
 

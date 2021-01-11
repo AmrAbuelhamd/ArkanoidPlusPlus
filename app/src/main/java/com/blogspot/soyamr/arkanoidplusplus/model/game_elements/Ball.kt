@@ -3,7 +3,7 @@ package com.blogspot.soyamr.arkanoidplusplus.model.game_elements
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Rect
-import com.blogspot.soyamr.arkanoidplusplus.IGameSurface
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.IGameSurface
 import com.blogspot.soyamr.arkanoidplusplus.model.Model
 import com.blogspot.soyamr.arkanoidplusplus.model.ModelBallInterface
 import java.util.*

@@ -13,10 +13,8 @@ class ScoreActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_score)
 
-        val score = intent.getIntExtra(SCORE, 0)
-
         findViewById<TextView>(R.id.scoreTextView).apply {
-            text = "$score"
+            text = "${intent.getIntExtra(SCORE, 0)}"
         }
 
     }

@@ -10,11 +10,19 @@
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen">
         <activity
+            android:name=".LevelSelectActivity"
+            android:label="@string/title_activity_level_select"
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
+
+        <activity
+            android:name=".game_stuff.GameActivity"
+            android:label="@string/title_activity_game"
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
+
+        <activity
             android:name=".ScoreActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"/>
-
-
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">

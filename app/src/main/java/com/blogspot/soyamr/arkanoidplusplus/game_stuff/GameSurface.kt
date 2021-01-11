@@ -1,6 +1,7 @@
-package com.blogspot.soyamr.arkanoidplusplus
+package com.blogspot.soyamr.arkanoidplusplus.game_stuff
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Canvas
@@ -12,9 +13,14 @@ import android.hardware.SensorManager
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import com.blogspot.soyamr.arkanoidplusplus.Controller
+import com.blogspot.soyamr.arkanoidplusplus.ScoreActivity
 import com.blogspot.soyamr.arkanoidplusplus.model.IModel
 import com.blogspot.soyamr.arkanoidplusplus.model.Model
 import com.blogspot.soyamr.arkanoidplusplus.model.game_elements.State
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 enum class PaddleControlMode {
@@ -120,7 +126,11 @@ class GameSurface(
             putExtra(ScoreActivity.SCORE, score)
         }
         gameThread.setRunning(false)
-        context.startActivity(intent)
+        println("starting")
+        GlobalScope.launch{(Dispatchers.Main)
+            context.startActivity(intent)
+            (context as Activity).finish()
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
