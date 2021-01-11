@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
 import androidx.navigation.fragment.findNavController
-import com.blogspot.soyamr.arkanoidplusplus.LevelSelectActivity
+import com.blogspot.soyamr.arkanoidplusplus.level_select.LevelSelectActivity
 import com.blogspot.soyamr.arkanoidplusplus.R
 
 

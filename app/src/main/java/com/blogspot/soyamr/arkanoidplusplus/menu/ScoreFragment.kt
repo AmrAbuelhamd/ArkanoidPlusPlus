@@ -1,6 +1,5 @@
 package com.blogspot.soyamr.arkanoidplusplus.menu
 
-import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
-import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.blogspot.soyamr.arkanoidplusplus.R
 
@@ -45,7 +43,7 @@ class ScoreFragment : Fragment() {
         // start animation
         animationDrawable!!.start()
 
-        resetButton = view.findViewById(R.id.buttonReset)
+        resetButton = view.findViewById(R.id.buttonSave)
         goBackButton = view.findViewById(R.id.buttonGoBack)
 
         resetButton!!.setOnClickListener{

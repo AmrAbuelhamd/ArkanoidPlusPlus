@@ -1,9 +1,9 @@
-package com.blogspot.soyamr.arkanoidplusplus
+package com.blogspot.soyamr.arkanoidplusplus.level_select
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import com.blogspot.soyamr.arkanoidplusplus.R
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.GameActivity
 
 class LevelSelectActivity : Activity() {

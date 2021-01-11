@@ -20,12 +20,12 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonReset"
+                android:id="@+id/buttonSave"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                 android:layout_width="150dp"
                 android:layout_height="75dp"
                 android:layout_marginRight="16dp"
-                android:text="@string/button_reset"
+                android:text="@string/button_save"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                 android:theme="@style/FormButton" />
 
@@ -44,6 +44,7 @@
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,9 +56,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/aldrich"
-                android:text="Current score is"
+                android:text="@string/music"
                 android:textAlignment="center"
                 android:textColor="@color/white" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:text="anime"
+                android:layout_width="50dp"
+                android:layout_height="50dp">
+
+            </com.google.android.material.switchmaterial.SwitchMaterial>
 
             <TextView
                 android:id="@+id/currScoreTextView"
@@ -94,7 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/aldrich"
-            android:text="@string/title_activity_score"
+            android:text="@string/settings"
             android:textColor="@color/white"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"

@@ -11,7 +11,7 @@
         android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen">
         <activity android:name=".menu.SettingsActivity"></activity>
         <activity
-            android:name=".LevelSelectActivity"
+            android:name=".level_select.LevelSelectActivity"
             android:label="@string/title_activity_level_select"
             android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
         <activity
