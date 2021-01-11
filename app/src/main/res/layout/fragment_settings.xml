@@ -52,47 +52,64 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/textViewCurrentScore3"
+            <Switch
+                android:id="@+id/switchMusic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="64dp"
+                android:layout_marginRight="64dp"
                 android:fontFamily="@font/aldrich"
                 android:text="@string/music"
-                android:textAlignment="center"
-                android:textColor="@color/white" />
+                android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/currScoreTextView"
+            <Switch
+                android:id="@+id/switchSound"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="64dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginRight="64dp"
                 android:fontFamily="@font/aldrich"
-                android:text="777"
-                android:textAlignment="center"
-                android:textColor="@color/white" />
+                android:text="@string/sounds"
+                android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/textViewPreviousScore"
+                android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="48dp"
                 android:fontFamily="@font/aldrich"
-                android:text="Previous score was"
+                android:text="@string/platform_control"
                 android:textAlignment="center"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/prevScoreTextView"
-                android:layout_width="match_parent"
+            <RadioGroup
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/aldrich"
-                android:text="666"
-                android:textAlignment="center"
-                android:textColor="@color/white" />
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginRight="32dp">
+
+                <RadioButton
+                    android:id="@+id/radioButtonSettings1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/aldrich"
+                    android:text="@string/settings_radio_button_option1" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonSettings2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/aldrich"
+                    android:text="@string/settings_radio_button_option2" />
+            </RadioGroup>
 
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textViewScore"
+            android:id="@+id/textViewSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/aldrich"
