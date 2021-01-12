@@ -1,4 +1,4 @@
-package com.blogspot.soyamr.arkanoidplusplus.model
+package com.blogspot.soyamr.arkanoidplusplus.game_stuff.model
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -8,21 +8,25 @@ import android.graphics.Paint
 import android.media.AudioManager
 import android.media.SoundPool
 import android.util.Log
-import com.blogspot.soyamr.arkanoidplusplus.Dimensions
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.Dimensions
 import com.blogspot.soyamr.arkanoidplusplus.R
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.IGameSurface
-import com.blogspot.soyamr.arkanoidplusplus.model.game_elements.*
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.game_elements.*
 import java.io.IOException
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBallInterface {
     val numberOfStars = 200
     val balls: List<Ball>
-    val stars: Array<Star?> = arrayOfNulls<Star>(numberOfStars)
+    val screenElements: Array<ScreenElement?> = arrayOfNulls<ScreenElement>(numberOfStars)
     val paddle: Paddle
     val bricks = arrayOfNulls<Brick>(200)
     var numBricks = 0
+
+    var livesNum = 3
+    var lives: List<ScreenElement> = ArrayList()
 
     // For sound FX
     var soundPool: SoundPool? = null
@@ -35,10 +39,13 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
     // The score
     var score = 0
 
-    var lives = 3
 
     val brickWidth: Int = gameSurface.getScreenWidth() / 8
     val brickHeight: Int = gameSurface.getScreenHeight() / 10
+
+    var paddleImg = BitmapFactory.decodeResource(context.resources, R.drawable.paddle_blu)
+
+    var ball = BitmapFactory.decodeResource(context.resources, R.drawable.ball_blue)
 
     var brick: Bitmap =
         BitmapFactory.decodeResource(context.resources, R.drawable.element_purple_polygon_glossy)
@@ -81,9 +88,8 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
             false
         )
 
-        var ball = BitmapFactory.decodeResource(context.resources, R.drawable.ball_blue)
         ball = Bitmap.createScaledBitmap(ball, dimensions.ballWidth, dimensions.ballHeight, false)
-        var paddleImg = BitmapFactory.decodeResource(context.resources, R.drawable.paddle_blu)
+
         paddleImg = Bitmap.createScaledBitmap(
             paddleImg,
             dimensions.paddleWidth,
@@ -124,8 +130,40 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
         }
 
         createSpace()
-
+        createLives()
         createBricksAndRestart()
+    }
+
+    private fun createLives() {
+        val paddleImgLife = Bitmap.createScaledBitmap(
+            paddleImg,
+            dimensions.lifePaddleWidth,
+            dimensions.lifePaddleHeight,
+            false
+        )
+        lives = listOf(
+            ScreenElement(
+                this,
+                gameSurface,
+                paddleImgLife,
+                dimensions.lifePaddleWidth + dimensions.padding,
+                gameSurface.getScreenHeight() - dimensions.padding * 5 - dimensions.lifePaddleHeight
+            ),
+            ScreenElement(
+                this,
+                gameSurface,
+                paddleImgLife,
+                dimensions.lifePaddleWidth * 2 + dimensions.padding * 2,
+                gameSurface.getScreenHeight() - dimensions.padding * 5 - dimensions.lifePaddleHeight
+            ),
+            ScreenElement(
+                this,
+                gameSurface,
+                paddleImgLife,
+                dimensions.lifePaddleWidth * 3 + dimensions.padding * 3,
+                gameSurface.getScreenHeight() - dimensions.padding * 5 - dimensions.lifePaddleHeight
+            )
+        )
     }
 
     private fun createSpace() {
@@ -136,10 +174,10 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
             val rn = random.nextInt(100)
             if (rn < 30) {
                 currentStar = star2
-            } else if (rn < 40) {
+            } else if (rn < 33) {
                 currentStar = star3
             }
-            stars[row] = Star(
+            screenElements[row] = ScreenElement(
                 this,
                 gameSurface,
                 currentStar,
@@ -167,7 +205,7 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
 
         // Reset scores and lives
         score = 0;
-        lives = 1;
+        livesNum = 3
     }
 
 
@@ -182,8 +220,7 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
         // Check for ball colliding with paddle
         balls.forEach {
             if (it.intersects(paddle.getRect())) {
-                it.setRandomXVelocity();
-                it.reverseYVelocity();
+                it.decideBallNewVelocity(paddle.paddleState)
                 it.clearObstacleY(paddle.getRect().top);
                 soundPool!!.play(beep1ID, 1F, 1F, 0, 0, 1F);
             }
@@ -208,7 +245,8 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
 
     override fun draw(canvas: Canvas) {
         balls.forEach { it.draw(canvas) }
-        stars.forEach { it?.draw(canvas) }
+        screenElements.forEach { it?.draw(canvas) }
+        lives.forEach { it?.draw(canvas) }
         paddle.draw(canvas)
         // Draw the bricks if visible
         for (i in 0 until numBricks) {
@@ -219,7 +257,7 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
 
         // Draw the score
         paint.textSize = 40F;
-        canvas.drawText("Score: $score   Lives: $lives", 10F, 50F, paint);
+        canvas.drawText("Score: $score   Lives: $livesNum", 10F, 50F, paint);
 
         // Has the player cleared the screen?
 //        if (score == numBricks * 10) {
@@ -246,7 +284,7 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
 //            startScoreScreen(score)
 //        }
 
-        if (score == numBricks * 10 || lives <= 0) {
+        if (score == numBricks * 10 || livesNum <= 0) {
             pause()
             startScoreScreen(score)
         }
@@ -255,7 +293,8 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
     }
 
     override fun reduceLive() {
-        --lives
+        --livesNum
+        lives = lives.dropLast(1)
     }
 
     override fun pause() {

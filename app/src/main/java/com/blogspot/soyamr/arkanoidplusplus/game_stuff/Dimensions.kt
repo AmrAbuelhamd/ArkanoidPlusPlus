@@ -1,9 +1,9 @@
-package com.blogspot.soyamr.arkanoidplusplus
+package com.blogspot.soyamr.arkanoidplusplus.game_stuff
 
 class Dimensions(screenWidth: Int, screenHeight: Int) {
 
 
-    private val _paddleYPosition = 100
+    private val _paddleYPosition = 150
 
     private val _starHeight = 20
     private val _starWidth = 20
@@ -16,6 +16,9 @@ class Dimensions(screenWidth: Int, screenHeight: Int) {
 
     private val _paddleWidth = 280;
     private val _paddleHeight = 60;
+
+    private val _lifePaddleWidth = 56;
+    private val _lifePaddleHeight = 12;
 
     private val _polygonWidth = 120;
     private val _polygonHeight = 115;
@@ -42,6 +45,9 @@ class Dimensions(screenWidth: Int, screenHeight: Int) {
 
     val paddleWidth = (_paddleWidth / scalingFactorX).toInt();
     val paddleHeight = (_paddleHeight / scalingFactorY).toInt()
+
+    val lifePaddleWidth = (_lifePaddleWidth / scalingFactorX).toInt();
+    val lifePaddleHeight = (_lifePaddleHeight / scalingFactorY).toInt()
 
     val polygonWidth = (_polygonWidth / scalingFactorX).toInt();
     val polygonHeight = (_polygonHeight / scalingFactorY).toInt();

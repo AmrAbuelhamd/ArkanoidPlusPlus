@@ -1,4 +1,4 @@
-package com.blogspot.soyamr.arkanoidplusplus.model
+package com.blogspot.soyamr.arkanoidplusplus.game_stuff.model
 
 interface ModelBallInterface {
     fun reduceLive()

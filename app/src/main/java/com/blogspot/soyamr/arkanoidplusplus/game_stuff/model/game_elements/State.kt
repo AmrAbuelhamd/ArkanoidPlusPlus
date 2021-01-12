@@ -1,4 +1,4 @@
-package com.blogspot.soyamr.arkanoidplusplus.model.game_elements
+package com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.game_elements
 
 
 interface IState {

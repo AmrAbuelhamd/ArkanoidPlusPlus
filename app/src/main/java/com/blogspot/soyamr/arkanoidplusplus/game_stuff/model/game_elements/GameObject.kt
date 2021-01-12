@@ -1,8 +1,8 @@
-package com.blogspot.soyamr.arkanoidplusplus.model.game_elements
+package com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.game_elements
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import com.blogspot.soyamr.arkanoidplusplus.model.GlobalBehavior
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.GlobalBehavior
 
 
 abstract class GameObject(

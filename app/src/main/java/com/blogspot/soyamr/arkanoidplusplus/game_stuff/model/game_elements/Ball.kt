@@ -1,13 +1,15 @@
-package com.blogspot.soyamr.arkanoidplusplus.model.game_elements
+package com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.game_elements
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Rect
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.IGameSurface
-import com.blogspot.soyamr.arkanoidplusplus.model.Model
-import com.blogspot.soyamr.arkanoidplusplus.model.ModelBallInterface
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.ModelBallInterface
 import java.util.*
 
+enum class Direction {
+    DOWN_RIGHT, DOWN_LEFT, UP_RIGHT, UP_LEFT,
+}
 
 class Ball(
     private val model: ModelBallInterface,
@@ -128,7 +130,7 @@ class Ball(
     }
 
     fun reverseYVelocity() {
-        yVelocity = -yVelocity
+        yVelocity = -yVelocity//400 800
     }
 
     fun reverseXVelocity() {
@@ -159,6 +161,30 @@ class Ball(
     fun intersects(rect: Rect): Boolean {
         ballRect.set(x, y, x + width, y + height)
         return Rect.intersects(ballRect, rect)
+    }
+
+    fun decideBallNewVelocity(paddleState: IState) {
+        val direction = getBallDirection()
+        //anyway i should bounce it back up
+        reverseYVelocity()
+        when (paddleState) {
+            State.LEFT ->
+                if (direction == Direction.DOWN_RIGHT) {
+                    reverseXVelocity()
+                }
+            State.RIGHT ->
+                if (direction == Direction.DOWN_LEFT) {
+                    reverseXVelocity()
+                }
+        }
+    }
+
+    private fun getBallDirection(): Direction {
+        //    -,-                                                           -,+
+        return if (xVelocity < 0 && yVelocity < 0) Direction.UP_LEFT else if (xVelocity < 0 && yVelocity > 0) Direction.DOWN_LEFT
+        //   +,-                                            //+,+
+        else if (xVelocity > 0 && yVelocity < 0) Direction.UP_RIGHT else Direction.DOWN_RIGHT
+        //if(xVelocity < 0 && yVelocity > 0)
     }
 
 }

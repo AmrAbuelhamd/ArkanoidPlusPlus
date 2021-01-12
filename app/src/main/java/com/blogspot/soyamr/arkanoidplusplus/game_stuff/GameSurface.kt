@@ -11,10 +11,9 @@ import android.hardware.SensorManager
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import com.blogspot.soyamr.arkanoidplusplus.Controller
-import com.blogspot.soyamr.arkanoidplusplus.model.IModel
-import com.blogspot.soyamr.arkanoidplusplus.model.Model
-import com.blogspot.soyamr.arkanoidplusplus.model.game_elements.State
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.IModel
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.Model
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.game_elements.State
 
 
 enum class PaddleControlMode {
