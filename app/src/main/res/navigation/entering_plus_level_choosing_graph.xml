@@ -13,7 +13,7 @@
         android:id="@+id/loginFragment"
         android:name="com.blogspot.soyamr.arkanoidplusplus.level_select.LoginFragment"
         android:label="fragment_name_enter"
-        tools:layout="@layout/fragment_name_enter" >
+        tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_iconPickFragment"
             app:destination="@id/iconPickFragment" />
