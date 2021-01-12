@@ -3,12 +3,5 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".level_select.IconPickFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-</FrameLayout>
+    android:background="@drawable/sel_background4"
+    tools:context=".level_select.IconPickFragment"/>
