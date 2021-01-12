@@ -8,8 +8,8 @@ import android.graphics.Paint
 import android.media.AudioManager
 import android.media.SoundPool
 import android.util.Log
-import com.blogspot.soyamr.arkanoidplusplus.game_stuff.Dimensions
 import com.blogspot.soyamr.arkanoidplusplus.R
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.Dimensions
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.IGameSurface
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.game_elements.*
 import java.io.IOException
@@ -220,23 +220,28 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
         // Check for ball colliding with paddle
         balls.forEach {
             if (it.intersects(paddle.getRect())) {
-                it.decideBallNewVelocity(paddle.paddleState)
+                it.adjustAngel(paddle.getRect())
+                it.decideBallNewVelocityAccordingToPaddle(paddle.paddleState)
                 it.clearObstacleY(paddle.getRect().top);
                 soundPool!!.play(beep1ID, 1F, 1F, 0, 0, 1F);
             }
         }
 
         // Check for ball colliding with a brick
+        var flag = false
         for (i in 0 until numBricks) {
             if (bricks[i]!!.getVisibility()) {
                 balls.forEach {
                     if (it.intersects(bricks[i]!!.rect)) {
                         bricks[i]!!.setInvisible()
-                        it.reverseYVelocity()
+                        it.decideBallNewVelocityAccordingToBrick(bricks[i]!!.rect)
                         score += 10
                         soundPool!!.play(explodeID, 1f, 1f, 0, 0, 1f)
+                        flag = true
                     }
                 }
+                if(flag)
+                    break
             }
         }
     }

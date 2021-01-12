@@ -32,7 +32,7 @@ class GameSurface(
     private lateinit var gameActivity: GameActivity
     private var gameThread: GameThread? = null
     private lateinit var model: IModel
-    private var controlMode = PaddleControlMode.GYROSCOPE
+    private var controlMode = PaddleControlMode.TOUCH
 
     private val sManager: SensorManager
     private val accelerometer: Sensor?

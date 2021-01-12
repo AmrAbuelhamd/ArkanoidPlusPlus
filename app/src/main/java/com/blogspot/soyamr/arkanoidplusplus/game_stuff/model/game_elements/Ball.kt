@@ -44,6 +44,7 @@ class Ball(
     private var bottomToTops: Array<Bitmap?> = arrayOfNulls(colCount)
 
 
+    val xVelocityDefault = 400;
     var xVelocity = 400;
     var yVelocity = -800;
 
@@ -157,13 +158,18 @@ class Ball(
         this.y = initialY
     }
 
-    val ballRect = Rect();
+    private val _ballRect = Rect()
+    private val ballRect: Rect
+        get() {
+            _ballRect.set(x, y, x + width, y + height)
+            return _ballRect
+        }
+
     fun intersects(rect: Rect): Boolean {
-        ballRect.set(x, y, x + width, y + height)
         return Rect.intersects(ballRect, rect)
     }
 
-    fun decideBallNewVelocity(paddleState: IState) {
+    fun decideBallNewVelocityAccordingToPaddle(paddleState: IState) {
         val direction = getBallDirection()
         //anyway i should bounce it back up
         reverseYVelocity()
@@ -179,6 +185,33 @@ class Ball(
         }
     }
 
+    fun decideBallNewVelocityAccordingToBrick(brick: Rect) {
+        val ballRect = ballRect
+        val wy = (ballRect.width() + brick.width()) * (ballRect.centerY() - brick.centerY());
+        val hx = (ballRect.height() + brick.height()) * (ballRect.centerX() - brick.centerX());
+
+        if (wy > hx) {
+            if (wy > -hx) {
+                /* top */
+                reverseYVelocity()
+
+            } else {
+                /* left */
+                reverseXVelocity()
+
+            }
+        } else {
+            if (wy > -hx) {
+                /* right */
+                reverseXVelocity()
+
+            } else {
+                /* bottom */
+                reverseYVelocity()
+            }
+        }
+    }
+
     private fun getBallDirection(): Direction {
         //    -,-                                                           -,+
         return if (xVelocity < 0 && yVelocity < 0) Direction.UP_LEFT else if (xVelocity < 0 && yVelocity > 0) Direction.DOWN_LEFT
@@ -186,5 +219,20 @@ class Ball(
         else if (xVelocity > 0 && yVelocity < 0) Direction.UP_RIGHT else Direction.DOWN_RIGHT
         //if(xVelocity < 0 && yVelocity > 0)
     }
+
+    fun adjustAngel(paddle: Rect) {
+        val a = paddle.centerX() - paddle.width() / 5
+        val b = paddle.centerX() + paddle.width() / 5
+
+        if (ballRect.centerX() in (a + 1) until b) {
+            xVelocity = 0;
+        } else if (xVelocity == 0) {
+            xVelocity = xVelocityDefault;
+            if (ballRect.centerX() < paddle.centerX()) {
+                xVelocity *= -1;
+            }
+        }
+    }
+
 
 }
