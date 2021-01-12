@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import com.blogspot.soyamr.arkanoidplusplus.R
 
 
-class NameEnterFragment : Fragment() {
+class NoInternetFragment : Fragment() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -19,9 +20,10 @@ class NameEnterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_name_enter, container, false)
+        return inflater.inflate(R.layout.fragment_no_internet, container, false)
     }
 
     companion object {
+
     }
 }

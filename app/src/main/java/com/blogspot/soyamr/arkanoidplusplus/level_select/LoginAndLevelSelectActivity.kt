@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.blogspot.soyamr.arkanoidplusplus.R
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.GameActivity
 
-class LevelSelectActivity : Activity() {
+class LoginAndLevelSelectActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
