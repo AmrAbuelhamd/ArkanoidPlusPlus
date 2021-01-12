@@ -1,4 +1,4 @@
-package com.blogspot.soyamr.arkanoidplusplus.model
+package com.blogspot.soyamr.arkanoidplusplus.game_stuff.model
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -8,10 +8,10 @@ import android.graphics.Paint
 import android.media.AudioManager
 import android.media.SoundPool
 import android.util.Log
-import com.blogspot.soyamr.arkanoidplusplus.Dimensions
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.Dimensions
 import com.blogspot.soyamr.arkanoidplusplus.R
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.IGameSurface
-import com.blogspot.soyamr.arkanoidplusplus.model.game_elements.*
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.game_elements.*
 import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
@@ -220,8 +220,7 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
         // Check for ball colliding with paddle
         balls.forEach {
             if (it.intersects(paddle.getRect())) {
-                it.setRandomXVelocity();
-                it.reverseYVelocity();
+                it.decideBallNewVelocity(paddle.paddleState)
                 it.clearObstacleY(paddle.getRect().top);
                 soundPool!!.play(beep1ID, 1F, 1F, 0, 0, 1F);
             }

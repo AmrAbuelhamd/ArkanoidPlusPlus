@@ -3,7 +3,6 @@ package com.blogspot.soyamr.arkanoidplusplus.game_stuff
 import android.graphics.Canvas
 import android.os.SystemClock
 import android.view.SurfaceHolder
-import com.blogspot.soyamr.arkanoidplusplus.Controller
 
 
 class GameThread(private val gameSurface: Controller) : Thread() {

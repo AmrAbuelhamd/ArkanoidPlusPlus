@@ -1,4 +1,4 @@
-package com.blogspot.soyamr.arkanoidplusplus
+package com.blogspot.soyamr.arkanoidplusplus.game_stuff
 
 class Dimensions(screenWidth: Int, screenHeight: Int) {
 
