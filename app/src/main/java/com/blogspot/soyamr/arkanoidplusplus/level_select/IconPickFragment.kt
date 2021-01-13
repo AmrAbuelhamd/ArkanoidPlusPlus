@@ -19,12 +19,12 @@ class IconPickFragment : Fragment(), OnIconIListener {
     private lateinit var iconRecyclerView: RecyclerView
     private lateinit var iconAdapter: IconsAdapter
 
-    private var chosenIconNumber: Int? = null
+    private var chosenIconNumber: Int = 1
 
     var letTheJourneyBeginButton: Button?=null
 
     // hardcode
-    var icons = listOf(
+    private var icons = listOf(
         Icon(R.drawable.avatar1), Icon(R.drawable.avatar2), Icon(R.drawable.avatar3),
         Icon(R.drawable.avatar4), Icon(R.drawable.avatar5), Icon(R.drawable.avatar6),
         Icon(R.drawable.avatar7), Icon(R.drawable.avatar8), Icon(R.drawable.avatar9),
