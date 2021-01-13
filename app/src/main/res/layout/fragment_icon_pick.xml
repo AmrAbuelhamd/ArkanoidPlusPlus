@@ -1,7 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/sel_background4"
-    tools:context=".level_select.IconPickFragment"/>
+    tools:context=".level_select.IconPickFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="64dp"
+            android:layout_marginBottom="32dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/buttonLetsGo2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPlayerDead">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageViewAvatar1"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar1" />
+
+                <ImageView
+                    android:id="@+id/imageViewAvatar2"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar2" />
+
+                <ImageView
+                    android:id="@+id/imageViewAvatar3"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageViewAvatar4"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar4" />
+
+                <ImageView
+                    android:id="@+id/imageViewAvatar5"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar5" />
+
+                <ImageView
+                    android:id="@+id/imageViewAvatar6"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar6" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageViewAvatar7"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar7" />
+
+                <ImageView
+                    android:id="@+id/imageViewAvatar8"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar8" />
+
+                <ImageView
+                    android:id="@+id/imageViewAvatar9"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar9" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageViewAvatar10"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar10" />
+
+                <ImageView
+                    android:id="@+id/imageViewAvatar11"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar11" />
+
+                <ImageView
+                    android:id="@+id/imageViewAvatar12"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar12" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageViewAvatar13"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar13" />
+
+                <ImageView
+                    android:id="@+id/imageViewAvatar14"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar14" />
+
+                <ImageView
+                    android:id="@+id/imageViewAvatar15"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar15" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageViewAvatar16"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar16" />
+
+                <ImageView
+                    android:id="@+id/imageViewAvatar17"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar17" />
+
+                <ImageView
+                    android:id="@+id/imageViewAvatar18"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar18" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageViewAvatar19"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar19" />
+
+                <ImageView
+                    android:id="@+id/imageViewAvatar20"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar1" />
+
+                <ImageView
+                    android:id="@+id/imageViewAvatar21"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/avatar21" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonLetsGo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="85dp"
+            android:background="@drawable/custom_button"
+            android:fontFamily="@font/aldrich"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="LET THE JOURNEY BEGIN!"
+            android:textColor="@color/button_text_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewPlayerDead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:fontFamily="@font/aldrich"
+            android:text="CHOOSE YOUR FACE"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
