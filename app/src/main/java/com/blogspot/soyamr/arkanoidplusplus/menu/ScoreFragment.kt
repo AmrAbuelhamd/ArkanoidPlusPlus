@@ -9,18 +9,38 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.blogspot.soyamr.arkanoidplusplus.R
+
+import com.blogspot.soyamr.arkanoidplusplus.recycle_icons.IconsAdapter
+import com.blogspot.soyamr.arkanoidplusplus.recycle_score.ScoreAdapter
+import com.blogspot.soyamr.arkanoidplusplus.recycle_score.ScoreInfo
 
 
 class ScoreFragment : Fragment() {
 
-    var resetButton: Button?=null
     var goBackButton: Button?=null
+
+    private lateinit var scoreRecyclerView: RecyclerView
+    private lateinit var scoreAdapter: ScoreAdapter
 
     // animated background
     var animationDrawable: AnimationDrawable? = null
     var frameLayout: FrameLayout? = null
     // animated background
+
+    // hardcode
+    var scores = listOf(
+        ScoreInfo("blogpost", true, 1337, R.drawable.avatar1),
+        ScoreInfo("zaria", false, 228, R.drawable.avatar3),
+        ScoreInfo("l33t", true, 5000, R.drawable.avatar21),
+        ScoreInfo("oni.", false, 1000, R.drawable.avatar11),
+        ScoreInfo("done", false, 1263, R.drawable.avatar4),
+        ScoreInfo("played", false, 1842, R.drawable.avatar10),
+        ScoreInfo("yeeeeeeep", false, 1056, R.drawable.avatar12),
+        ScoreInfo("gotcha", false, 1947, R.drawable.avatar5)
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,16 +63,23 @@ class ScoreFragment : Fragment() {
         // start animation
         animationDrawable!!.start()
 
-        resetButton = view.findViewById(R.id.buttonReset)
         goBackButton = view.findViewById(R.id.buttonGoBack)
-
-        resetButton!!.setOnClickListener{
-            //TODO
-        }
 
         goBackButton!!.setOnClickListener{
             findNavController().navigate(R.id.action_scoreFragment_to_mainFragment)
         }
+
+
+
+        // recycler init
+        scoreRecyclerView = view.findViewById(R.id.scoreRecycleView)
+        scoreRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        scoreAdapter = ScoreAdapter()
+        scoreRecyclerView.adapter = scoreAdapter
+
+        // hardcode
+        scoreAdapter.setAllScore(scores)
+
 
 
 

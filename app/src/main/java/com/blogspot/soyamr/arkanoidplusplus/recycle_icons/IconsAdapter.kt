@@ -62,7 +62,6 @@ class IconsAdapter(onIconIListener: OnIconIListener) : RecyclerView.Adapter<Icon
     }
 
     override fun onBindViewHolder(holder: IconsViewHolder, position: Int) {
-
         holder.bind(iconsList[position],  onIconIListener);
     }
 
