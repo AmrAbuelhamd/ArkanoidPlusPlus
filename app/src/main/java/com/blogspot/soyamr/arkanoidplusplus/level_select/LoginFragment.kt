@@ -26,7 +26,7 @@ class LoginFragment : Fragment() {
 
         letsGoButton = view.findViewById(R.id.buttonLetsGo)
         letsGoButton!!.setOnClickListener{
-            findNavController().navigate(R.id.action_loginFragment_to_iconPickFragment)
+            findNavController().navigate(R.id.action_loginFragment_to_noInternetFragment)
         }
 
         return view

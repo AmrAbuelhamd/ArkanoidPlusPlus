@@ -24,7 +24,4 @@ class LevelSelectFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_level_select, container, false)
     }
 
-    companion object {
-
-    }
 }

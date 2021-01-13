@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blogspot.soyamr.arkanoidplusplus.R
@@ -19,6 +21,7 @@ class IconPickFragment : Fragment(), OnIconIListener {
 
     private var chosenIconNumber: Int? = null
 
+    var letTheJourneyBeginButton: Button?=null
 
     // hardcode
     var icons = listOf(
@@ -43,6 +46,11 @@ class IconPickFragment : Fragment(), OnIconIListener {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_icon_pick, container, false)
 
+        letTheJourneyBeginButton = view.findViewById(R.id.buttonLetTheJourneyBegin)
+        letTheJourneyBeginButton!!.setOnClickListener{
+            findNavController().navigate(R.id.action_noInternetFragment_to_storyFragment)
+        }
+
         // recycler init
         iconRecyclerView = view.findViewById(R.id.iconsRecycleView)
         iconRecyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -66,6 +74,5 @@ class IconPickFragment : Fragment(), OnIconIListener {
         icons[chosenIconNumber!!].activated = true
     }
 
-    // hardcode
 
 }
