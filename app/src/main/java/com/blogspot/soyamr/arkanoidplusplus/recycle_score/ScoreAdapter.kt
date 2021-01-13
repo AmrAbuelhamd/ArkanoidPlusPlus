@@ -21,6 +21,11 @@ class ScoreAdapter: RecyclerView.Adapter<ScoreAdapter.ScoreViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun clearAllScore(){
+        scoreInfoList.clear()
+        notifyDataSetChanged()
+    }
+
     class ScoreViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image: ImageView = itemView.findViewById(R.id.score_icon)
         val nickname: TextView = itemView.findViewById(R.id.nickname)

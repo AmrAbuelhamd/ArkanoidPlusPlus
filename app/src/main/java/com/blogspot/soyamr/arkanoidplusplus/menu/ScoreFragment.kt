@@ -4,19 +4,18 @@ import android.content.ContentValues.TAG
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blogspot.soyamr.arkanoidplusplus.R
 import com.blogspot.soyamr.arkanoidplusplus.Repository
 import com.blogspot.soyamr.arkanoidplusplus.net.UserData
-
 import com.blogspot.soyamr.arkanoidplusplus.recycle_score.ScoreAdapter
 import com.blogspot.soyamr.arkanoidplusplus.recycle_score.ScoreInfo
 import com.google.firebase.database.*
@@ -50,14 +49,19 @@ class ScoreFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         repository = Repository(requireContext())
+        usersData = mutableListOf()
         myRef = FirebaseDatabase.getInstance().reference
-        myRef.child("users").addValueEventListener(object : ValueEventListener{
+        myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                usersData = mutableListOf()
-                val users = dataSnapshot.value as HashMap<String, UserData>
-                for (user in users){
-                    usersData.add(user.value)
+                usersData.clear()
+                scoreAdapter.clearAllScore()
+                val users = dataSnapshot.child("users").children
+                for(user in users){
+                    val userInfo: UserData? = user.getValue(UserData::class.java)
+                    usersData.add(userInfo!!)
                 }
+                //for (DataSnapshot scoreSnapshot : dataSnapshot.getChildren)
+                //val users: UserData? = dataSnapshot.getValue(UserData::class.java)
                 scores = repository.convertUsersDataToScores(usersData)
                 scoreAdapter.setAllScore(scores)
             }
