@@ -3,10 +3,11 @@ package com.blogspot.soyamr.arkanoidplusplus.level_select
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.FragmentActivity
 import com.blogspot.soyamr.arkanoidplusplus.R
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.GameActivity
 
-class LoginAndLevelSelectActivity : Activity() {
+class LoginAndLevelSelectActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
