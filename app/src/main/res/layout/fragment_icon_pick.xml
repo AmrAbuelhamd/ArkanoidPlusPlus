@@ -19,7 +19,7 @@
             android:layout_marginTop="64dp"
             android:layout_marginEnd="64dp"
             android:layout_marginBottom="64dp"
-            android:scrollbars="vertical"
+            android:scrollbars="none"
             app:layout_constraintBottom_toTopOf="@+id/buttonLetsGo2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
