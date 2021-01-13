@@ -43,7 +43,7 @@ class ScoreFragment : Fragment() {
         // start animation
         animationDrawable!!.start()
 
-        resetButton = view.findViewById(R.id.buttonSave)
+        resetButton = view.findViewById(R.id.buttonReset)
         goBackButton = view.findViewById(R.id.buttonGoBack)
 
         resetButton!!.setOnClickListener{
