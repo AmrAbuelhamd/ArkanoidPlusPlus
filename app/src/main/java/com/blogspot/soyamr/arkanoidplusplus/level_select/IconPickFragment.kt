@@ -48,7 +48,7 @@ class IconPickFragment : Fragment(), OnIconIListener {
 
         letTheJourneyBeginButton = view.findViewById(R.id.buttonLetTheJourneyBegin)
         letTheJourneyBeginButton!!.setOnClickListener{
-            findNavController().navigate(R.id.action_noInternetFragment_to_storyFragment)
+            findNavController().navigate(R.id.action_iconPickFragment_to_storyFragment)
         }
 
         // recycler init
