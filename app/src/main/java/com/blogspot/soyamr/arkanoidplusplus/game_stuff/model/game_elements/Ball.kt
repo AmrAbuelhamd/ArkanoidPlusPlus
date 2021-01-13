@@ -99,7 +99,6 @@ class Ball(
             model.playSoundTop()
         } else if (y > gameSurface.getScreenHeight() - height) {
             reset()
-            reverseYVelocity()
             model.pause()
             model.reduceLive()
             model.playSoundBottom()
