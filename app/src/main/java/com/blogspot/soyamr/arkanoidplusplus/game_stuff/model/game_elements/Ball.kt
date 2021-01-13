@@ -99,7 +99,6 @@ class Ball(
             model.playSoundTop()
         } else if (y > gameSurface.getScreenHeight() - height) {
             reset()
-            reverseYVelocity()
             model.pause()
             model.reduceLive()
             model.playSoundBottom()
@@ -150,13 +149,15 @@ class Ball(
         this.y = y - height - 2
     }
 
-    fun clearObstacleX(x: Int) {
+    private fun clearObstacleX(x: Int) {
         this.x = x
     }
 
     fun reset() {
         this.x = initialX
         this.y = initialY
+        xVelocity = xVelocityDefault
+        yVelocity = -yVelocityDefault
     }
 
     private val _ballRect = Rect()

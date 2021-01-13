@@ -10,7 +10,6 @@ class GameThread(private val gameSurface: Controller) : Thread() {
     private var canvas: Canvas? = null
     private var running = false
     var fps = 1
-    var paused = true
 
     companion object {
         var avgFPS = 0
@@ -35,8 +34,7 @@ class GameThread(private val gameSurface: Controller) : Thread() {
                 canvas = surfaceHolder.lockCanvas()
                 synchronized(surfaceHolder) {
                     if (canvas != null) {
-                        if (!paused)
-                            gameSurface.update(fps)
+                        gameSurface.update(fps)
                         if (running)
                             gameSurface.drawScene(canvas!!)
 

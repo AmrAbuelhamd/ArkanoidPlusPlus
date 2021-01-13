@@ -3,13 +3,13 @@ package com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.game_elements
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Rect
-import com.blogspot.soyamr.arkanoidplusplus.game_stuff.IGameSurface
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.Model
 
 
-class Paddle(private val gameSurface: IGameSurface, image: Bitmap, x: Int, y: Int) :
+class Paddle(private val model: Model, image: Bitmap, x: Int, y: Int) :
     GameObject(
         image, 1, 1,
-        x,y
+        x, y
     ) {
 
     var paddleState: IState = State.STOPPED
@@ -23,8 +23,8 @@ class Paddle(private val gameSurface: IGameSurface, image: Bitmap, x: Int, y: In
         if (x < 0) {
             x = 0
             paddleState = State.STOPPED
-        } else if (x > gameSurface.getScreenWidth() - width) {
-            x = gameSurface.getScreenWidth() - width
+        } else if (x > model.getScreenWidth() - width) {
+            x = model.getScreenWidth() - width
             paddleState = State.STOPPED
         }
     }
@@ -46,5 +46,11 @@ class Paddle(private val gameSurface: IGameSurface, image: Bitmap, x: Int, y: In
     fun getRect(): Rect {
         paddleRect.set(x, y, x + width, y + height)
         return paddleRect
+    }
+
+
+    fun reset() {
+        x = model.getScreenWidth() / 4
+        y = model.getScreenHeight() - model.dimensions.paddleInitialYPosition
     }
 }

@@ -11,6 +11,7 @@ import android.hardware.SensorManager
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.ILevel
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.IModel
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.Model
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.game_elements.State
@@ -24,7 +25,8 @@ enum class PaddleControlMode {
 class GameSurface(
     gameActivity: GameActivity,
     private val phoneScreenHeight: Int,
-    private val phoneScreenWidth: Int
+    private val phoneScreenWidth: Int,
+    private val userLevel: ILevel
 ) :
     SurfaceView(gameActivity),
     SurfaceHolder.Callback, Controller, IGameSurface, SensorEventListener {
@@ -45,7 +47,7 @@ class GameSurface(
 
         this.holder.addCallback(this)
 
-        model = Model(context, this)
+        model = Model(context, this, userLevel)
         //get sensors
         sManager = context.getSystemService(Context.SENSOR_SERVICE) as (SensorManager)
         if (sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
@@ -111,18 +113,19 @@ class GameSurface(
         return phoneScreenHeight
     }
 
-    override fun setPaused(paused: Boolean) {
-        gameThread?.paused = paused
+
+    override fun showMainMenu() {
+        gameThread?.setRunning(false)
+        gameActivity.showMainMenu()
     }
 
-    override fun startScoreActivity(score: Int) {
-        gameThread?.setRunning(false)
-        gameActivity.startScoreActivity(score)
+    override fun hereIsUserScores(score: Int, levelNum: Int) {
+        gameActivity.saveUserScores(score,levelNum)
     }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(motionEvent: MotionEvent): Boolean {
-        setPaused(false)
+        model.setPaused(false)
         if (controlMode == PaddleControlMode.TOUCH) {
             when (motionEvent.action and MotionEvent.ACTION_MASK) {
                 MotionEvent.ACTION_DOWN -> {
@@ -131,6 +134,7 @@ class GameSurface(
                     } else {
                         model.setMovementState(State.LEFT)
                     }
+                    model.userTouched(motionEvent.x, motionEvent.y)
                 }
                 MotionEvent.ACTION_UP -> model.setMovementState(State.STOPPED)
             }
