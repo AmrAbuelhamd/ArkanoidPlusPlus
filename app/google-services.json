@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "74087812797",
+    "project_id": "arkanoidplusplus",
+    "storage_bucket": "arkanoidplusplus.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:74087812797:android:6c04d7dc0a071d83d2f1d4",
+        "android_client_info": {
+          "package_name": "com.blogspot.soyamr.arkanoidplusplus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "74087812797-7nvnd757eqjm12rhbmmv8l5tbn1mr9ls.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_Dogv_ociA5H03BYuEyVb3QOQu988eHA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "74087812797-7nvnd757eqjm12rhbmmv8l5tbn1mr9ls.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

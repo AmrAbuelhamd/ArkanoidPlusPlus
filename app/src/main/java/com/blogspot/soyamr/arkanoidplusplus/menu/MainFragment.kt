@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
 import androidx.navigation.fragment.findNavController
-import com.blogspot.soyamr.arkanoidplusplus.level_select.LevelSelectActivity
+import com.blogspot.soyamr.arkanoidplusplus.level_select.LoginAndLevelSelectActivity
 import com.blogspot.soyamr.arkanoidplusplus.R
 
 
@@ -51,7 +51,7 @@ class MainFragment : Fragment() {
         scoreButton = view.findViewById(R.id.buttonScore)
 
         startButton!!.setOnClickListener{
-            startActivity(Intent(activity, LevelSelectActivity::class.java))
+            startActivity(Intent(activity, LoginAndLevelSelectActivity::class.java))
         }
 
         settingsButton!!.setOnClickListener{
