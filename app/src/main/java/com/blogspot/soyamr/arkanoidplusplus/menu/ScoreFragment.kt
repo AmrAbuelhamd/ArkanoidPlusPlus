@@ -39,6 +39,14 @@ class ScoreFragment : Fragment() {
         ScoreInfo("done", false, 1263, R.drawable.avatar4),
         ScoreInfo("played", false, 1842, R.drawable.avatar10),
         ScoreInfo("yeeeeeeep", false, 1056, R.drawable.avatar12),
+        ScoreInfo("gotcha", false, 1947, R.drawable.avatar5),
+        ScoreInfo("blogpost", true, 1337, R.drawable.avatar1),
+        ScoreInfo("zaria", false, 228, R.drawable.avatar3),
+        ScoreInfo("l33t", true, 5000, R.drawable.avatar21),
+        ScoreInfo("oni.", false, 1000, R.drawable.avatar11),
+        ScoreInfo("done", false, 1263, R.drawable.avatar4),
+        ScoreInfo("played", false, 1842, R.drawable.avatar10),
+        ScoreInfo("yeeeeeeep", false, 1056, R.drawable.avatar12),
         ScoreInfo("gotcha", false, 1947, R.drawable.avatar5)
     )
 
