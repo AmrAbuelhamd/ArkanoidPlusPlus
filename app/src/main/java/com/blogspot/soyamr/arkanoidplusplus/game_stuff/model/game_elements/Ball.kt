@@ -44,7 +44,8 @@ class Ball(
     private var bottomToTops: Array<Bitmap?> = arrayOfNulls(colCount)
 
 
-    val xVelocityDefault = 400;
+    private val xVelocityDefault = 400;
+    private val yVelocityDefault = 800;
     var xVelocity = 400;
     var yVelocity = -800;
 
@@ -146,7 +147,7 @@ class Ball(
     }
 
     fun clearObstacleY(y: Int) {
-        this.y = y - height
+        this.y = y - height - 2
     }
 
     fun clearObstacleX(x: Int) {
@@ -169,7 +170,7 @@ class Ball(
         return Rect.intersects(ballRect, rect)
     }
 
-    fun decideBallNewVelocityAccordingToPaddle(paddleState: IState) {
+    fun decideBallNewVelocityAccordingToPaddle(paddleState: IState, paddle: Rect) {
         val direction = getBallDirection()
         //anyway i should bounce it back up
         reverseYVelocity()
@@ -180,6 +181,12 @@ class Ball(
                 }
             State.RIGHT ->
                 if (direction == Direction.DOWN_LEFT) {
+                    reverseXVelocity()
+                }
+            State.STOPPED ->
+                if (direction == Direction.DOWN_RIGHT && ballRect.centerX() < paddle.centerX()) {
+                    reverseXVelocity()
+                } else if (direction == Direction.DOWN_LEFT && ballRect.centerX() > paddle.centerX()) {
                     reverseXVelocity()
                 }
         }
@@ -221,13 +228,22 @@ class Ball(
     }
 
     fun adjustAngel(paddle: Rect) {
-        val a = paddle.centerX() - paddle.width() / 5
-        val b = paddle.centerX() + paddle.width() / 5
-
+        val part = paddle.width() / 10;
+        val a = paddle.centerX() - part / 2
+        val b = paddle.centerX() + part / 2
+        val xDir = if (xVelocity < 0) -1 else 1
+        val yDir = if (yVelocity < 0) -1 else 1
         if (ballRect.centerX() in (a + 1) until b) {
             xVelocity = 0;
-        } else if (xVelocity == 0) {
-            xVelocity = xVelocityDefault;
+            yVelocity = 800
+        } else if (ballRect.centerX() < (paddle.left + part) ||
+            ballRect.centerX() > (paddle.right - part + 1)
+        ) {
+            yVelocity = yDir * 400
+            xVelocity = xDir * 800
+        } else if (ballRect.centerX() in (paddle.left + part + 1) until (paddle.right - part)) {
+            yVelocity = yDir * yVelocityDefault
+            xVelocity = xDir * xVelocityDefault
             if (ballRect.centerX() < paddle.centerX()) {
                 xVelocity *= -1;
             }

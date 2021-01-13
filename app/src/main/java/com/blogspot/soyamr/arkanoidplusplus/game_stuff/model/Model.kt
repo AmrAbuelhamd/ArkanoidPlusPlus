@@ -221,7 +221,7 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
         balls.forEach {
             if (it.intersects(paddle.getRect())) {
                 it.adjustAngel(paddle.getRect())
-                it.decideBallNewVelocityAccordingToPaddle(paddle.paddleState)
+                it.decideBallNewVelocityAccordingToPaddle(paddle.paddleState, paddle.getRect())
                 it.clearObstacleY(paddle.getRect().top);
                 soundPool!!.play(beep1ID, 1F, 1F, 0, 0, 1F);
             }
@@ -240,7 +240,7 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
                         flag = true
                     }
                 }
-                if(flag)
+                if (flag)
                     break
             }
         }

@@ -41,7 +41,7 @@ class Paddle(private val gameSurface: IGameSurface, image: Bitmap, x: Int, y: In
     }
 
 
-    val paddleRect: Rect = Rect()
+    private val paddleRect: Rect = Rect()
 
     fun getRect(): Rect {
         paddleRect.set(x, y, x + width, y + height)
