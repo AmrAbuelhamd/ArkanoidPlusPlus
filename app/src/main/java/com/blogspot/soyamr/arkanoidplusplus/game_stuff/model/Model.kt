@@ -1,10 +1,7 @@
 package com.blogspot.soyamr.arkanoidplusplus.game_stuff.model
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.Paint
+import android.graphics.*
 import android.media.AudioManager
 import android.media.SoundPool
 import android.util.Log
@@ -17,16 +14,19 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBallInterface {
-    val numberOfStars = 200
-    val balls: List<Ball>
-    val screenElements: Array<ScreenElement?> = arrayOfNulls<ScreenElement>(numberOfStars)
-    val paddle: Paddle
-    val bricks = arrayOfNulls<Brick>(200)
+class Model(context: Context, private val gameSurface: IGameSurface) : IModel, ModelBallInterface {
+    private val numberOfStars = 200
+    private val balls: List<Ball>
+    private val bonuses: Array<Bonus?> = arrayOfNulls<Bonus>(200)
+    private val bonusesTracker: Array<Boolean?> = arrayOfNulls<Boolean>(200)
+    private val bonusesIndexes: MutableList<Int> = ArrayList<Int>()
+    private val screenElements: Array<ScreenElement?> = arrayOfNulls<ScreenElement>(numberOfStars)
+    private val paddle: Paddle
+    private val bricks = arrayOfNulls<Brick>(200)
     var numBricks = 0
 
     var livesNum = 3
-    var lives: List<ScreenElement> = ArrayList()
+    var lives: MutableList<ScreenElement> = ArrayList()
 
     // For sound FX
     var soundPool: SoundPool? = null
@@ -39,13 +39,9 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
     // The score
     var score = 0
 
+    var paddleImg: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.paddle_blu)
 
-    val brickWidth: Int = gameSurface.getScreenWidth() / 8
-    val brickHeight: Int = gameSurface.getScreenHeight() / 10
-
-    var paddleImg = BitmapFactory.decodeResource(context.resources, R.drawable.paddle_blu)
-
-    var ball = BitmapFactory.decodeResource(context.resources, R.drawable.ball_blue)
+    var ball: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.ball_blue)
 
     var brick: Bitmap =
         BitmapFactory.decodeResource(context.resources, R.drawable.element_purple_polygon_glossy)
@@ -56,6 +52,9 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
         BitmapFactory.decodeResource(context.resources, R.drawable.particle_small_star)
     var star3: Bitmap =
         BitmapFactory.decodeResource(context.resources, R.drawable.particle_cartoon_star)
+
+    var bonusImg =
+        BitmapFactory.decodeResource(context.resources, R.drawable.element_green_square)
 
     private val dimensions: Dimensions =
         Dimensions(gameSurface.getScreenWidth(), gameSurface.getScreenHeight())
@@ -96,6 +95,15 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
             dimensions.paddleHeight,
             false
         )
+
+        bonusImg = Bitmap.createScaledBitmap(
+            bonusImg,
+            dimensions.ballWidth,
+            dimensions.ballHeight,
+            false
+        )
+
+
         balls = listOf(
             Ball(
                 this,
@@ -128,20 +136,19 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
             // Print an error message to the console
             Log.e("error", "failed to load sound files")
         }
-
         createSpace()
         createLives()
         createBricksAndRestart()
     }
-
+    private lateinit var paddleImgLife:Bitmap
     private fun createLives() {
-        val paddleImgLife = Bitmap.createScaledBitmap(
+        paddleImgLife = Bitmap.createScaledBitmap(
             paddleImg,
             dimensions.lifePaddleWidth,
             dimensions.lifePaddleHeight,
             false
         )
-        lives = listOf(
+        lives = mutableListOf(
             ScreenElement(
                 this,
                 gameSurface,
@@ -202,6 +209,15 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
                 ++numBricks
             }
         }
+        val rn = Random().nextInt(numBricks)
+        bonusesIndexes.add(rn)
+        bonuses[rn] = Bonus(
+            gameSurface,
+            bonusImg,
+            bricks[rn]!!.rect.left,
+            bricks[rn]!!.rect.top,
+            BonusType.PLUS_LIVE
+        )
 
         // Reset scores and lives
         score = 0;
@@ -238,15 +254,51 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
                         score += 10
                         soundPool!!.play(explodeID, 1f, 1f, 0, 0, 1f)
                         flag = true
+                        if (bonusesIndexes.contains(i)) {
+                            bonusesTracker[i] = true
+                        }
                     }
                 }
                 if (flag)
                     break
             }
         }
+
+        //update bonuses
+        bonusesIndexes.forEach {
+            if (bonusesTracker[it] == true) {
+                bonuses[it]?.update(fps)
+            }
+        }
+
+        //check for bonus colliding with paddle
+        bonusesIndexes.forEach {
+            if (bonusesTracker[it] == true) {
+                if (Rect.intersects(bonuses[it]!!.rect, paddle.getRect())) {
+                    bonusesTracker[it] = false
+                    addTheBonus(bonuses[it]!!)
+                }
+            }
+        }
+
     }
 
-    val paint = Paint()
+    private fun addTheBonus(bonus: Bonus) {
+        when (bonus.bonusType) {
+            BonusType.PLUS_LIVE -> {
+                val count = lives.size
+                lives.add(
+                    ScreenElement(
+                        this,
+                        gameSurface,
+                        paddleImgLife,
+                        dimensions.lifePaddleWidth * (count + 1) + dimensions.padding * (count + 1),
+                        gameSurface.getScreenHeight() - dimensions.padding * 5 - dimensions.lifePaddleHeight
+                    )
+                )
+            }
+        }
+    }
 
     override fun draw(canvas: Canvas) {
         balls.forEach { it.draw(canvas) }
@@ -260,9 +312,16 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
             }
         }
 
-        // Draw the score
-        paint.textSize = 40F;
-        canvas.drawText("Score: $score   Lives: $livesNum", 10F, 50F, paint);
+        //draw the bonus falling down
+        bonusesIndexes.forEach {
+            if (bonusesTracker[it] == true) {
+                bonuses[it]?.draw(canvas)
+            }
+        }
+
+//        // Draw the score
+//        paint.textSize = 40F;
+//        canvas.drawText("Score: $score   Lives: $livesNum", 10F, 50F, paint);
 
         // Has the player cleared the screen?
 //        if (score == numBricks * 10) {
@@ -299,7 +358,7 @@ class Model(context: Context, val gameSurface: IGameSurface) : IModel, ModelBall
 
     override fun reduceLive() {
         --livesNum
-        lives = lives.dropLast(1)
+        lives.removeLast()
     }
 
     override fun pause() {
