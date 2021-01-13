@@ -25,13 +25,13 @@
             android:text="Those who lost cannot start over using their old names.\n\nYou can find your score on scoreboard."
             android:textAlignment="center"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/buttonGoBack"
+            app:layout_constraintBottom_toTopOf="@+id/buttonGoBack2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewPlayerScoreNumber" />
 
         <Button
-            android:id="@+id/buttonGoBack"
+            android:id="@+id/buttonGoBack2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

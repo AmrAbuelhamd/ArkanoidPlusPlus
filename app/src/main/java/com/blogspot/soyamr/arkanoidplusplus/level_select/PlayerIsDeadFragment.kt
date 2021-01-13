@@ -22,7 +22,7 @@ class PlayerIsDeadFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_player_is_dead, container, false)
 
-        gaBackButton = view.findViewById(R.id.buttonGoBack)
+        gaBackButton = view.findViewById(R.id.buttonGoBack2)
         gaBackButton!!.setOnClickListener{
             findNavController().navigate(R.id.action_playerIsDeadFragment_to_loginFragment)
         }
