@@ -6,8 +6,10 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.Display
 import android.view.ViewGroup
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.Level
 import com.blogspot.soyamr.arkanoidplusplus.menu.MainActivity
 
 
@@ -20,42 +22,41 @@ class GameActivity : Activity() {
         val height = getHeight(this)
         val width = getWidth(this)
         firstTime = true;
-        gameSurface = GameSurface(this, height, width)
+        gameSurface = GameSurface(this, height, width, Level.FIRST)
         gameSurface.layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
-
         setContentView(gameSurface)
     }
 
-    fun getWidth(context: Context): Int {
+    private fun getWidth(context: Context): Int {
         var width: Int = 0
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val displayMetrics = DisplayMetrics()
             val display: Display? = context.getDisplay()
             display!!.getRealMetrics(displayMetrics)
-            return displayMetrics.widthPixels
+            displayMetrics.widthPixels
         } else {
             val displayMetrics = DisplayMetrics()
             this.windowManager.defaultDisplay.getMetrics(displayMetrics)
             width = displayMetrics.widthPixels
-            return width
+            width
         }
     }
 
-    fun getHeight(context: Context): Int {
+    private fun getHeight(context: Context): Int {
         var height: Int = 0
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val displayMetrics = DisplayMetrics()
             val display = context.display
             display!!.getRealMetrics(displayMetrics)
-            return displayMetrics.heightPixels
+            displayMetrics.heightPixels
         } else {
             val displayMetrics = DisplayMetrics()
             this.windowManager.defaultDisplay.getMetrics(displayMetrics)
             height = displayMetrics.heightPixels
-            return height
+            height
         }
     }
 
@@ -65,12 +66,16 @@ class GameActivity : Activity() {
     }
 
 
-    fun startScoreActivity(score: Int) {
+    fun showMainMenu() {
         val intent = Intent(this, MainActivity::class.java)
         finish()
         startActivity(intent)
         val threadId = Thread.currentThread().id
         println("Thread # $threadId is doing this task")
+    }
+
+    fun saveUserScores(score: Int, levelNum: Int) {
+        Log.i("game activity", " score $score levelNumber $levelNum")
     }
 
 }
