@@ -16,16 +16,32 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_iconPickFragment"
-            app:destination="@id/iconPickFragment" />
+            app:destination="@id/iconPickFragment"
+            app:enterAnim="@anim/from_right2"
+            app:exitAnim="@anim/to_left2"
+            app:popEnterAnim="@anim/from_left2"
+            app:popExitAnim="@anim/to_right2" />
         <action
             android:id="@+id/action_loginFragment_to_levelSelectFragment"
-            app:destination="@id/levelSelectFragment" />
+            app:destination="@id/levelSelectFragment"
+            app:enterAnim="@anim/from_right2"
+            app:exitAnim="@anim/to_left2"
+            app:popEnterAnim="@anim/from_left2"
+            app:popExitAnim="@anim/to_right2" />
         <action
             android:id="@+id/action_loginFragment_to_playerIsDeadFragment"
-            app:destination="@id/playerIsDeadFragment" />
+            app:destination="@id/playerIsDeadFragment"
+            app:enterAnim="@anim/from_right2"
+            app:exitAnim="@anim/to_left2"
+            app:popEnterAnim="@anim/from_left2"
+            app:popExitAnim="@anim/to_right2" />
         <action
             android:id="@+id/action_loginFragment_to_noInternetFragment"
-            app:destination="@id/noInternetFragment" />
+            app:destination="@id/noInternetFragment"
+            app:enterAnim="@anim/from_right2"
+            app:exitAnim="@anim/to_left2"
+            app:popEnterAnim="@anim/from_left2"
+            app:popExitAnim="@anim/to_right2" />
     </fragment>
     <fragment
         android:id="@+id/iconPickFragment"
@@ -34,10 +50,18 @@
         tools:layout="@layout/fragment_icon_pick" >
         <action
             android:id="@+id/action_iconPickFragment_to_storyFragment"
-            app:destination="@id/storyFragment" />
+            app:destination="@id/storyFragment"
+            app:enterAnim="@anim/from_right2"
+            app:exitAnim="@anim/to_left2"
+            app:popEnterAnim="@anim/from_left2"
+            app:popExitAnim="@anim/to_right2" />
         <action
             android:id="@+id/action_iconPickFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/from_left2"
+            app:exitAnim="@anim/to_right2"
+            app:popEnterAnim="@anim/from_right2"
+            app:popExitAnim="@anim/to_left2" />
     </fragment>
     <fragment
         android:id="@+id/storyFragment"
@@ -46,10 +70,11 @@
         tools:layout="@layout/fragment_story" >
         <action
             android:id="@+id/action_storyFragment_to_levelSelectFragment"
-            app:destination="@id/levelSelectFragment" />
-        <action
-            android:id="@+id/action_storyFragment_to_iconPickFragment"
-            app:destination="@id/iconPickFragment" />
+            app:destination="@id/levelSelectFragment"
+            app:enterAnim="@anim/from_right2"
+            app:exitAnim="@anim/to_left2"
+            app:popEnterAnim="@anim/from_left2"
+            app:popExitAnim="@anim/to_right2" />
     </fragment>
     <fragment
         android:id="@+id/playerIsDeadFragment"
@@ -58,7 +83,11 @@
         tools:layout="@layout/fragment_player_is_dead" >
         <action
             android:id="@+id/action_playerIsDeadFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/from_left2"
+            app:exitAnim="@anim/to_right2"
+            app:popEnterAnim="@anim/from_right2"
+            app:popExitAnim="@anim/to_left2" />
     </fragment>
     <fragment
         android:id="@+id/noInternetFragment"
@@ -67,6 +96,17 @@
         tools:layout="@layout/fragment_no_internet" >
         <action
             android:id="@+id/action_noInternetFragment_to_storyFragment"
-            app:destination="@id/storyFragment" />
+            app:destination="@id/storyFragment"
+            app:enterAnim="@anim/from_right2"
+            app:exitAnim="@anim/to_left2"
+            app:popEnterAnim="@anim/from_left2"
+            app:popExitAnim="@anim/to_right2" />
+        <action
+            android:id="@+id/action_noInternetFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/from_left2"
+            app:exitAnim="@anim/to_right2"
+            app:popEnterAnim="@anim/from_right2"
+            app:popExitAnim="@anim/to_left2" />
     </fragment>
 </navigation>
