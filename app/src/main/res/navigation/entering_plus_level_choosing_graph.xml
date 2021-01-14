@@ -8,7 +8,11 @@
     <fragment
         android:id="@+id/levelSelectFragment"
         android:name="com.blogspot.soyamr.arkanoidplusplus.level_select.LevelSelectFragment"
-        android:label="LevelSelectFragment" />
+        android:label="LevelSelectFragment" >
+        <argument
+            android:name="iconID"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.blogspot.soyamr.arkanoidplusplus.level_select.LoginFragment"
@@ -64,6 +68,9 @@
             app:exitAnim="@anim/to_right2"
             app:popEnterAnim="@anim/from_right2"
             app:popExitAnim="@anim/to_left2" />
+        <argument
+            android:name="Nickname"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/storyFragment"
@@ -92,6 +99,9 @@
             app:exitAnim="@anim/to_right2"
             app:popEnterAnim="@anim/from_right2"
             app:popExitAnim="@anim/to_left2" />
+        <argument
+            android:name="Nickname"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/noInternetFragment"
