@@ -15,18 +15,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="64dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/aldrich"
             android:text="@string/level_choose"
             android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/imageViewLevelSelect"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+            app:srcCompat="@drawable/no_internet" />
+
         <LinearLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -35,7 +46,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewLevelChoose">
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -43,22 +54,23 @@
                 android:gravity="clip_horizontal|center"
                 android:orientation="horizontal">
 
-                <com.google.android.material.button.MaterialButton
+                <Button
                     android:id="@+id/buttonLevel1"
-                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                     android:layout_width="150dp"
-                    android:layout_height="75dp"
+                    android:layout_height="60dp"
                     android:layout_marginRight="16dp"
+                    android:background="@drawable/custom_button2"
                     android:text="1 level"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:textColor="#FFFFFF"
                     android:theme="@style/FormButton" />
 
-                <com.google.android.material.button.MaterialButton
+                <Button
                     android:id="@+id/buttonLevel2"
-                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                     android:layout_width="150dp"
-                    android:layout_height="75dp"
+                    android:layout_height="60dp"
                     android:layout_marginLeft="16dp"
+                    android:background="@drawable/custom_button2"
                     android:text="2 level"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                     android:theme="@style/FormButton" />
@@ -71,22 +83,22 @@
                 android:gravity="clip_horizontal|center"
                 android:orientation="horizontal">
 
-                <com.google.android.material.button.MaterialButton
+                <Button
                     android:id="@+id/buttonLevel3"
-                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                     android:layout_width="150dp"
-                    android:layout_height="75dp"
+                    android:layout_height="60dp"
                     android:layout_marginRight="16dp"
+                    android:background="@drawable/custom_button3"
                     android:text="3 level"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                     android:theme="@style/FormButton" />
 
-                <com.google.android.material.button.MaterialButton
+                <Button
                     android:id="@+id/buttonLevel4"
-                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                     android:layout_width="150dp"
-                    android:layout_height="75dp"
+                    android:layout_height="60dp"
                     android:layout_marginLeft="16dp"
+                    android:background="@drawable/custom_button3"
                     android:text="4 level"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                     android:theme="@style/FormButton" />
@@ -99,12 +111,12 @@
                 android:gravity="clip_horizontal|center"
                 android:orientation="horizontal">
 
-                <com.google.android.material.button.MaterialButton
+                <Button
                     android:id="@+id/buttonLevel5"
-                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                     android:layout_width="150dp"
-                    android:layout_height="75dp"
+                    android:layout_height="60dp"
                     android:layout_marginRight="16dp"
+                    android:background="@drawable/custom_button4"
                     android:text="5 level"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                     android:theme="@style/FormButton" />
@@ -113,11 +125,13 @@
                     android:id="@+id/buttonLevel6"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="150dp"
-                    android:layout_height="75dp"
+                    android:layout_height="60dp"
                     android:layout_marginLeft="16dp"
+                    android:fontFamily="@font/aldrich"
                     android:text="BONUS LEVEL"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:theme="@style/FormButton" />
+                    android:theme="@style/FormButton"
+                    android:visibility="invisible" />
             </LinearLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

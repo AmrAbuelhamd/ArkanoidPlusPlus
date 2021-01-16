@@ -11,7 +11,7 @@ class LoginAndLevelSelectActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_level_select)
-        startActivity(Intent(this, GameActivity::class.java))
+        setContentView(R.layout.activity_level_select)
+        //startActivity(Intent(this, GameActivity::class.java))
     }
 }
