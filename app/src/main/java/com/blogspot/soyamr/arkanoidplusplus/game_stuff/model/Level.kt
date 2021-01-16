@@ -1,6 +1,7 @@
 package com.blogspot.soyamr.arkanoidplusplus.game_stuff.model
 
 import android.graphics.Canvas
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.game_elements.BonusType
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.game_elements.Brick
 import java.util.*
 
@@ -11,8 +12,8 @@ public enum class Level : ILevel {
         override fun initiateLevel(model: Model) {
             model.resetEverything()
             //create bricks
-            for (column in 0..1) {
-                for (row in 0..1) {
+            for (column in 0..7) {
+                for (row in 0..4) {
                     model.bricks[model.numBricks] =
                         Brick(
                             model.gameSurface,
@@ -21,11 +22,26 @@ public enum class Level : ILevel {
                             row * model.dimensions.polygonHeight + model.dimensions.padding * (row + 1)
                         )
                     ++model.numBricks
+                    model.addBonusHere(model.numBricks, BonusType.SMALLER_PADDLE)
+                    model.addBonusHere(model.numBricks, BonusType.BIGGER_PADDLE)
                 }
             }
             //add random bonus
-            val rn = Random().nextInt(model.numBricks)
-            model.addBonusHere(rn)
+            val rand = Random()
+            var rn = rand.nextInt(model.numBricks)
+            model.addBonusHere(rn, BonusType.PLUS_LIVE)
+
+            rn = rand.nextInt(model.numBricks)
+            model.addBonusHere(rn, BonusType.SMALLER_PADDLE)
+
+            rn = rand.nextInt(model.numBricks)
+            model.addBonusHere(rn, BonusType.SMALLER_PADDLE)
+
+            rn = rand.nextInt(model.numBricks)
+            model.addBonusHere(rn, BonusType.BIGGER_PADDLE)
+
+            rn = rand.nextInt(model.numBricks)
+            model.addBonusHere(rn, BonusType.BIGGER_PADDLE)
         }
 
         override fun setNextLevel(model: Model) {
@@ -55,12 +71,12 @@ public enum class Level : ILevel {
             var rn: Int
             for (i in 0..20) {
                 rn = rand.nextInt(model.numBricks)
-                model.addBonusHere(rn)
+                model.addBonusHere(rn, BonusType.PLUS_LIVE)
             }
         }
 
         override fun setNextLevel(model: Model) {
-            model.currentLevel = THIRD
+            model.currentLevel = FIRST//fixme
         }
     },
     THIRD {

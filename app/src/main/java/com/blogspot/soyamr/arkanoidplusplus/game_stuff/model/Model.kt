@@ -90,7 +90,12 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
     fun resetEverything() {
         startTime = SystemClock.uptimeMillis()
         hasWon = null
+        numBricks = 0;
         score = 0;
+        bonusesIndexes.clear()
+        for (i in 0 until numBricks) {
+            bonusesTracker[i] = false
+        }
         createLives()
         createSpace()
         pause = true
@@ -252,6 +257,12 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
                     )
                 )
             }
+            BonusType.SMALLER_PADDLE -> {
+                paddle.changePaddleImgState(paddle.imgSmall)
+            }
+            BonusType.BIGGER_PADDLE -> {
+                paddle.changePaddleImgState(paddle.imgBig)
+            }
         }
     }
 
@@ -340,7 +351,7 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
         gameSurface.showMainMenu()//fixme
     }
 
-    fun addBonusHere(rn: Int) {
+    fun addBonusHere(rn: Int, bonus: BonusType) {
         if (rn >= numBricks)
             return
         bonusesIndexes.add(rn)
@@ -349,7 +360,7 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
             gameBitmaps.bonusImg,
             bricks[rn]!!.rect.left,
             bricks[rn]!!.rect.top,
-            BonusType.PLUS_LIVE
+            bonus
         )
     }
 

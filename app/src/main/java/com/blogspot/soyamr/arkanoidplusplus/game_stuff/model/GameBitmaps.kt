@@ -9,13 +9,15 @@ import com.blogspot.soyamr.arkanoidplusplus.game_stuff.Dimensions
 class GameBitmaps(private val context: Context, private val dimensions: Dimensions) {
 
     var paddleImg: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.paddle_blu)
+    var paddleImgSmall: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.paddle_blu_small)
+    var paddleImgBig: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.paddle_blu_big)
 
     var ball: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.ball_blue)
 
     var brick: Bitmap =
         BitmapFactory.decodeResource(context.resources, R.drawable.element_purple_polygon_glossy)
 
-    var squareBrick: Bitmap =
+    var squareBrick: Bitmap =//todo make scaled one
         BitmapFactory.decodeResource(context.resources, R.drawable.element_blue_square_glossy)
 
     var star: Bitmap =

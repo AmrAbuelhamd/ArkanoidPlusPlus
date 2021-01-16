@@ -22,7 +22,7 @@ class Bonus(
             _rect.set(x, y, x + width, y + height)
             return _rect
         }
-    var yVelocity = 800;
+    var yVelocity = 600;
     override fun update(fps: Int) {
         y += (yVelocity / fps)
     }
