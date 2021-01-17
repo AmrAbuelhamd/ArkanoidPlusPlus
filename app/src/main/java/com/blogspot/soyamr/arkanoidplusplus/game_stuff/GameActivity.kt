@@ -28,19 +28,25 @@ class GameActivity : Activity() {
     // username
     private lateinit var username: String
 
+    // level number
+    private var levelNumber: Int = 1
+
     lateinit var gameSurface: GameSurface
     var firstTime: Boolean = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         username = intent.extras!!.getString("username").toString()
+        levelNumber = intent.extras!!.getInt("level")
 
         repository = Repository(this)
 
         val height = getHeight(this)
         val width = getWidth(this)
         firstTime = true;
-        gameSurface = GameSurface(this, height, width, Level.FIRST)
+
+
+        gameSurface = GameSurface(this, height, width, repository.ReturnLevel(levelNumber))
         gameSurface.layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT

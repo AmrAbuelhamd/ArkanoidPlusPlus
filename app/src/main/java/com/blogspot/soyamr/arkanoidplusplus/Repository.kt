@@ -2,6 +2,7 @@ package com.blogspot.soyamr.arkanoidplusplus
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.Level
 import com.blogspot.soyamr.arkanoidplusplus.net.UserData
 import com.blogspot.soyamr.arkanoidplusplus.recycle_icons.Icon
 import com.blogspot.soyamr.arkanoidplusplus.recycle_score.ScoreInfo
@@ -74,7 +75,18 @@ object Repository {
             20 -> return R.drawable.avatar20
             else -> return R.drawable.avatar21
         }
+    }
 
+    fun ReturnLevel(number: Int) : Level {
+        return when (number) {
+            1 -> Level.FIRST
+            2 -> Level.SECOND
+            3 -> Level.THIRD
+            4 -> Level.FOURTH
+            5 -> Level.FIFTH
+            6 -> Level.BONUS
+            else -> Level.BONUS
+        }
     }
 
 /*    private fun setTokenToNull() {
