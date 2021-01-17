@@ -72,6 +72,10 @@ class LoginFragment : Fragment() {
             {
                 Toast.makeText(requireContext(), "Please enter your name!", Toast.LENGTH_SHORT).show()
             }
+            else if (input.length > 8)
+            {
+                Toast.makeText(requireContext(), "Name cannot contain more than 8 characters!", Toast.LENGTH_SHORT).show()
+            }
             else {
                 val user: UserData? = usersData.find { it.nickname == input }
                 if (isOnline) {
@@ -79,7 +83,7 @@ class LoginFragment : Fragment() {
                         if (user.alive) {
                             val action =
                                 LoginFragmentDirections.actionLoginFragmentToLevelSelectFragment(
-                                    user.icon
+                                    user.icon, user.nickname
                                 )
                             findNavController().navigate(action)
                         } else {
@@ -95,7 +99,11 @@ class LoginFragment : Fragment() {
                         findNavController().navigate(action)
                     }
                 } else {
-                    findNavController().navigate(R.id.action_loginFragment_to_noInternetFragment)
+                    val action =
+                        LoginFragmentDirections.actionLoginFragmentToNoInternetFragment(
+                            input
+                        )
+                    findNavController().navigate(action)
                 }
             }
 

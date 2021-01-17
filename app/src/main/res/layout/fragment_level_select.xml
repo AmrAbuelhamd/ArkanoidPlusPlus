@@ -10,31 +10,56 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="64dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/imageViewLevelSelect"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:visibility="visible"
+                app:srcCompat="@drawable/no_internet"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/textViewLSUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/aldrich"
+                android:text="user_name"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/textViewLevelChoose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="64dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/aldrich"
             android:text="@string/level_choose"
             android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imageViewLevelSelect"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-            app:srcCompat="@drawable/no_internet" />
 
         <LinearLayout
             android:id="@+id/linearLayout3"
@@ -43,10 +68,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/textViewLevelChoose">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -73,7 +98,8 @@
                     android:background="@drawable/custom_button2"
                     android:text="2 level"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:theme="@style/FormButton" />
+                    android:theme="@style/FormButton"
+                    android:visibility="invisible" />
             </LinearLayout>
 
             <LinearLayout
@@ -91,7 +117,8 @@
                     android:background="@drawable/custom_button3"
                     android:text="3 level"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:theme="@style/FormButton" />
+                    android:theme="@style/FormButton"
+                    android:visibility="invisible" />
 
                 <Button
                     android:id="@+id/buttonLevel4"
@@ -101,7 +128,8 @@
                     android:background="@drawable/custom_button3"
                     android:text="4 level"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:theme="@style/FormButton" />
+                    android:theme="@style/FormButton"
+                    android:visibility="invisible" />
             </LinearLayout>
 
             <LinearLayout
@@ -119,7 +147,8 @@
                     android:background="@drawable/custom_button4"
                     android:text="5 level"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:theme="@style/FormButton" />
+                    android:theme="@style/FormButton"
+                    android:visibility="invisible" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonLevel6"
