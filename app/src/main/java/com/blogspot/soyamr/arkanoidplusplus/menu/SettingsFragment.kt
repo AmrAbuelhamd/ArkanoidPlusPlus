@@ -47,7 +47,10 @@ class SettingsFragment : Fragment() {
         radioButtonTouch = view.findViewById(R.id.radioButtonSettings1)
         radioButtonGyroscope = view.findViewById(R.id.radioButtonSettings2)
 
-
+        musicON = this.requireArguments().getBoolean("music", true)
+        soundON = this.requireArguments().getBoolean("sound", true)
+        touchON = this.requireArguments().getBoolean("touch", true)
+        
         saveButton!!.setOnClickListener{
             //TODO
         }
