@@ -33,6 +33,7 @@ class LoginFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         repository = Repository(requireContext())
         usersData = mutableListOf()
         myRef = FirebaseDatabase.getInstance().reference
@@ -110,5 +111,7 @@ class LoginFragment : Fragment() {
         }
         return view
     }
+
+
 
 }

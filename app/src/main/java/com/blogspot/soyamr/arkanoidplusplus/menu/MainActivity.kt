@@ -10,4 +10,7 @@ class MainActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
+    override fun onBackPressed() {
+
+    }
 }

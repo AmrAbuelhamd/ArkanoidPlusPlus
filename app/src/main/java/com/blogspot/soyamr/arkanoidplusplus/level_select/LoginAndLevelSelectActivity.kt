@@ -14,4 +14,8 @@ class LoginAndLevelSelectActivity : FragmentActivity() {
         setContentView(R.layout.activity_level_select)
         //startActivity(Intent(this, GameActivity::class.java))
     }
+
+    override fun onBackPressed() {
+        finish()
+    }
 }
