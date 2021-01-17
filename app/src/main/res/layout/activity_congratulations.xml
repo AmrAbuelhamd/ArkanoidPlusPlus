@@ -10,7 +10,7 @@
     tools:context=".CongratulationsActivity">
 
     <TextView
-        android:id="@+id/textViewNoInternetExplanation2"
+        android:id="@+id/textViewCongratulationsText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
@@ -23,10 +23,10 @@
         app:layout_constraintBottom_toTopOf="@+id/buttonLetsGo2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewLevelChoose2" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewCongratulations" />
 
     <TextView
-        android:id="@+id/textViewNoInternetExplanation3"
+        android:id="@+id/textViewLidia"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
@@ -41,7 +41,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textViewLevelChoose2"
+        android:id="@+id/textViewCongratulations"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
