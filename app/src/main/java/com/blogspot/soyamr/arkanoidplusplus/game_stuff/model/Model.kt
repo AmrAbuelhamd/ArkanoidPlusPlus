@@ -406,7 +406,7 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
                 0F,
                 dimensions.shieldYPosition.toFloat(),
                 dimensions.screenWidth.toFloat(),
-                dimensions.shieldYPosition.toFloat() + dimensions.padding/2, paint
+                dimensions.shieldYPosition.toFloat() + dimensions.padding / 2, paint
             )
         }
         screenElements.forEach { it?.draw(canvas) }
@@ -585,6 +585,6 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
         val endTime = SystemClock.uptimeMillis()
         val delta = endTime - startTime
         val deltaInSeconds = (delta / 1000).toInt()
-        return 1000 * (numBricks / deltaInSeconds)
+        return (numBricks * 1000) / deltaInSeconds
     }
 }
