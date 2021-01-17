@@ -64,13 +64,6 @@
             app:exitAnim="@anim/to_left2"
             app:popEnterAnim="@anim/from_left2"
             app:popExitAnim="@anim/to_right2" />
-        <action
-            android:id="@+id/action_iconPickFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:enterAnim="@anim/from_left2"
-            app:exitAnim="@anim/to_right2"
-            app:popEnterAnim="@anim/from_right2"
-            app:popExitAnim="@anim/to_left2" />
         <argument
             android:name="Nickname"
             app:argType="string" />

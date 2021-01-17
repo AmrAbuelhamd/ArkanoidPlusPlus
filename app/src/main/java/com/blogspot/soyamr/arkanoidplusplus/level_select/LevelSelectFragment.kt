@@ -67,6 +67,9 @@ class LevelSelectFragment : Fragment() {
         buttonLevel4 = view.findViewById(R.id.buttonLevel4)
         buttonLevel5 = view.findViewById(R.id.buttonLevel5)
         buttonLevel6 = view.findViewById(R.id.buttonLevel6)
+
+
+
         var buttons = listOf(buttonLevel1, buttonLevel2, buttonLevel3, buttonLevel4, buttonLevel5, buttonLevel6)
         textView.text = username
 
@@ -81,8 +84,6 @@ class LevelSelectFragment : Fragment() {
                     {
                         buttons[i].visibility = View.VISIBLE
                     }
-
-
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -94,11 +95,35 @@ class LevelSelectFragment : Fragment() {
         else
         {
             imageView.setImageResource(R.drawable.no_internet)
-
+            username="not_connected"
         }
 
-        view.buttonLevel1.setOnClickListener{
-            startActivity(Intent(requireContext(), GameActivity::class.java))
+        val intent = Intent(requireContext(), GameActivity::class.java)
+        intent.putExtra("username", username)
+
+        buttonLevel1.setOnClickListener{
+            intent.putExtra("username",1)
+            startActivity(intent)
+        }
+        buttonLevel2.setOnClickListener{
+            intent.putExtra("username",2)
+            startActivity(intent)
+        }
+        buttonLevel3.setOnClickListener{
+            intent.putExtra("username",3)
+            startActivity(intent)
+        }
+        buttonLevel4.setOnClickListener{
+            intent.putExtra("username",4)
+            startActivity(intent)
+        }
+        buttonLevel5.setOnClickListener{
+            intent.putExtra("username",5)
+            startActivity(intent)
+        }
+        buttonLevel6.setOnClickListener{
+            intent.putExtra("username",6)
+            startActivity(intent)
         }
 
         return view
