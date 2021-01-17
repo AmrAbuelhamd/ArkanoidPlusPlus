@@ -21,7 +21,7 @@ public enum class Level : ILevel {
                             column * model.dimensions.polygonWidth + model.dimensions.padding * (column + 3),
                             row * model.dimensions.polygonHeight + model.dimensions.padding * (row + 1)
                         )
-                    model.addBonusHere(model.numBricks, BonusType.PLUS_BALL)
+                    model.addBonusHere(model.numBricks, BonusType.BULLETS)
                     ++model.numBricks
                 }
             }
