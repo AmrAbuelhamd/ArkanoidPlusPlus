@@ -97,7 +97,8 @@
                     android:background="@drawable/custom_button2"
                     android:text="2 level"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:theme="@style/FormButton" />
+                    android:theme="@style/FormButton"
+                    android:visibility="invisible" />
             </LinearLayout>
 
             <LinearLayout
@@ -115,7 +116,8 @@
                     android:background="@drawable/custom_button3"
                     android:text="3 level"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:theme="@style/FormButton" />
+                    android:theme="@style/FormButton"
+                    android:visibility="invisible" />
 
                 <Button
                     android:id="@+id/buttonLevel4"
@@ -125,7 +127,8 @@
                     android:background="@drawable/custom_button3"
                     android:text="4 level"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:theme="@style/FormButton" />
+                    android:theme="@style/FormButton"
+                    android:visibility="invisible" />
             </LinearLayout>
 
             <LinearLayout
@@ -143,7 +146,8 @@
                     android:background="@drawable/custom_button4"
                     android:text="5 level"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                    android:theme="@style/FormButton" />
+                    android:theme="@style/FormButton"
+                    android:visibility="invisible" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonLevel6"
