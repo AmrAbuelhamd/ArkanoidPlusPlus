@@ -25,6 +25,10 @@ class Dimensions(screenWidth: Int, screenHeight: Int) {
 
     private val _polygonWidth = 120;
     private val _polygonHeight = 115;
+    private val polygonColMax = 8
+
+    private val _squareWidth = 96;
+    private val _squareHeight = 96;
 
     private val _padding = 10;
 
