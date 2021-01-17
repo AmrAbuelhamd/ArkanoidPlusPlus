@@ -18,7 +18,7 @@ import kotlin.collections.ArrayList
 class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: ILevel) :
     IModel, ModelBallInterface {
     private val numberOfStars = 200
-    private val balls: List<Ball>
+    private val balls: MutableList<Ball> = ArrayList()
     private val bonuses: Array<Bonus?> = arrayOfNulls<Bonus>(200)
     private val bonusesTracker: Array<Boolean?> = arrayOfNulls<Boolean>(200)
     private val bonusesIndexes: MutableList<Int> = ArrayList<Int>()
@@ -32,7 +32,7 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
     // The score
     private var score = 0
 
-    val dimensions: Dimensions =
+    override val dimensions: Dimensions =
         Dimensions(gameSurface.getScreenWidth(), gameSurface.getScreenHeight())
     val gameBitmaps = GameBitmaps(context, dimensions)
     private val gameSounds = SoundManger(context)
@@ -57,15 +57,6 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
     var prizeTextBounds = Rect()
 
     init {
-        balls = listOf(
-            Ball(
-                this,
-                gameSurface,
-                gameBitmaps.ball,
-                dimensions.screenWidth / 2,
-                dimensions.screenHeight - dimensions.paddleInitialYPosition - dimensions.ballHeight
-            )
-        )
         paddle = Paddle(
             this,
             gameBitmaps.paddleImg,
@@ -88,6 +79,22 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
 
     var startTime: Long = 0L
     fun resetEverything() {
+        bonusesIndexes.clear()
+
+        for (el in bonusesTracker.withIndex())
+            bonusesTracker[el.index] = false
+
+        balls.clear()
+        balls.add(
+            Ball(
+                this,
+                gameSurface,
+                gameBitmaps.ball,
+                dimensions.screenWidth / 2,
+                dimensions.screenHeight - dimensions.paddleInitialYPosition - dimensions.ballHeight
+            )
+        )
+
         startTime = SystemClock.uptimeMillis()
         hasWon = null
         numBricks = 0;
@@ -111,7 +118,7 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
                 gameBitmaps.paddleImgLife,
                 dimensions.lifePaddleWidth + dimensions.padding,
                 gameSurface.getScreenHeight() - dimensions.padding * 5 - dimensions.lifePaddleHeight
-            )/*,
+            ),
             ScreenElement(
                 this,
                 gameSurface,
@@ -125,7 +132,7 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
                 gameBitmaps.paddleImgLife,
                 dimensions.lifePaddleWidth * 3 + dimensions.padding * 3,
                 gameSurface.getScreenHeight() - dimensions.padding * 5 - dimensions.lifePaddleHeight
-            )*/
+            )
         )
     }
 
@@ -187,39 +194,77 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
     override fun update(fps: Int) {
         if (!pause) {
             balls.forEach { it.update(fps) }
+
+            //check ball colliding with screen bottom
+            val itr = balls.iterator()
+            while (itr.hasNext()) {
+                val ball = itr.next()
+                if (ball.y > gameSurface.getScreenHeight() - ball.height) {
+                    if (balls.size == 1) {
+                        ball.reset()
+                        pause()
+                        reduceLive()
+                        playSoundBottom()
+                        break
+                    }//else there is more balls, so just remove this ball
+                    itr.remove()
+                }
+            }
+
             paddle.update(fps)
 
             // Check for ball colliding with paddle
             balls.forEach {
                 if (it.intersects(paddle.getRect())) {
                     it.adjustAngel(paddle.getRect())
-                    it.decideBallNewVelocityAccordingToPaddle(paddle.paddleState, paddle.getRect())
+                    it.decideBallNewVelocityAccordingToPaddle(
+                        paddle.paddleState,
+                        paddle.getRect()
+                    )
                     it.clearObstacleY(paddle.getRect().top);
                     gameSounds.ballCollideWithPaddle()
                 }
             }
 
-            // Check for ball colliding with a brick
-            var flag = false
-            for (i in 0 until numBricks) {
-                if (bricks[i]!!.getVisibility()) {
-                    balls.forEach {
+            balls.forEach {
+                for (i in 0 until numBricks) {
+                    if (bricks[i]!!.getVisibility()) {
                         if (it.intersects(bricks[i]!!.rect)) {
                             bricks[i]!!.setInvisible()
                             it.decideBallNewVelocityAccordingToBrick(bricks[i]!!.rect)
                             score += 10
                             gameSounds.ballCollideWithBrick()
-                            flag = true
                             if (bonusesIndexes.contains(i)) {
                                 bonusesTracker[i] = true
                             }
+                            break
                         }
-                    }
-                    if (flag) {
-                        break
                     }
                 }
             }
+//            // Check for ball colliding with a brick
+//            var flag = false
+//            for (i in 0 until numBricks) {
+//                if (bricks[i]!!.getVisibility()) {
+//                    balls.forEach {
+//                        if (it.intersects(bricks[i]!!.rect)) {
+//                            if (bricks[i]!!.getVisibility()) {
+//                                bricks[i]!!.setInvisible()
+//                                it.decideBallNewVelocityAccordingToBrick(bricks[i]!!.rect)
+//                                score += 10
+//                                gameSounds.ballCollideWithBrick()
+//                                flag = true
+//                                if (bonusesIndexes.contains(i)) {
+//                                    bonusesTracker[i] = true
+//                                }
+//                            }
+//                        }
+//                    }
+//                    if (flag) {
+//                        break
+//                    }
+//                }
+//            }
 
             //update bonuses
             bonusesIndexes.forEach {
@@ -263,11 +308,45 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
             BonusType.BIGGER_PADDLE -> {
                 paddle.changePaddleImgState(paddle.imgBig)
             }
+            BonusType.PLUS_BALL -> {
+                balls.add(
+                    Ball(
+                        this,
+                        gameSurface,
+                        gameBitmaps.ball,
+                        dimensions.screenWidth / 2 - dimensions.ballWidth * 2,
+                        dimensions.screenHeight / 2,
+                    ).also { it.reverseXVelocity() }
+                )
+                balls.add(
+                    Ball(
+                        this,
+                        gameSurface,
+                        gameBitmaps.ball,
+                        dimensions.screenWidth / 2 + dimensions.ballWidth * 2,
+                        dimensions.screenHeight / 2,
+                    )
+                )
+                balls.add(
+                    Ball(
+                        this,
+                        gameSurface,
+                        gameBitmaps.ball,
+                        dimensions.screenWidth / 2,
+                        dimensions.screenHeight / 2,
+                    ).also {
+                        it.reverseYVelocity()
+                        it.xVelocity = 0
+                    }
+                )
+            }
+            BonusType.SHIELD -> TODO()
+            BonusType.BULLETS -> TODO()
         }
     }
 
     override fun draw(canvas: Canvas) {
-        balls.forEach { it.draw(canvas) }
+        balls.forEach { if (it.isAlive) it.draw(canvas) }
         screenElements.forEach { it?.draw(canvas) }
         lives.forEach { it.draw(canvas) }
         paddle.draw(canvas)
@@ -352,7 +431,7 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
     }
 
     fun addBonusHere(rn: Int, bonus: BonusType) {
-        if (rn >= numBricks)
+        if (rn > numBricks)
             return
         bonusesIndexes.add(rn)
         bonuses[rn] = Bonus(

@@ -10,14 +10,14 @@ abstract class GameObject(
     protected var rowCount: Int,
     protected var colCount: Int,
     protected var x: Int,
-    protected var y: Int
+    var y: Int
 ) : GlobalBehavior {
     var isAlive = true
     protected val WIDTH: Int
     protected val HEIGHT: Int
     var isVisible = true;
     protected val width: Int
-    protected val height: Int
+    val height: Int
 
 
     init {
