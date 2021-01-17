@@ -169,33 +169,6 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
         }
     }
 
-    private fun createBricksAndRestart() {
-        //reset balls
-        balls.forEach { it.reset() }
-        for (column in 0..7) {
-            for (row in 0..2) {
-                bricks[numBricks] =
-                    Brick(
-                        gameSurface,
-                        gameBitmaps.brick,
-                        column * dimensions.polygonWidth + dimensions.padding * (column + 3),
-                        row * dimensions.polygonHeight + dimensions.padding * (row + 1)
-                    )
-                ++numBricks
-            }
-        }
-        //add random bonus
-        val rn = Random().nextInt(numBricks)
-        bonusesIndexes.add(rn)
-        bonuses[rn] = Bonus(
-            gameSurface,
-            gameBitmaps.bonusImg,
-            bricks[1]!!.rect.left,
-            bricks[1]!!.rect.top,
-            BonusType.PLUS_LIVE
-        )
-    }
-
 
     override fun setMovementState(state: State) {
         paddle.paddleState = state
@@ -240,43 +213,21 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
                 for (i in 0 until numBricks) {
                     if (bricks[i]!!.getVisibility()) {
                         if (it.intersects(bricks[i]!!.rect)) {
-                            bricks[i]!!.setInvisible()
-                            it.decideBallNewVelocityAccordingToBrick(bricks[i]!!.rect)
-                            score += 10
-                            gameSounds.ballCollideWithBrick()
-                            if (bonusesIndexes.contains(i)) {
-                                bonusesTracker[i] = true
+                            if (bricks[i]!!.reduceLife()) {
+                                score += 10
+                                if (bonusesIndexes.contains(i)) {
+                                    bonusesTracker[i] = true
+                                }
                             }
+                            it.decideBallNewVelocityAccordingToBrick(bricks[i]!!.rect)
+                            gameSounds.ballCollideWithBrick()
+
                             break
                         }
                     }
                 }
             }
-//            // Check for ball colliding with a brick
-//            var flag = false
-//            for (i in 0 until numBricks) {
-//                if (bricks[i]!!.getVisibility()) {
-//                    balls.forEach {
-//                        if (it.intersects(bricks[i]!!.rect)) {
-//                            if (bricks[i]!!.getVisibility()) {
-//                                bricks[i]!!.setInvisible()
-//                                it.decideBallNewVelocityAccordingToBrick(bricks[i]!!.rect)
-//                                score += 10
-//                                gameSounds.ballCollideWithBrick()
-//                                flag = true
-//                                if (bonusesIndexes.contains(i)) {
-//                                    bonusesTracker[i] = true
-//                                }
-//                            }
-//                        }
-//                    }
-//                    if (flag) {
-//                        break
-//                    }
-//                }
-//            }
 
-            //update bonuses
             bonusesIndexes.forEach {
                 if (bonusesTracker[it] == true) {
                     bonuses[it]?.update(fps)
@@ -310,12 +261,13 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
                 for (i in 0 until numBricks) {
                     if (bricks[i]!!.getVisibility()) {
                         if (bullet.intersects(bricks[i]!!.rect)) {
-                            bricks[i]!!.setInvisible()
-                            score += 10
-                            gameSounds.ballCollideWithBrick()//fixme add sound for bullet colliding with brick
-                            if (bonusesIndexes.contains(i)) {
-                                bonusesTracker[i] = true
+                            if (bricks[i]!!.reduceLife()) {
+                                score += 10
+                                if (bonusesIndexes.contains(i)) {
+                                    bonusesTracker[i] = true
+                                }
                             }
+                            gameSounds.ballCollideWithBrick()//fixme add sound for bullet colliding with brick
                             bullets.remove(bullet)
                             break
                         }

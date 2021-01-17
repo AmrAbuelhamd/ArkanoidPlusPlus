@@ -173,14 +173,14 @@ class Ball(
                 return
             }
             Side.LEFT -> {
-                reverseXVelocity()
                 clearObstacleX(paddle.left + -width - 2)
+                reverseXVelocity()
                 return
             }
             else -> {
                 val direction = getBallDirection()
-                //anyway i should bounce it back up
                 adjustAngel(paddle)
+                //anyway i should bounce it back up
                 reverseYVelocity()
                 when (paddleState) {
                     State.LEFT ->
@@ -235,7 +235,7 @@ class Ball(
         return if (xVelocity < 0 && yVelocity < 0) Direction.UP_LEFT else if (xVelocity < 0 && yVelocity > 0) Direction.DOWN_LEFT
         //   +,-                                            //+,+
         else if (xVelocity > 0 && yVelocity < 0) Direction.UP_RIGHT else Direction.DOWN_RIGHT
-        //if(xVelocity < 0 && yVelocity > 0)
+                                                            //if(xVelocity < 0 && yVelocity > 0)
     }
 
     private fun adjustAngel(paddle: Rect) {
@@ -255,11 +255,6 @@ class Ball(
         } else if (ballRect.centerX() in (paddle.left + part + 1) until (paddle.right - part)) {
             yVelocity = yDir * yVelocityDefault
             xVelocity = xDir * xVelocityDefault
-            if (ballRect.centerX() < paddle.centerX()) {
-                xVelocity *= -1;
-            }
         }
     }
-
-
 }

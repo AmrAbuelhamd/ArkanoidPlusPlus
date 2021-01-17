@@ -25,10 +25,15 @@ class Dimensions(screenWidth: Int, screenHeight: Int) {
 
     private val _polygonWidth = 120;
     private val _polygonHeight = 115;
-    private val polygonColMax = 8
+     val polygonColMax = 8
 
-    private val _squareWidth = 96;
-    private val _squareHeight = 96;
+    private val _squareWidth = 93;
+    private val _squareHeight = 93;
+     val squareColMax = 10
+
+    private val _rectangleWidth = 196;
+    private val _rectangleHeight = 98;
+    val rectangleColMax = 5
 
     private val _padding = 10;
 
@@ -56,8 +61,16 @@ class Dimensions(screenWidth: Int, screenHeight: Int) {
     val lifePaddleWidth = (_lifePaddleWidth / scalingFactorX).toInt();
     val lifePaddleHeight = (_lifePaddleHeight / scalingFactorY).toInt()
 
+    //bricks
+
+    val rectangleWidth = (_rectangleWidth / scalingFactorX).toInt();
+    val rectangleHeight = (_rectangleHeight / scalingFactorY).toInt();
+
     val polygonWidth = (_polygonWidth / scalingFactorX).toInt();
     val polygonHeight = (_polygonHeight / scalingFactorY).toInt();
+
+    val squareWidth = (_squareWidth / scalingFactorX).toInt();
+    val squareHeight = (_squareHeight / scalingFactorY).toInt();
 
     val padding = (_padding / scalingFactorX).toInt();
 

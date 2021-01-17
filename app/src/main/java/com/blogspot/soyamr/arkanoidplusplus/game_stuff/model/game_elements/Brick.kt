@@ -1,20 +1,26 @@
 package com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.game_elements
 
-import android.graphics.*
-import com.blogspot.soyamr.arkanoidplusplus.game_stuff.IGameSurface
+import android.graphics.Canvas
+import android.graphics.Rect
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.BrickHardness
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.BrickType
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.Model
 
 class Brick(
-    private val gameSurface: IGameSurface,
-    image: Bitmap,
+    private val model: Model,
     x: Int,
-    y: Int
+    y: Int,
+    var brickHardness: BrickHardness,
+    private val brickType: BrickType
 ) :
     GameObject(
-        image, 1, 1,
+        brickType.getBrick(brickHardness, model), 1, 1,
         x, y
     ) {
+
     public val rect = Rect()
-    val paint = Paint()
+
+    var brickColoredImage = image
 
     init {
         rect.set(
@@ -22,7 +28,6 @@ class Brick(
             x + image.width,
             y + image.height
         )
-        paint.color = Color.RED
     }
 
     override fun update(fps: Int) {
@@ -30,11 +35,21 @@ class Brick(
     }
 
     override fun draw(canvas: Canvas) {
-        canvas.drawBitmap(image, x.toFloat(), y.toFloat(), null)
+        canvas.drawBitmap(brickColoredImage, x.toFloat(), y.toFloat(), null)
     }
 
-    fun setInvisible() {
-        isVisible = false
+    fun reduceLife():Boolean {
+        //unbreakable brick
+        if (brickHardness == BrickHardness.DIAMOND) {
+            return false
+        }
+        brickHardness = brickHardness.next()
+        if (brickHardness == BrickHardness.DEAD) {
+            isVisible = false
+            return true
+        }
+        brickColoredImage = brickType.getBrick(brickHardness, model)
+        return false
     }
 
     fun getVisibility(): Boolean {

@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import com.blogspot.soyamr.arkanoidplusplus.R
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.Dimensions
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.game_elements.Brick
 
 class GameBitmaps(private val context: Context, private val dimensions: Dimensions) {
 
@@ -16,11 +17,46 @@ class GameBitmaps(private val context: Context, private val dimensions: Dimensio
 
     var ball: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.ball_blue)
 
-    var brick: Bitmap =
+    //bricks
+    //polygon
+    var brickPolygonPurple: Bitmap =
         BitmapFactory.decodeResource(context.resources, R.drawable.element_purple_polygon_glossy)
-
-    var squareBrick: Bitmap =//todo make scaled one
+    var brickPolygonRed: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.element_red_polygon_glossy)
+    var brickPolygonGreen: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.element_green_polygon_glossy)
+    var brickPolygonGrey: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.element_grey_polygon_glossy)
+    var brickPolygonBlue: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.element_blue_polygon_glossy)
+    var brickPolygonYellow: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.element_yellow_polygon_glossy)
+    //square
+    var brickSquarePurple: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.element_purple_square_glossy)
+    var brickSquareRed: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.element_red_square_glossy)
+    var brickSquareGreen: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.element_green_square_glossy)
+    var brickSquareGrey: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.element_grey_square_glossy)
+    var brickSquareBlue: Bitmap =
         BitmapFactory.decodeResource(context.resources, R.drawable.element_blue_square_glossy)
+    var brickSquareYellow: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.element_yellow_square_glossy) 
+    //rectangle
+    var brickRectanglePurple: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.element_purple_rectangle_glossy)
+    var brickRectangleRed: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.element_red_rectangle_glossy)
+    var brickRectangleGreen: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.element_green_rectangle_glossy)
+    var brickRectangleGrey: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.element_grey_rectangle_glossy)
+    var brickRectangleBlue: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.element_blue_rectangle_glossy)
+    var brickRectangleYellow: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.element_yellow_rectangle_glossy)
 
     var star: Bitmap =
         BitmapFactory.decodeResource(context.resources, R.drawable.particle_star)
@@ -409,10 +445,183 @@ class GameBitmaps(private val context: Context, private val dimensions: Dimensio
         BitmapFactory.decodeResource(context.resources, R.drawable.y1_59),
     )
 
-
     var paddleImgLife: Bitmap
 
     init {
+        scaleBullets()
+        //bricks
+        scalePolygon()
+        scaleSquare()
+        scaleRectangle()
+        scaleStares()
+
+        ball = Bitmap.createScaledBitmap(ball, dimensions.ballWidth, dimensions.ballHeight, false)
+
+        paddleImg = Bitmap.createScaledBitmap(
+            paddleImg,
+            dimensions.paddleWidth,
+            dimensions.paddleHeight,
+            false
+        )
+
+        bonusImg = Bitmap.createScaledBitmap(
+            bonusImg,
+            dimensions.ballWidth,
+            dimensions.ballHeight,
+            false
+        )
+
+        paddleImgLife = Bitmap.createScaledBitmap(
+            paddleImg,
+            dimensions.lifePaddleWidth,
+            dimensions.lifePaddleHeight,
+            false
+        )
+    }
+
+    private fun scaleStares() {
+
+        star = Bitmap.createScaledBitmap(
+            star,
+            dimensions.starWidth,
+            dimensions.starHeight,
+            false
+        )
+        star2 = Bitmap.createScaledBitmap(
+            star2,
+            dimensions.starWidth,
+            dimensions.starHeight,
+            false
+        )
+        star3 = Bitmap.createScaledBitmap(
+            star3,
+            dimensions.starWidth,
+            dimensions.starHeight,
+            false
+        )
+    }
+
+    private fun scaleRectangle() {
+        //rectangle
+        brickRectanglePurple = Bitmap.createScaledBitmap(
+            brickRectanglePurple,
+            dimensions.rectangleWidth,
+            dimensions.rectangleHeight,
+            false
+        )
+        brickRectangleRed = Bitmap.createScaledBitmap(
+            brickRectangleRed,
+            dimensions.rectangleWidth,
+            dimensions.rectangleHeight,
+            false
+        )
+        brickRectangleGreen = Bitmap.createScaledBitmap(
+            brickRectangleGreen,
+            dimensions.rectangleWidth,
+            dimensions.rectangleHeight,
+            false
+        )
+        brickRectangleBlue = Bitmap.createScaledBitmap(
+            brickRectangleBlue,
+            dimensions.rectangleWidth,
+            dimensions.rectangleHeight,
+            false
+        )
+        brickRectangleYellow = Bitmap.createScaledBitmap(
+            brickRectangleYellow,
+            dimensions.rectangleWidth,
+            dimensions.rectangleHeight,
+            false
+        )
+        brickRectangleGrey = Bitmap.createScaledBitmap(
+            brickRectangleGrey,
+            dimensions.rectangleWidth,
+            dimensions.rectangleHeight,
+            false
+        )
+    }
+
+    private fun scaleSquare() {
+        //square
+        brickSquarePurple = Bitmap.createScaledBitmap(
+            brickSquarePurple,
+            dimensions.squareWidth,
+            dimensions.squareHeight,
+            false
+        )
+        brickSquareRed = Bitmap.createScaledBitmap(
+            brickSquareRed,
+            dimensions.squareWidth,
+            dimensions.squareHeight,
+            false
+        )
+        brickSquareGreen = Bitmap.createScaledBitmap(
+            brickSquareGreen,
+            dimensions.squareWidth,
+            dimensions.squareHeight,
+            false
+        )
+        brickSquareBlue = Bitmap.createScaledBitmap(
+            brickSquareBlue,
+            dimensions.squareWidth,
+            dimensions.squareHeight,
+            false
+        )
+        brickSquareYellow = Bitmap.createScaledBitmap(
+            brickSquareYellow,
+            dimensions.squareWidth,
+            dimensions.squareHeight,
+            false
+        )
+        brickSquareGrey = Bitmap.createScaledBitmap(
+            brickSquareGrey,
+            dimensions.squareWidth,
+            dimensions.squareHeight,
+            false
+        )
+    }
+
+    private fun scalePolygon() {
+        //polygon
+        brickPolygonPurple = Bitmap.createScaledBitmap(
+            brickPolygonPurple,
+            dimensions.polygonWidth,
+            dimensions.polygonHeight,
+            false
+        )
+        brickPolygonRed = Bitmap.createScaledBitmap(
+            brickPolygonRed,
+            dimensions.polygonWidth,
+            dimensions.polygonHeight,
+            false
+        )
+        brickPolygonGreen = Bitmap.createScaledBitmap(
+            brickPolygonGreen,
+            dimensions.polygonWidth,
+            dimensions.polygonHeight,
+            false
+        )
+        brickPolygonBlue = Bitmap.createScaledBitmap(
+            brickPolygonBlue,
+            dimensions.polygonWidth,
+            dimensions.polygonHeight,
+            false
+        )
+        brickPolygonYellow = Bitmap.createScaledBitmap(
+            brickPolygonYellow,
+            dimensions.polygonWidth,
+            dimensions.polygonHeight,
+            false
+        )
+        brickPolygonGrey = Bitmap.createScaledBitmap(
+            brickPolygonGrey,
+            dimensions.polygonWidth,
+            dimensions.polygonHeight,
+            false
+        )
+    }
+
+    private fun scaleBullets() {
         //green
         for (el in greenBullet.withIndex()) {
             greenBullet[el.index] = Bitmap.createScaledBitmap(
@@ -449,7 +658,7 @@ class GameBitmaps(private val context: Context, private val dimensions: Dimensio
                 false
             )
         }
-        //blu
+        //blue
         for (el in bluBullet.withIndex()) {
             bluBullet[el.index] = Bitmap.createScaledBitmap(
                 el.value,
@@ -467,55 +676,6 @@ class GameBitmaps(private val context: Context, private val dimensions: Dimensio
                 false
             )
         }
-
-        brick = Bitmap.createScaledBitmap(
-            brick,
-            dimensions.polygonWidth,
-            dimensions.polygonHeight,
-            false
-        )
-
-        star = Bitmap.createScaledBitmap(
-            star,
-            dimensions.starWidth,
-            dimensions.starHeight,
-            false
-        )
-        star2 = Bitmap.createScaledBitmap(
-            star2,
-            dimensions.starWidth,
-            dimensions.starHeight,
-            false
-        )
-        star3 = Bitmap.createScaledBitmap(
-            star3,
-            dimensions.starWidth,
-            dimensions.starHeight,
-            false
-        )
-
-        ball = Bitmap.createScaledBitmap(ball, dimensions.ballWidth, dimensions.ballHeight, false)
-
-        paddleImg = Bitmap.createScaledBitmap(
-            paddleImg,
-            dimensions.paddleWidth,
-            dimensions.paddleHeight,
-            false
-        )
-
-        bonusImg = Bitmap.createScaledBitmap(
-            bonusImg,
-            dimensions.ballWidth,
-            dimensions.ballHeight,
-            false
-        )
-
-        paddleImgLife = Bitmap.createScaledBitmap(
-            paddleImg,
-            dimensions.lifePaddleWidth,
-            dimensions.lifePaddleHeight,
-            false
-        )
     }
 
     var bulletColorCTR = 0;
