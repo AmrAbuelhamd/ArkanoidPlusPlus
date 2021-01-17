@@ -109,8 +109,8 @@ class GameActivity : Activity() {
                     {
                         repository.APIChangeOrAddUser(userInfo!!.nickname, userInfo.score, false, userInfo.icon, userInfo.levels)
                     }
-                    else if (levelNum - 1 == userInfo!!.levels) {
-                        repository.APIChangeOrAddUser(userInfo.nickname, userInfo.score + score, userInfo.alive, userInfo.icon, levelNum)
+                    else if (levelNum == userInfo!!.levels) {
+                        repository.APIChangeOrAddUser(userInfo.nickname, userInfo.score + score, userInfo.alive, userInfo.icon, levelNum + 1)
                     }
                 }
 

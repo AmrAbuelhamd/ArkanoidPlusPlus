@@ -48,7 +48,7 @@ class IconPickFragment : Fragment(), OnIconIListener {
 
         letTheJourneyBeginButton = view.findViewById(R.id.buttonLetTheJourneyBegin)
         letTheJourneyBeginButton!!.setOnClickListener{
-            repository.APIChangeOrAddUser(nickname, 0, true, chosenIconNumber + 1, 0)
+            repository.APIChangeOrAddUser(nickname, 0, true, chosenIconNumber + 1, 1)
             val action = IconPickFragmentDirections.actionIconPickFragmentToStoryFragment(chosenIconNumber + 1, nickname)
             findNavController().navigate(action)
         }
