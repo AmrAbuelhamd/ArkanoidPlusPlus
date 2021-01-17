@@ -33,7 +33,7 @@ object Repository {
         Icon(R.drawable.avatar19), Icon(R.drawable.avatar20), Icon(R.drawable.avatar21)
     )
 
-    private fun APIChangeOrAddUser(nickname: String, score: Int, alive: Boolean, icon: Int, levels: Int){
+    fun APIChangeOrAddUser(nickname: String, score: Int, alive: Boolean, icon: Int, levels: Int){
         val user = UserData(nickname, score, alive, icon, levels)
         myRef.child("users").child("nickname").setValue(user)
     }

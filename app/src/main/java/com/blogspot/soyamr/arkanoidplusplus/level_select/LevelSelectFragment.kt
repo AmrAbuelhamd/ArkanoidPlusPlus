@@ -39,7 +39,7 @@ class LevelSelectFragment : Fragment() {
         val view =  inflater.inflate(R.layout.fragment_level_select, container, false)
         if (iconID != -1) {
             imageView = view.findViewById(R.id.imageViewLevelSelect)
-
+            imageView.setImageResource(repository.ReturnIconID(iconID!!))
         }
 
         view.buttonLevel1.setOnClickListener{

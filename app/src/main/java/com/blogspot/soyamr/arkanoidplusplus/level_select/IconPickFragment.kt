@@ -27,6 +27,8 @@ class IconPickFragment : Fragment(), OnIconIListener {
 
     var letTheJourneyBeginButton: Button?=null
 
+    var nickname:String="kinda_error_i_guess"
+
     // hardcode
     private lateinit var icons: List<Icon>
 
@@ -41,10 +43,13 @@ class IconPickFragment : Fragment(), OnIconIListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        val args = arguments?.let { IconPickFragmentArgs.fromBundle(it) }
+        nickname = args?.nickname!!
         val view =  inflater.inflate(R.layout.fragment_icon_pick, container, false)
 
         letTheJourneyBeginButton = view.findViewById(R.id.buttonLetTheJourneyBegin)
         letTheJourneyBeginButton!!.setOnClickListener{
+            repository.APIChangeOrAddUser(nickname, 0, true, chosenIconNumber, 1)
             findNavController().navigate(R.id.action_iconPickFragment_to_storyFragment)
         }
 

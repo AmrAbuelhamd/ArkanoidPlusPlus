@@ -40,6 +40,11 @@ class ScoreAdapter: RecyclerView.Adapter<ScoreAdapter.ScoreViewHolder>() {
                 nickname.setTextColor(Color.YELLOW)
                 score.setTextColor(Color.YELLOW)
             }
+            else
+            {
+                nickname.setTextColor(Color.WHITE)
+                score.setTextColor(Color.WHITE)
+            }
         }
     }
 
