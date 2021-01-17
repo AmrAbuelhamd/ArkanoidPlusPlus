@@ -9,15 +9,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen">
+        <service
+            android:name=".notifications.NotificationIntentService"
+            android:enabled="true"
+            android:exported="false"></service>
+        <receiver android:name=".broadcast_receivers.NotificationEventReceiver" />
+        <receiver android:name=".broadcast_receivers.NotificationServiceStarterReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.intent.action.TIME_SET" />
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name=".CongratulationsActivity"
             android:label="@string/title_activity_congratulations">
-<!--            <intent-filter>
+
+            <!--
+                <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
 
         <uses-library
@@ -29,9 +44,7 @@
         -->
         <meta-data
             android:name="com.google.android.wearable.standalone"
-            android:value="true" />
-
-        <!-- <activity android:name=".menu.SettingsActivity" /> -->
+            android:value="true" /> <!-- <activity android:name=".menu.SettingsActivity" /> -->
         <activity
             android:name=".level_select.LoginAndLevelSelectActivity"
             android:label="@string/title_activity_level_select"
@@ -40,10 +53,12 @@
             android:name=".game_stuff.GameActivity"
             android:label="@string/title_activity_game"
             android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
-        <!-- <activity
+        <!--
+ <activity
             android:name=".menu.ScoreActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" /> -->
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
+        -->
         <activity
             android:name=".menu.MainActivity"
             android:screenOrientation="portrait">
