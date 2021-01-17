@@ -24,7 +24,6 @@ class LevelSelectFragment : Fragment() {
 
     // firebase
     private lateinit var myRef: DatabaseReference
-    private lateinit var usersData: MutableList<UserData>
 
     // repository
     private lateinit var repository: Repository
@@ -55,9 +54,6 @@ class LevelSelectFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
-        usersData = mutableListOf()
-
         val args = arguments?.let { LevelSelectFragmentArgs.fromBundle(it) }
         iconID = args!!.iconID
         username = args!!.username
@@ -80,7 +76,6 @@ class LevelSelectFragment : Fragment() {
             myRef = FirebaseDatabase.getInstance().reference
             myRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    usersData.clear()
                     val userInfo: UserData? = dataSnapshot.child("users").child(username).getValue(UserData::class.java)
                     for (i in 0 until userInfo!!.levels)
                     {
