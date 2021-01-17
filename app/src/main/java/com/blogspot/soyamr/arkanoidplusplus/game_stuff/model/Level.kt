@@ -5,7 +5,7 @@ import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.game_elements.Bonus
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.game_elements.Brick
 import java.util.*
 
-public enum class Level : ILevel {
+enum class Level : ILevel {
     FIRST {
         override val levelNum: Int = 1
 
@@ -21,7 +21,18 @@ public enum class Level : ILevel {
                             column * model.dimensions.polygonWidth + model.dimensions.padding * (column + 3),
                             row * model.dimensions.polygonHeight + model.dimensions.padding * (row + 1)
                         )
-                    model.addBonusHere(model.numBricks, BonusType.BULLETS)
+                   /* if (row == 4)
+                        model.addBonusHere(model.numBricks, BonusType.BULLETS)
+                    else if(row == 1)
+                        model.addBonusHere(model.numBricks, BonusType.PLUS_LIVE)
+                    else if(row == 2)
+                        model.addBonusHere(model.numBricks, BonusType.SMALLER_PADDLE)
+                    else if(row == 3)
+                        model.addBonusHere(model.numBricks, BonusType.SMALLER_PADDLE)
+                    else if(row == 0)
+                        model.addBonusHere(model.numBricks, BonusType.PLUS_BALL)*/
+
+                    model.addBonusHere(model.numBricks, BonusType.SHIELD)
                     ++model.numBricks
                 }
             }

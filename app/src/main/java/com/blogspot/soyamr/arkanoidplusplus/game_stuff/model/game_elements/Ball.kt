@@ -23,6 +23,7 @@ class Ball(
     1,
     x, y
 ) {
+    enum class Side { LEFT, RIGHT, TOP, BOTTOM }
 
     private val ROW_TOP_TO_BOTTOM = 0
     private val ROW_LEFT_TO_RIGHT = 1
@@ -147,7 +148,8 @@ class Ball(
 
     fun reset() {
         this.x = model.dimensions.screenWidth / 2
-        this.y = model.dimensions.screenHeight - model.dimensions.paddleInitialYPosition - model.dimensions.ballHeight
+        this.y =
+            model.dimensions.screenHeight - model.dimensions.paddleInitialYPosition - model.dimensions.ballHeight
         xVelocity = xVelocityDefault
         yVelocity = -yVelocityDefault
     }
@@ -164,50 +166,66 @@ class Ball(
     }
 
     fun decideBallNewVelocityAccordingToPaddle(paddleState: IState, paddle: Rect) {
-        val direction = getBallDirection()
-        //anyway i should bounce it back up
-        reverseYVelocity()
-        when (paddleState) {
-            State.LEFT ->
-                if (direction == Direction.DOWN_RIGHT) {
-                    reverseXVelocity()
+        when (ballHitWhichSide(paddle)) {
+            Side.RIGHT -> {
+                clearObstacleX(paddle.right + 2)
+                reverseXVelocity()
+                return
+            }
+            Side.LEFT -> {
+                reverseXVelocity()
+                clearObstacleX(paddle.left + -width - 2)
+                return
+            }
+            else -> {
+                val direction = getBallDirection()
+                //anyway i should bounce it back up
+                adjustAngel(paddle)
+                reverseYVelocity()
+                when (paddleState) {
+                    State.LEFT ->
+                        if (direction == Direction.DOWN_RIGHT) {
+                            reverseXVelocity()
+                        }
+                    State.RIGHT ->
+                        if (direction == Direction.DOWN_LEFT) {
+                            reverseXVelocity()
+                        }
+                    State.STOPPED ->
+                        if (direction == Direction.DOWN_RIGHT && ballRect.centerX() < paddle.centerX()) {
+                            reverseXVelocity()
+                        } else if (direction == Direction.DOWN_LEFT && ballRect.centerX() > paddle.centerX()) {
+                            reverseXVelocity()
+                        }
                 }
-            State.RIGHT ->
-                if (direction == Direction.DOWN_LEFT) {
-                    reverseXVelocity()
-                }
-            State.STOPPED ->
-                if (direction == Direction.DOWN_RIGHT && ballRect.centerX() < paddle.centerX()) {
-                    reverseXVelocity()
-                } else if (direction == Direction.DOWN_LEFT && ballRect.centerX() > paddle.centerX()) {
-                    reverseXVelocity()
-                }
+                clearObstacleY(paddle.top);
+            }
         }
     }
 
     fun decideBallNewVelocityAccordingToBrick(brick: Rect) {
+        when (ballHitWhichSide(brick)) {
+            Side.TOP, Side.BOTTOM -> reverseYVelocity()
+            Side.LEFT, Side.RIGHT -> reverseXVelocity()
+        }
+    }
+
+    private fun ballHitWhichSide(rect: Rect): Side {
         val ballRect = ballRect
-        val wy = (ballRect.width() + brick.width()) * (ballRect.centerY() - brick.centerY());
-        val hx = (ballRect.height() + brick.height()) * (ballRect.centerX() - brick.centerX());
+        val wy = (ballRect.width() + rect.width()) * (ballRect.centerY() - rect.centerY());
+        val hx = (ballRect.height() + rect.height()) * (ballRect.centerX() - rect.centerX());
 
-        if (wy > hx) {
+        return if (wy > hx) {
             if (wy > -hx) {
-                /* top */
-                reverseYVelocity()
-
+                Side.TOP
             } else {
-                /* left */
-                reverseXVelocity()
-
+                Side.LEFT
             }
         } else {
             if (wy > -hx) {
-                /* right */
-                reverseXVelocity()
-
+                Side.RIGHT
             } else {
-                /* bottom */
-                reverseYVelocity()
+                Side.BOTTOM
             }
         }
     }
@@ -220,7 +238,7 @@ class Ball(
         //if(xVelocity < 0 && yVelocity > 0)
     }
 
-    fun adjustAngel(paddle: Rect) {
+    private fun adjustAngel(paddle: Rect) {
         val part = paddle.width() / 10;
         val a = paddle.centerX() - part / 2
         val b = paddle.centerX() + part / 2

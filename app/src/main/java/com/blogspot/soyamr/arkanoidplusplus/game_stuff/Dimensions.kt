@@ -59,6 +59,8 @@ class Dimensions(screenWidth: Int, screenHeight: Int) {
 
     val paddleInitialYPosition: Int = (_paddleYPosition / scalingFactorY).toInt();
 
+    val shieldYPosition: Int = screenHeight - paddleInitialYPosition + paddleHeight + padding
+
     val starHeight: Int = (_starHeight / scalingFactorY).toInt()
     val starWidth: Int = (_starWidth / scalingFactorX).toInt()
 

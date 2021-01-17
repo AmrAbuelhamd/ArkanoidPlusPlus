@@ -62,6 +62,8 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
     var nextLevelTextBounds = Rect()
     var prizeTextBounds = Rect()
 
+    var hasShield = false
+
     init {
         paddle = Paddle(
             this,
@@ -88,6 +90,7 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
         bonusesIndexes.clear()
         bullets.clear()
         canShootCTR = 0
+        canShoot = false
 
         for (el in bonusesTracker.withIndex())
             bonusesTracker[el.index] = false
@@ -224,12 +227,10 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
             // Check for ball colliding with paddle
             balls.forEach {
                 if (it.intersects(paddle.getRect())) {
-                    it.adjustAngel(paddle.getRect())
                     it.decideBallNewVelocityAccordingToPaddle(
                         paddle.paddleState,
                         paddle.getRect()
                     )
-                    it.clearObstacleY(paddle.getRect().top);
                     gameSounds.ballCollideWithPaddle()
                 }
             }
@@ -321,6 +322,17 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
                     }
                 }
             }
+
+            //check ball colliding with shield
+            if (hasShield) {
+                balls.forEach {
+                    if (it.y + dimensions.ballHeight > dimensions.shieldYPosition) {
+                        hasShield = false
+                        it.reverseYVelocity()
+                        it.clearObstacleY(dimensions.shieldYPosition)
+                    }
+                }
+            }
         }
     }
 
@@ -376,7 +388,7 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
                     }
                 )
             }
-            BonusType.SHIELD -> TODO()
+            BonusType.SHIELD -> hasShield = true
             BonusType.BULLETS -> {
                 if (canShoot)
                     canShootCTR -= canShootThreshold//todo add time extended text
@@ -389,6 +401,14 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
         balls.forEach { if (it.isAlive) it.draw(canvas) }
         bullets.forEach { it.draw(canvas) }
 
+        if (hasShield) {
+            canvas.drawRect(
+                0F,
+                dimensions.shieldYPosition.toFloat(),
+                dimensions.screenWidth.toFloat(),
+                dimensions.shieldYPosition.toFloat() + dimensions.padding/2, paint
+            )
+        }
         screenElements.forEach { it?.draw(canvas) }
         lives.forEach { it.draw(canvas) }
         paddle.draw(canvas)
