@@ -105,7 +105,11 @@ class GameActivity : Activity() {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val userInfo: UserData? =
                         dataSnapshot.child("users").child(username).getValue(UserData::class.java)
-                    if (levelNum + 1 == userInfo!!.levels) {
+                    if (score == -1 && levelNum == -1)
+                    {
+                        repository.APIChangeOrAddUser(userInfo!!.nickname, userInfo.score, false, userInfo.icon, userInfo.levels)
+                    }
+                    else if (levelNum - 1 == userInfo!!.levels) {
                         repository.APIChangeOrAddUser(userInfo.nickname, userInfo.score + score, userInfo.alive, userInfo.icon, levelNum)
                     }
                 }
