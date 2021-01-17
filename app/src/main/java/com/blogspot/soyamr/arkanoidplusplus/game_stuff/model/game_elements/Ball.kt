@@ -24,9 +24,6 @@ class Ball(
     x, y
 ) {
 
-    val initialX = x;
-    val initialY = y;
-
     private val ROW_TOP_TO_BOTTOM = 0
     private val ROW_LEFT_TO_RIGHT = 1
     private val ROW_BOTTOM_TO_TOP = 2
@@ -97,11 +94,6 @@ class Ball(
             y = 0
             reverseYVelocity()
             model.playSoundTop()
-        } else if (y > gameSurface.getScreenHeight() - height) {
-            reset()
-            model.pause()
-            model.reduceLive()
-            model.playSoundBottom()
         }
 
         // rowUsing
@@ -154,8 +146,8 @@ class Ball(
     }
 
     fun reset() {
-        this.x = initialX
-        this.y = initialY
+        this.x = model.dimensions.screenWidth / 2
+        this.y = model.dimensions.screenHeight - model.dimensions.paddleInitialYPosition - model.dimensions.ballHeight
         xVelocity = xVelocityDefault
         yVelocity = -yVelocityDefault
     }

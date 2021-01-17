@@ -21,27 +21,26 @@ public enum class Level : ILevel {
                             column * model.dimensions.polygonWidth + model.dimensions.padding * (column + 3),
                             row * model.dimensions.polygonHeight + model.dimensions.padding * (row + 1)
                         )
+                    model.addBonusHere(model.numBricks, BonusType.PLUS_BALL)
                     ++model.numBricks
-                    model.addBonusHere(model.numBricks, BonusType.SMALLER_PADDLE)
-                    model.addBonusHere(model.numBricks, BonusType.BIGGER_PADDLE)
                 }
             }
             //add random bonus
-            val rand = Random()
-            var rn = rand.nextInt(model.numBricks)
-            model.addBonusHere(rn, BonusType.PLUS_LIVE)
-
-            rn = rand.nextInt(model.numBricks)
-            model.addBonusHere(rn, BonusType.SMALLER_PADDLE)
-
-            rn = rand.nextInt(model.numBricks)
-            model.addBonusHere(rn, BonusType.SMALLER_PADDLE)
-
-            rn = rand.nextInt(model.numBricks)
-            model.addBonusHere(rn, BonusType.BIGGER_PADDLE)
-
-            rn = rand.nextInt(model.numBricks)
-            model.addBonusHere(rn, BonusType.BIGGER_PADDLE)
+//            val rand = Random()
+//            var rn = rand.nextInt(model.numBricks)
+//            model.addBonusHere(rn, BonusType.PLUS_LIVE)
+//
+//            rn = rand.nextInt(model.numBricks)
+//            model.addBonusHere(rn, BonusType.SMALLER_PADDLE)
+//
+//            rn = rand.nextInt(model.numBricks)
+//            model.addBonusHere(rn, BonusType.SMALLER_PADDLE)
+//
+//            rn = rand.nextInt(model.numBricks)
+//            model.addBonusHere(rn, BonusType.BIGGER_PADDLE)
+//
+//            rn = rand.nextInt(model.numBricks)
+//            model.addBonusHere(rn, BonusType.BIGGER_PADDLE)
         }
 
         override fun setNextLevel(model: Model) {
