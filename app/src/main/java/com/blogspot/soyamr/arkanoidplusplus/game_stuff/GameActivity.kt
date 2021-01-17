@@ -1,6 +1,7 @@
 package com.blogspot.soyamr.arkanoidplusplus.game_stuff
 
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -8,16 +9,33 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.Display
+import android.view.View
 import android.view.ViewGroup
+import com.blogspot.soyamr.arkanoidplusplus.Repository
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.Level
 import com.blogspot.soyamr.arkanoidplusplus.menu.MainActivity
+import com.blogspot.soyamr.arkanoidplusplus.net.UserData
+import com.google.firebase.database.*
 
 
 class GameActivity : Activity() {
+    // repository
+    private lateinit var repository: Repository
+
+    // firebase
+    private lateinit var myRef: DatabaseReference
+
+    // username
+    private lateinit var username: String
+
     lateinit var gameSurface: GameSurface
     var firstTime: Boolean = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        username = intent.extras!!.getString("username").toString()
+
+        repository = Repository(this)
 
         val height = getHeight(this)
         val width = getWidth(this)
@@ -75,7 +93,23 @@ class GameActivity : Activity() {
     }
 
     fun saveUserScores(score: Int, levelNum: Int) {
-        Log.i("game activity", " score $score levelNumber $levelNum")
+        if (username != "not_connected") {
+            myRef = FirebaseDatabase.getInstance().reference
+            myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val userInfo: UserData? =
+                        dataSnapshot.child("users").child(username).getValue(UserData::class.java)
+                    if (levelNum + 1 == userInfo!!.levels) {
+                        repository.APIChangeOrAddUser(userInfo.nickname, userInfo.score + score, userInfo.alive, userInfo.icon, levelNum)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Failed to read value
+                    Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
+                }
+            })
+        }
     }
 
 }

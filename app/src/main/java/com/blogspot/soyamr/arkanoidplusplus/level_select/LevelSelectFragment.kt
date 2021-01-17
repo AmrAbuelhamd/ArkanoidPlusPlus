@@ -67,6 +67,9 @@ class LevelSelectFragment : Fragment() {
         buttonLevel4 = view.findViewById(R.id.buttonLevel4)
         buttonLevel5 = view.findViewById(R.id.buttonLevel5)
         buttonLevel6 = view.findViewById(R.id.buttonLevel6)
+
+
+
         var buttons = listOf(buttonLevel1, buttonLevel2, buttonLevel3, buttonLevel4, buttonLevel5, buttonLevel6)
         textView.text = username
 
@@ -81,8 +84,6 @@ class LevelSelectFragment : Fragment() {
                     {
                         buttons[i].visibility = View.VISIBLE
                     }
-
-
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -94,11 +95,38 @@ class LevelSelectFragment : Fragment() {
         else
         {
             imageView.setImageResource(R.drawable.no_internet)
-
+            username="not_connected"
         }
 
-        view.buttonLevel1.setOnClickListener{
-            startActivity(Intent(requireContext(), GameActivity::class.java))
+        buttonLevel1.setOnClickListener{
+            val intent = Intent(requireContext(), GameActivity::class.java)
+            intent.putExtra("username",username)
+            startActivity(intent)
+        }
+        buttonLevel2.setOnClickListener{
+            val intent = Intent(requireContext(), GameActivity::class.java)
+            intent.putExtra("username",username)
+            startActivity(intent)
+        }
+        buttonLevel3.setOnClickListener{
+            val intent = Intent(requireContext(), GameActivity::class.java)
+            intent.putExtra("username",username)
+            startActivity(intent)
+        }
+        buttonLevel4.setOnClickListener{
+            val intent = Intent(requireContext(), GameActivity::class.java)
+            intent.putExtra("username",username)
+            startActivity(intent)
+        }
+        buttonLevel5.setOnClickListener{
+            val intent = Intent(requireContext(), GameActivity::class.java)
+            intent.putExtra("username",username)
+            startActivity(intent)
+        }
+        buttonLevel6.setOnClickListener{
+            val intent = Intent(requireContext(), GameActivity::class.java)
+            intent.putExtra("username",username)
+            startActivity(intent)
         }
 
         return view
