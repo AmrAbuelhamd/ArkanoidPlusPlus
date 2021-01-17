@@ -35,7 +35,7 @@ object Repository {
 
     fun APIChangeOrAddUser(nickname: String, score: Int, alive: Boolean, icon: Int, levels: Int){
         val user = UserData(nickname, score, alive, icon, levels)
-        myRef.child("users").child("nickname").setValue(user)
+        myRef.child("users").child(nickname).setValue(user)
     }
 
     public fun convertUsersDataToScores(users: List<UserData>) : List<ScoreInfo>{

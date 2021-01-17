@@ -29,7 +29,6 @@ class IconPickFragment : Fragment(), OnIconIListener {
 
     var nickname:String="kinda_error_i_guess"
 
-    // hardcode
     private lateinit var icons: List<Icon>
 
     override fun onCreate(savedInstanceState: Bundle?) {
