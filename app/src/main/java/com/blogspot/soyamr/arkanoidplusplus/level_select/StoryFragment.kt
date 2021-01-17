@@ -23,12 +23,14 @@ class StoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val args = arguments?.let { StoryFragmentArgs.fromBundle(it) }
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_story, container, false)
 
         readyButton = view.findViewById(R.id.buttonReady)
         readyButton!!.setOnClickListener{
-            findNavController().navigate(R.id.action_storyFragment_to_levelSelectFragment)
+            val action = StoryFragmentDirections.actionStoryFragmentToLevelSelectFragment(args!!.iconID,args!!.username)
+            findNavController().navigate(action)
         }
 
         return view

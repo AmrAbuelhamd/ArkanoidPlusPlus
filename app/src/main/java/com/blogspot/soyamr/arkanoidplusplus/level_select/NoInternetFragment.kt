@@ -24,11 +24,13 @@ class NoInternetFragment : Fragment() {
     ): View? {
         //val args = arguments?.let { NoInternetFragmentArgs.fromBundle(it) }
         // Inflate the layout for this fragment
+        val args = arguments?.let { NoInternetFragmentArgs.fromBundle(it) }
         val view = inflater.inflate(R.layout.fragment_no_internet, container, false)
 
         letsGo2Button = view.findViewById(R.id.buttonLetsGo2)
         letsGo2Button!!.setOnClickListener{
-            findNavController().navigate(R.id.action_noInternetFragment_to_storyFragment)
+            val action = NoInternetFragmentDirections.actionNoInternetFragmentToStoryFragment(-1, args!!.nickname)
+            findNavController().navigate(action)
         }
 
         tryAgainButton = view.findViewById(R.id.buttonTryAgain)
@@ -40,7 +42,4 @@ class NoInternetFragment : Fragment() {
         return view
     }
 
-    companion object {
-
-    }
 }
