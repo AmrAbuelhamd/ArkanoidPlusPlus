@@ -23,6 +23,7 @@ import com.google.firebase.database.*
 
 class ScoreFragment : Fragment() {
 
+    // repository
     private lateinit var repository: Repository
 
     var goBackButton: Button?=null
