@@ -98,34 +98,31 @@ class LevelSelectFragment : Fragment() {
             username="not_connected"
         }
 
+        val intent = Intent(requireContext(), GameActivity::class.java)
+        intent.putExtra("username", username)
+
         buttonLevel1.setOnClickListener{
-            val intent = Intent(requireContext(), GameActivity::class.java)
-            intent.putExtra("username",username)
+            intent.putExtra("username",1)
             startActivity(intent)
         }
         buttonLevel2.setOnClickListener{
-            val intent = Intent(requireContext(), GameActivity::class.java)
-            intent.putExtra("username",username)
+            intent.putExtra("username",2)
             startActivity(intent)
         }
         buttonLevel3.setOnClickListener{
-            val intent = Intent(requireContext(), GameActivity::class.java)
-            intent.putExtra("username",username)
+            intent.putExtra("username",3)
             startActivity(intent)
         }
         buttonLevel4.setOnClickListener{
-            val intent = Intent(requireContext(), GameActivity::class.java)
-            intent.putExtra("username",username)
+            intent.putExtra("username",4)
             startActivity(intent)
         }
         buttonLevel5.setOnClickListener{
-            val intent = Intent(requireContext(), GameActivity::class.java)
-            intent.putExtra("username",username)
+            intent.putExtra("username",5)
             startActivity(intent)
         }
         buttonLevel6.setOnClickListener{
-            val intent = Intent(requireContext(), GameActivity::class.java)
-            intent.putExtra("username",username)
+            intent.putExtra("username",6)
             startActivity(intent)
         }
 
