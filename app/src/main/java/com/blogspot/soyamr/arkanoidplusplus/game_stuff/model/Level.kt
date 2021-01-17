@@ -32,7 +32,7 @@ enum class Level : ILevel {
                     else if(row == 0)
                         model.addBonusHere(model.numBricks, BonusType.PLUS_BALL)*/
 
-                    model.addBonusHere(model.numBricks, BonusType.SHIELD)
+                    model.addBonusHere(model.numBricks, BonusType.PLUS_BALL)
                     ++model.numBricks
                 }
             }
