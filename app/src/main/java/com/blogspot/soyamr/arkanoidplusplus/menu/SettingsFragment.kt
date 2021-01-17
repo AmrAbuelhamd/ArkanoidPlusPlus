@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.RadioButton
+import android.widget.Switch
 import androidx.navigation.fragment.findNavController
 import com.blogspot.soyamr.arkanoidplusplus.R
 
@@ -17,8 +19,18 @@ class SettingsFragment : Fragment() {
 
     }
 
-    var saveButton: Button?=null
-    var goBackButton: Button?=null
+    var musicON: Boolean = true
+    var soundON: Boolean = true
+    var touchON: Boolean = true
+
+    var saveButton: Button? = null
+    var goBackButton: Button? = null
+
+    var switchSound: Switch? = null
+    var switchMusic: Switch? = null
+
+    var radioButtonTouch: RadioButton? = null
+    var radioButtonGyroscope: RadioButton? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +41,12 @@ class SettingsFragment : Fragment() {
 
         saveButton = view.findViewById(R.id.buttonSave)
         goBackButton = view.findViewById(R.id.buttonGoBack3)
+
+        switchMusic = view.findViewById(R.id.switchMusic)
+        switchSound = view.findViewById(R.id.switchSound)
+        radioButtonTouch = view.findViewById(R.id.radioButtonSettings1)
+        radioButtonGyroscope = view.findViewById(R.id.radioButtonSettings2)
+
 
         saveButton!!.setOnClickListener{
             //TODO
