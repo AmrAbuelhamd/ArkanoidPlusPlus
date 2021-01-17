@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/congratulations_background"
-    android:backgroundTint="@color/main_color"
+    android:backgroundTint="@color/black"
     android:backgroundTintMode="multiply"
     tools:context=".CongratulationsActivity">
 
@@ -56,4 +56,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewEND"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="конец прикола"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/textViewLidia"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCongratulationsText" />
 </androidx.constraintlayout.widget.ConstraintLayout>
