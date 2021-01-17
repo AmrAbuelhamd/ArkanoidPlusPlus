@@ -23,7 +23,7 @@ class IconPickFragment : Fragment(), OnIconIListener {
     private lateinit var iconRecyclerView: RecyclerView
     private lateinit var iconAdapter: IconsAdapter
 
-    private var chosenIconNumber: Int = 1
+    private var chosenIconNumber: Int = 0
 
     var letTheJourneyBeginButton: Button?=null
 
@@ -48,8 +48,9 @@ class IconPickFragment : Fragment(), OnIconIListener {
 
         letTheJourneyBeginButton = view.findViewById(R.id.buttonLetTheJourneyBegin)
         letTheJourneyBeginButton!!.setOnClickListener{
-            repository.APIChangeOrAddUser(nickname, 0, true, chosenIconNumber, 1)
-            findNavController().navigate(R.id.action_iconPickFragment_to_storyFragment)
+            repository.APIChangeOrAddUser(nickname, 0, true, chosenIconNumber + 1, 1)
+            val action = IconPickFragmentDirections.actionIconPickFragmentToStoryFragment(chosenIconNumber + 1, nickname)
+            findNavController().navigate(action)
         }
 
         // recycler init

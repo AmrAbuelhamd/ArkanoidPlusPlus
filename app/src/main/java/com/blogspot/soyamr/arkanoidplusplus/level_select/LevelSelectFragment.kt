@@ -102,9 +102,9 @@ class LevelSelectFragment : Fragment() {
 
         }
 
-/*        view.buttonLevel1.setOnClickListener{
+        view.buttonLevel1.setOnClickListener{
             startActivity(Intent(requireContext(), GameActivity::class.java))
-        }*/
+        }
 
         return view
     }
