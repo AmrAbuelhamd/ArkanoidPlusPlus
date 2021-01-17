@@ -30,7 +30,6 @@ class Paddle(private val model: Model, image: Bitmap, x: Int, y: Int) :
         override var ctr: Int = 0
         val threshold = 3000
         override fun getImg(): Bitmap {
-            Log.i("paddle ","Big: $ctr")
             if (++ctr > threshold) {
                 ctr = 0;
                 imgState = imgNormal
@@ -42,7 +41,6 @@ class Paddle(private val model: Model, image: Bitmap, x: Int, y: Int) :
         override var ctr: Int = 0
         val threshold = 3000
         override fun getImg(): Bitmap {
-            Log.i("paddle ","small: $ctr")
             if (++ctr > threshold) {
                 ctr = 0;
                 imgState = imgNormal

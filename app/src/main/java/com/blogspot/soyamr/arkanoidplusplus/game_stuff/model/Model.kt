@@ -12,6 +12,7 @@ import com.blogspot.soyamr.arkanoidplusplus.game_stuff.Dimensions
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.IGameSurface
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.game_elements.*
 import java.util.*
+import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.collections.ArrayList
 
 
@@ -19,6 +20,7 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
     IModel, ModelBallInterface {
     private val numberOfStars = 200
     private val balls: MutableList<Ball> = ArrayList()
+    private val bullets: MutableList<Bullet> = CopyOnWriteArrayList()
     private val bonuses: Array<Bonus?> = arrayOfNulls<Bonus>(200)
     private val bonusesTracker: Array<Boolean?> = arrayOfNulls<Boolean>(200)
     private val bonusesIndexes: MutableList<Int> = ArrayList<Int>()
@@ -29,7 +31,11 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
 
     var lives: MutableList<ScreenElement> = ArrayList()
 
-    // The score
+    //shooting system variables
+    var canShoot = false
+    val canShootThreshold = 3000
+    var canShootCTR = 0;
+
     private var score = 0
 
     override val dimensions: Dimensions =
@@ -56,6 +62,8 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
     var nextLevelTextBounds = Rect()
     var prizeTextBounds = Rect()
 
+    var hasShield = false
+
     init {
         paddle = Paddle(
             this,
@@ -80,6 +88,9 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
     var startTime: Long = 0L
     fun resetEverything() {
         bonusesIndexes.clear()
+        bullets.clear()
+        canShootCTR = 0
+        canShoot = false
 
         for (el in bonusesTracker.withIndex())
             bonusesTracker[el.index] = false
@@ -216,16 +227,15 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
             // Check for ball colliding with paddle
             balls.forEach {
                 if (it.intersects(paddle.getRect())) {
-                    it.adjustAngel(paddle.getRect())
                     it.decideBallNewVelocityAccordingToPaddle(
                         paddle.paddleState,
                         paddle.getRect()
                     )
-                    it.clearObstacleY(paddle.getRect().top);
                     gameSounds.ballCollideWithPaddle()
                 }
             }
 
+            //check for balls colliding with brick
             balls.forEach {
                 for (i in 0 until numBricks) {
                     if (bricks[i]!!.getVisibility()) {
@@ -285,6 +295,44 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
                     }
                 }
             }
+
+            //update bullets
+            bullets.forEach { it.update(fps) }
+            if (canShoot) {
+                ++canShootCTR
+                if (canShootCTR > canShootThreshold) {
+                    canShoot = false
+                    canShootCTR = 0
+                }
+            }
+            //check for bullet colliding with brick
+            bullets.forEach { bullet ->
+                for (i in 0 until numBricks) {
+                    if (bricks[i]!!.getVisibility()) {
+                        if (bullet.intersects(bricks[i]!!.rect)) {
+                            bricks[i]!!.setInvisible()
+                            score += 10
+                            gameSounds.ballCollideWithBrick()//fixme add sound for bullet colliding with brick
+                            if (bonusesIndexes.contains(i)) {
+                                bonusesTracker[i] = true
+                            }
+                            bullets.remove(bullet)
+                            break
+                        }
+                    }
+                }
+            }
+
+            //check ball colliding with shield
+            if (hasShield) {
+                balls.forEach {
+                    if (it.y + dimensions.ballHeight > dimensions.shieldYPosition) {
+                        hasShield = false
+                        it.reverseYVelocity()
+                        it.clearObstacleY(dimensions.shieldYPosition)
+                    }
+                }
+            }
         }
     }
 
@@ -340,13 +388,27 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
                     }
                 )
             }
-            BonusType.SHIELD -> TODO()
-            BonusType.BULLETS -> TODO()
+            BonusType.SHIELD -> hasShield = true
+            BonusType.BULLETS -> {
+                if (canShoot)
+                    canShootCTR -= canShootThreshold//todo add time extended text
+                canShoot = true
+            }
         }
     }
 
     override fun draw(canvas: Canvas) {
         balls.forEach { if (it.isAlive) it.draw(canvas) }
+        bullets.forEach { it.draw(canvas) }
+
+        if (hasShield) {
+            canvas.drawRect(
+                0F,
+                dimensions.shieldYPosition.toFloat(),
+                dimensions.screenWidth.toFloat(),
+                dimensions.shieldYPosition.toFloat() + dimensions.padding/2, paint
+            )
+        }
         screenElements.forEach { it?.draw(canvas) }
         lives.forEach { it.draw(canvas) }
         paddle.draw(canvas)
@@ -396,6 +458,13 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
 //            //gameSounds.release()
 //            //startScoreScreen(score)
 //        }
+//        canvas.drawRect(
+//            paddle.getRect().right - dimensions.bulletWidth.toFloat(),
+//            (paddle.getRect().top - dimensions.bulletHeight).toFloat(),
+//            paddle.getRect().right.toFloat(),
+//            paddle.getRect().top.toFloat(),
+//            paint
+//        )
     }
 
     override fun reduceLive() {
@@ -475,6 +544,26 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
             if (touchedMainMenuButton(x.toInt(), y.toInt())) {
                 gameSurface.hereIsUserScores(-1, -1)
                 showMainMenu()
+            }
+        } else {//still playing
+            if (canShoot) {
+                val bulletsColored = gameBitmaps.getColoredBullet()
+                bullets.add(
+                    Bullet(
+                        gameSurface,
+                        bulletsColored,
+                        paddle.getRect().left,
+                        paddle.getRect().top - dimensions.bulletHeight / 2
+                    )
+                )
+                bullets.add(
+                    Bullet(
+                        gameSurface,
+                        bulletsColored,
+                        paddle.getRect().right - dimensions.bulletWidth,
+                        paddle.getRect().top - dimensions.bulletHeight / 2
+                    )
+                )
             }
         }
     }

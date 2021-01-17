@@ -8,6 +8,9 @@ class Dimensions(screenWidth: Int, screenHeight: Int) {
     private val _starHeight = 20
     private val _starWidth = 20
 
+    private val _bulletHeight = 150
+    private val _bulletWidth = 150
+
     private val targetPixelsX = 1080
     private val targetPixelsY = 2260
 
@@ -56,6 +59,11 @@ class Dimensions(screenWidth: Int, screenHeight: Int) {
 
     val paddleInitialYPosition: Int = (_paddleYPosition / scalingFactorY).toInt();
 
+    val shieldYPosition: Int = screenHeight - paddleInitialYPosition + paddleHeight + padding
+
     val starHeight: Int = (_starHeight / scalingFactorY).toInt()
     val starWidth: Int = (_starWidth / scalingFactorX).toInt()
+
+    val bulletHeight: Int = (_bulletHeight / scalingFactorY).toInt()
+    val bulletWidth: Int = (_bulletWidth / scalingFactorX).toInt()
 }
