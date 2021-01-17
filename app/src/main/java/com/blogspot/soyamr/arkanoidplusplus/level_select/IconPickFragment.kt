@@ -10,11 +10,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blogspot.soyamr.arkanoidplusplus.R
+import com.blogspot.soyamr.arkanoidplusplus.Repository
 import com.blogspot.soyamr.arkanoidplusplus.recycle_icons.Icon
 import com.blogspot.soyamr.arkanoidplusplus.recycle_icons.IconsAdapter
 import com.blogspot.soyamr.arkanoidplusplus.recycle_icons.OnIconIListener
 
 class IconPickFragment : Fragment(), OnIconIListener {
+
+    // repository
+    private lateinit var repository: Repository
 
     private lateinit var iconRecyclerView: RecyclerView
     private lateinit var iconAdapter: IconsAdapter
@@ -24,19 +28,12 @@ class IconPickFragment : Fragment(), OnIconIListener {
     var letTheJourneyBeginButton: Button?=null
 
     // hardcode
-    private var icons = listOf(
-        Icon(R.drawable.avatar1), Icon(R.drawable.avatar2), Icon(R.drawable.avatar3),
-        Icon(R.drawable.avatar4), Icon(R.drawable.avatar5), Icon(R.drawable.avatar6),
-        Icon(R.drawable.avatar7), Icon(R.drawable.avatar8), Icon(R.drawable.avatar9),
-        Icon(R.drawable.avatar10), Icon(R.drawable.avatar11), Icon(R.drawable.avatar12),
-        Icon(R.drawable.avatar13), Icon(R.drawable.avatar14), Icon(R.drawable.avatar15),
-        Icon(R.drawable.avatar16), Icon(R.drawable.avatar17), Icon(R.drawable.avatar18),
-        Icon(R.drawable.avatar19), Icon(R.drawable.avatar20), Icon(R.drawable.avatar21)
-    )
+    private lateinit var icons: List<Icon>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        repository = Repository(requireContext())
+        icons = repository.Icons
     }
 
     override fun onCreateView(
