@@ -25,7 +25,7 @@
 
         <uses-library
             android:name="com.google.android.wearable"
-            android:required="true" />
+            android:required="false" />
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
@@ -34,7 +34,7 @@
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
 
-        <activity android:name=".menu.SettingsActivity" />
+        <!-- <activity android:name=".menu.SettingsActivity" /> -->
         <activity
             android:name=".level_select.LoginAndLevelSelectActivity"
             android:label="@string/title_activity_level_select"
@@ -43,10 +43,10 @@
             android:name=".game_stuff.GameActivity"
             android:label="@string/title_activity_game"
             android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
-        <activity
+        <!-- <activity
             android:name=".menu.ScoreActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" /> -->
         <activity
             android:name=".menu.MainActivity"
             android:screenOrientation="portrait">
