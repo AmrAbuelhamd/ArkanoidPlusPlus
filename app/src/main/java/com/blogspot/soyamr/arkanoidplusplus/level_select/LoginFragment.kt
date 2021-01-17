@@ -9,11 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.blogspot.soyamr.arkanoidplusplus.R
 import com.blogspot.soyamr.arkanoidplusplus.Repository
 import com.blogspot.soyamr.arkanoidplusplus.net.UserData
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 
@@ -64,27 +64,41 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_login, container, false)
 
+        editText = view.findViewById(R.id.editTextUsername)
         letsGoButton = view.findViewById(R.id.buttonLetsGo)
         letsGoButton!!.setOnClickListener{
             val input = editText!!.text.toString()
-            val user: UserData? = usersData.find{ it.nickname == input }
-            if (isOnline)
+            if (input == "")
             {
-                if (user != null)
-                {
-
-                }
-                else
-                {
-
-                }
-
+                Toast.makeText(requireContext(), "Please enter your name!", Toast.LENGTH_SHORT).show()
             }
-            else
-            {
-
+            else {
+                val user: UserData? = usersData.find { it.nickname == input }
+                if (isOnline) {
+                    if (user != null) {
+                        if (user.alive) {
+                            val action =
+                                LoginFragmentDirections.actionLoginFragmentToLevelSelectFragment(
+                                    user.icon
+                                )
+                            findNavController().navigate(action)
+                        } else {
+                            val action =
+                                LoginFragmentDirections.actionLoginFragmentToPlayerIsDeadFragment(
+                                    user.nickname
+                                )
+                            findNavController().navigate(action)
+                        }
+                    } else {
+                        val action =
+                            LoginFragmentDirections.actionLoginFragmentToIconPickFragment(input)
+                        findNavController().navigate(action)
+                    }
+                } else {
+                    findNavController().navigate(R.id.action_loginFragment_to_noInternetFragment)
+                }
             }
-            findNavController().navigate(R.id.action_loginFragment_to_iconPickFragment)
+
         }
         return view
     }
