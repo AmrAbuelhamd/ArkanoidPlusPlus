@@ -24,6 +24,36 @@ object Repository {
         return this
     }
 
+    fun SettingsSetSound(sound:Boolean){
+        mEditor.putBoolean("sound", sound);
+        mEditor.commit()
+    }
+
+    fun SettingsSetMusic(music:Boolean){
+        mEditor.putBoolean("music", music);
+        mEditor.commit()
+    }
+
+    fun SettingsSetTouch(touch:Boolean){
+        mEditor.putBoolean("touch", touch);
+        mEditor.commit()
+    }
+
+    fun SettingsGetSound() : Boolean {
+        return mPreferences.getBoolean("sound", true)
+    }
+
+    fun SettingsGetMusic() : Boolean {
+        return mPreferences.getBoolean("music", true)
+    }
+
+    fun SettingsGetTouch() : Boolean {
+        return mPreferences.getBoolean("touch", true)
+    }
+
+
+
+
     var Icons = listOf(
         Icon(R.drawable.avatar1), Icon(R.drawable.avatar2), Icon(R.drawable.avatar3),
         Icon(R.drawable.avatar4), Icon(R.drawable.avatar5), Icon(R.drawable.avatar6),

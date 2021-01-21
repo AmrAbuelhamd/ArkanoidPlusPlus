@@ -10,14 +10,17 @@ import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.blogspot.soyamr.arkanoidplusplus.R
+import com.blogspot.soyamr.arkanoidplusplus.Repository
+import com.google.firebase.database.core.Repo
 
 
 class SettingsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
+
+    private lateinit var repository: Repository
 
     var musicON: Boolean = true
     var soundON: Boolean = true
@@ -39,8 +42,9 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        repository = Repository(requireContext())
+
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
-        val intent = Intent(requireContext(), MainActivity::class.java)
         saveButton = view.findViewById(R.id.buttonSave)
         goBackButton = view.findViewById(R.id.buttonGoBack3)
 
@@ -48,15 +52,16 @@ class SettingsFragment : Fragment() {
         switchSound = view.findViewById(R.id.switchSound)
         radioButtonTouch = view.findViewById(R.id.radioButtonSettings1)
         radioButtonGyroscope = view.findViewById(R.id.radioButtonSettings2)
+        radioGroupPlatformControl = view.findViewById(R.id.radioGroupPlatformControl)
 
-        intent.putExtra("music", true)
-        musicON = requireArguments().getBoolean("music", true)
-        soundON = requireArguments().getBoolean("sound", true)
-        touchON = requireArguments().getBoolean("touch", true)
+        musicON = repository.SettingsGetMusic()
+        soundON = repository.SettingsGetSound()
+        touchON = repository.SettingsGetTouch()
 
         switchMusic!!.isChecked = musicON
         switchSound!!.isChecked = soundON
-        if (touchON){
+        if (touchON)
+        {
             radioButtonTouch!!.isChecked = true
         }
         else
@@ -64,38 +69,18 @@ class SettingsFragment : Fragment() {
             radioButtonGyroscope!!.isChecked = true
         }
 
+
         switchMusic!!.setOnCheckedChangeListener{ compoundButton: CompoundButton, b: Boolean ->
-            if (b)
-            {
-                intent.putExtra("music", true)
-            }
-            else
-            {
-                intent.putExtra("music", false)
-            }
+            musicON = b
         }
 
         switchSound!!.setOnCheckedChangeListener{ compoundButton: CompoundButton, b: Boolean ->
-            if (b)
-            {
-                intent.putExtra("sound", true)
-            }
-            else
-            {
-                intent.putExtra("sound", false)
-            }
+            soundON = b
         }
 
         radioGroupPlatformControl!!.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
             // This will get the radiobutton that has changed in its check state
-            if (checkedId == radioButtonTouch!!.id)
-            {
-                intent.putExtra("touch", true)
-            }
-            else
-            {
-                intent.putExtra("touch", false)
-            }
+            touchON = checkedId == radioButtonTouch!!.id
 
 /*            val checkedRadioButton = group.findViewById<View>(checkedId) as RadioButton
             // This puts the value (true/false) into the variable
@@ -107,12 +92,10 @@ class SettingsFragment : Fragment() {
             }*/
         })
 
-
-
-
-
         saveButton!!.setOnClickListener{
-            //TODO
+            repository.SettingsSetMusic(musicON)
+            repository.SettingsSetSound(soundON)
+            repository.SettingsSetTouch(touchON)
         }
 
         goBackButton!!.setOnClickListener{
