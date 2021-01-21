@@ -1,10 +1,7 @@
 package com.blogspot.soyamr.arkanoidplusplus.game_stuff.model
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Rect
+import android.graphics.*
 import android.os.SystemClock
 import androidx.core.content.res.ResourcesCompat
 import com.blogspot.soyamr.arkanoidplusplus.R
@@ -18,15 +15,16 @@ import kotlin.collections.ArrayList
 
 class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: ILevel) :
     IModel, ModelBallInterface {
+    var unBreakableBricks = 0
     private val numberOfStars = 200
     private val balls: MutableList<Ball> = ArrayList()
     private val bullets: MutableList<Bullet> = CopyOnWriteArrayList()
-    private val bonuses: Array<Bonus?> = arrayOfNulls<Bonus>(200)
-    private val bonusesTracker: Array<Boolean?> = arrayOfNulls<Boolean>(200)
+    private val bonuses: Array<Bonus?> = arrayOfNulls<Bonus>(800)
+    private val bonusesTracker: Array<Boolean?> = arrayOfNulls<Boolean>(800)
     private val bonusesIndexes: MutableList<Int> = ArrayList<Int>()
     private val screenElements: Array<ScreenElement?> = arrayOfNulls<ScreenElement>(numberOfStars)
     private val paddle: Paddle
-    val bricks = arrayOfNulls<Brick>(200)
+    val bricks = arrayOfNulls<Brick>(800)
     var numBricks = 0
 
     var lives: MutableList<ScreenElement> = ArrayList()
@@ -43,15 +41,6 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
     val gameBitmaps = GameBitmaps(context, dimensions)
     private val gameSounds = SoundManger(context)
     val paint = Paint()
-
-    val nextLevelButtonX = dimensions.screenWidth / 3
-    val nextLevelButtonY = dimensions.screenHeight / 3
-
-    val mainMenuButtonX = dimensions.screenWidth / 3
-    val mainMenuButtonY = dimensions.screenHeight / 3 + dimensions.padding * 20
-
-    val prizeButtonX = dimensions.screenWidth / 3
-    val prizeButtonY = dimensions.screenHeight / 3
 
     val nextLevelText = "NEXT LEVEL"
     val mainMenuText = "MAIN MENU"
@@ -84,6 +73,15 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
         paint.getTextBounds(nextLevelText, 0, nextLevelText.length, nextLevelTextBounds);
 
     }
+
+    val nextLevelButtonX = dimensions.screenWidth / 2 - nextLevelTextBounds.centerX()
+    val nextLevelButtonY = dimensions.screenHeight / 3
+
+    val mainMenuButtonX = dimensions.screenWidth / 2 - mainMenuTextBounds.centerX()
+    val mainMenuButtonY = nextLevelButtonY + nextLevelTextBounds.height() * 3 + dimensions.padding
+
+    val prizeButtonX = dimensions.screenWidth / 2 - prizeTextBounds.centerX()
+    val prizeButtonY = dimensions.screenHeight / 2 - prizeTextBounds.centerY()
 
     var startTime: Long = 0L
     fun resetEverything() {
@@ -350,7 +348,7 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
     }
 
     override fun draw(canvas: Canvas) {
-        balls.forEach { if (it.isAlive) it.draw(canvas) }
+        balls.forEach { it.draw(canvas) }
         bullets.forEach { it.draw(canvas) }
 
         if (hasShield) {
@@ -380,7 +378,7 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
 
 
         // Has the player cleared the screen? (WIN)
-        if (score == numBricks * 10) {
+        if (score == (numBricks - unBreakableBricks) * 10) {
             hasWon = true
             pause = true
             currentLevel.showWinButtons(this, canvas)
@@ -455,9 +453,17 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
         if (rn > numBricks)
             return
         bonusesIndexes.add(rn)
+        val bonusIcon: Bitmap = when (bonus) {
+            BonusType.PLUS_LIVE -> gameBitmaps.bonusImgPlusLife
+            BonusType.SHIELD -> gameBitmaps.bonusImgShield
+            BonusType.BIGGER_PADDLE -> gameBitmaps.bonusImgBigPaddle
+            BonusType.SMALLER_PADDLE -> gameBitmaps.bonusImgSmallPaddle
+            BonusType.BULLETS -> gameBitmaps.bonusImgCanShoot
+            BonusType.PLUS_BALL -> gameBitmaps.bonusImgPlusBall
+        }
         bonuses[rn] = Bonus(
             gameSurface,
-            gameBitmaps.bonusImg,
+            bonusIcon,
             bricks[rn]!!.rect.left,
             bricks[rn]!!.rect.top,
             bonus

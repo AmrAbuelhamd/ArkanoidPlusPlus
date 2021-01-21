@@ -8,34 +8,41 @@ class Dimensions(screenWidth: Int, screenHeight: Int) {
     private val _starHeight = 20
     private val _starWidth = 20
 
-    private val _bulletHeight = 150
-    private val _bulletWidth = 150
+    private val _bulletHeight = 75
+    private val _bulletWidth = 75
 
     private val targetPixelsX = 1080
     private val targetPixelsY = 2260
 
-    private val _ballWidth = 60;
-    private val _ballHeight = 60;
+    private val _ballWidth = 30;
+    private val _ballHeight = 30;
 
-    private val _paddleWidth = 280;
-    private val _paddleHeight = 60;
+    private val _paddleWidth = 140;
+    private val _paddleHeight = 30;
+
+    private val _paddleWidthBig = 280;
+    private val _paddleHeightBig = 30;
+
+    private val _paddleWidthSmall = 70;
+    private val _paddleHeightSmall = 30;
 
     private val _lifePaddleWidth = 56;
     private val _lifePaddleHeight = 12;
 
-    private val _polygonWidth = 120;
-    private val _polygonHeight = 115;
-     val polygonColMax = 8
+    //bricks
+    private val _polygonWidth = 48;
+    private val _polygonHeight = 42;
+     val polygonColMax = 20
 
-    private val _squareWidth = 93;
-    private val _squareHeight = 93;
-     val squareColMax = 10
+    private val _squareWidth = 43;
+    private val _squareHeight = 43;
+     val squareColMax = 22
 
-    private val _rectangleWidth = 196;
-    private val _rectangleHeight = 98;
-    val rectangleColMax = 5
+    private val _rectangleWidth = 91;
+    private val _rectangleHeight = 45;
+    val rectangleColMax = 11
 
-    private val _padding = 10;
+    private val _padding = 5;
 
     private val scalingFactorX: Double
     private val scalingFactorY: Double
@@ -57,6 +64,12 @@ class Dimensions(screenWidth: Int, screenHeight: Int) {
 
     val paddleWidth = (_paddleWidth / scalingFactorX).toInt();
     val paddleHeight = (_paddleHeight / scalingFactorY).toInt()
+
+    val paddleWidthSmall = (_paddleWidthSmall / scalingFactorX).toInt();
+    val paddleHeightSmall = (_paddleHeightSmall / scalingFactorY).toInt()
+
+    val paddleWidthBig = (_paddleWidthBig / scalingFactorX).toInt();
+    val paddleHeightBig = (_paddleHeightBig / scalingFactorY).toInt()
 
     val lifePaddleWidth = (_lifePaddleWidth / scalingFactorX).toInt();
     val lifePaddleHeight = (_lifePaddleHeight / scalingFactorY).toInt()

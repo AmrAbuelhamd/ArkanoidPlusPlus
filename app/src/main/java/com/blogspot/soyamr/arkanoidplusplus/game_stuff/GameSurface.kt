@@ -120,7 +120,7 @@ class GameSurface(
     }
 
     override fun hereIsUserScores(score: Int, levelNum: Int) {
-        gameActivity.saveUserScores(score,levelNum)
+        gameActivity.saveUserScores(score, levelNum)
     }
 
     @SuppressLint("ClickableViewAccessibility")

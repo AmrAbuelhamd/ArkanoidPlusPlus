@@ -5,6 +5,7 @@ import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.game_elements.Bonus
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.game_elements.Brick
 import java.util.*
 
+
 enum class Level : ILevel {
     FIRST {
         override val levelNum: Int = 1
@@ -12,46 +13,38 @@ enum class Level : ILevel {
         override fun initiateLevel(model: Model) {
             model.resetEverything()
             //create bricks
-            for (column in 0 until model.dimensions.polygonColMax) {
-                for (row in 0..3) {
+            for (column in 0 until model.dimensions.rectangleColMax) {
+                for (row in 0..5) {
+
                     model.bricks[model.numBricks] =
                         Brick(
                             model,
-                            column * model.dimensions.polygonWidth + model.dimensions.padding * (column + 3),
-                            row * model.dimensions.polygonHeight + model.dimensions.padding * (row + 1),
-                            BrickHardness.FIVE, BrickType.POLYGON
+                            column * model.dimensions.rectangleWidth + model.dimensions.padding * (column + 3),
+                            row * model.dimensions.rectangleHeight + model.dimensions.padding * (row + 1),
+                            BrickHardness.ONE, BrickType.RECTANGLE
                         )
-                    /* if (row == 4)
-                         model.addBonusHere(model.numBricks, BonusType.BULLETS)
-                     else if(row == 1)
-                         model.addBonusHere(model.numBricks, BonusType.PLUS_LIVE)
-                     else if(row == 2)
-                         model.addBonusHere(model.numBricks, BonusType.SMALLER_PADDLE)
-                     else if(row == 3)
-                         model.addBonusHere(model.numBricks, BonusType.SMALLER_PADDLE)
-                     else if(row == 0)
-                         model.addBonusHere(model.numBricks, BonusType.PLUS_BALL)*/
-
-                    model.addBonusHere(model.numBricks, BonusType.PLUS_BALL)
+                    if (row == 5) {
+                        model.bricks[model.numBricks] =
+                            Brick(
+                                model,
+                                column * model.dimensions.rectangleWidth + model.dimensions.padding * (column + 3),
+                                row * model.dimensions.rectangleHeight + model.dimensions.padding * (row + 1),
+                                BrickHardness.TWO, BrickType.RECTANGLE
+                            )
+                    }
+                    if (row == 5 && (column == 0 || column == model.dimensions.rectangleColMax - 1)) {
+                        model.bricks[model.numBricks] =
+                            Brick(
+                                model,
+                                column * model.dimensions.rectangleWidth + model.dimensions.padding * (column + 3),
+                                row * model.dimensions.rectangleHeight + model.dimensions.padding * (row + 1),
+                                BrickHardness.THREE, BrickType.RECTANGLE
+                            )
+                        model.addBonusHere(model.numBricks, BonusType.PLUS_BALL)
+                    }
                     ++model.numBricks
                 }
             }
-            //add random bonus
-//            val rand = Random()
-//            var rn = rand.nextInt(model.numBricks)
-//            model.addBonusHere(rn, BonusType.PLUS_LIVE)
-//
-//            rn = rand.nextInt(model.numBricks)
-//            model.addBonusHere(rn, BonusType.SMALLER_PADDLE)
-//
-//            rn = rand.nextInt(model.numBricks)
-//            model.addBonusHere(rn, BonusType.SMALLER_PADDLE)
-//
-//            rn = rand.nextInt(model.numBricks)
-//            model.addBonusHere(rn, BonusType.BIGGER_PADDLE)
-//
-//            rn = rand.nextInt(model.numBricks)
-//            model.addBonusHere(rn, BonusType.BIGGER_PADDLE)
         }
 
         override fun setNextLevel(model: Model) {
@@ -64,28 +57,59 @@ enum class Level : ILevel {
         override fun initiateLevel(model: Model) {
             model.resetEverything()
             //create bricks
-            for (column in 0 until model.dimensions.squareColMax) {
-                for (row in 0..3) {
-                    model.bricks[model.numBricks] =
-                        Brick(
-                            model,
-                            column * model.gameBitmaps.brickSquareBlue.width +
-                                    model.dimensions.padding * (column + 3),
-                            row * model.gameBitmaps.brickSquareBlue.height +
-                                    model.dimensions.padding * (row + 1),
-                            BrickHardness.DIAMOND, BrickType.SQUARE
+            // Outer loop to handle number of rows
+            // n in this case
+            // Outer loop to handle number of rows
+            // n in this case
+            var i = 0
+            var j = 0
+            while (i < 11) {
 
-                        )
-                    model.addBonusHere(model.numBricks, BonusType.PLUS_BALL)
-                    ++model.numBricks
+                // Inner loop to handle number of columns
+                // values changing acc. to outer loop
+                while (j <= i) {
+
+                    if (j == i || i == 10 || j == 0) {
+                        // Printing stars
+                        model.bricks[model.numBricks] =
+                            Brick(
+                                model,
+                                j * model.gameBitmaps.brickRectangleBlue.width +
+                                        model.dimensions.padding * (j + 3),
+                                i * model.gameBitmaps.brickRectangleBlue.height +
+                                        model.dimensions.padding * (i + 1),
+                                BrickHardness.THREE, BrickType.RECTANGLE
+                            )
+                        ++model.numBricks
+                        j++
+                    } else {
+                        model.bricks[model.numBricks] =
+                            Brick(
+                                model,
+                                j * model.gameBitmaps.brickRectangleBlue.width +
+                                        model.dimensions.padding * (j + 3),
+                                i * model.gameBitmaps.brickRectangleBlue.height +
+                                        model.dimensions.padding * (i + 1),
+                                BrickHardness.ONE, BrickType.RECTANGLE
+                            )
+                        ++model.numBricks
+                        j++
+                    }
                 }
+                j = 0 // we have to reset j value so as it can
+                // start from begining and print * equal to i.
+                i++
             }
             //add random bonus
             val rand = Random()
             var rn: Int
-            for (i in 0..20) {
+            for (i in 0..3) {
                 rn = rand.nextInt(model.numBricks)
-                model.addBonusHere(rn, BonusType.PLUS_LIVE)
+                model.addBonusHere(rn, BonusType.BIGGER_PADDLE)
+            }
+            for (i in 0..0) {
+                rn = rand.nextInt(model.numBricks)
+                model.addBonusHere(rn, BonusType.SMALLER_PADDLE)
             }
         }
 
@@ -99,22 +123,51 @@ enum class Level : ILevel {
         override fun initiateLevel(model: Model) {
             model.resetEverything()
             //create bricks
-            for (column in 0 until model.dimensions.rectangleColMax) {
-                for (row in 0..3) {
-                    model.bricks[model.numBricks] =
-                        Brick(
-                            model,
-                            column * model.gameBitmaps.brickRectangleBlue.width +
-                                    model.dimensions.padding * (column + 3),
-                            row * model.gameBitmaps.brickRectangleBlue.height +
-                                    model.dimensions.padding * (row + 1),
-                            BrickHardness.ONE,
-                            BrickType.RECTANGLE
+            var size = 11
+            for (row in 0 until size) {
+                for (col in 0 until size) {
+                    if (row == 5 && col == 5) {
+                        model.bricks[model.numBricks] =
+                            Brick(
+                                model,
+                                col * model.dimensions.rectangleWidth +
+                                        model.dimensions.padding * (col + 3),
+                                row * model.dimensions.rectangleHeight +
+                                        model.dimensions.padding * (row + 1),
+                                BrickHardness.DIAMOND,
+                                BrickType.RECTANGLE
+                            )
+                        ++model.numBricks
+                        ++model.unBreakableBricks
 
-                        )
-                    model.addBonusHere(model.numBricks, BonusType.PLUS_BALL)
-                    ++model.numBricks
+                    } else if (row == col || row + col == size - 1) {
+                        model.bricks[model.numBricks] =
+                            Brick(
+                                model,
+                                col * model.dimensions.rectangleWidth +
+                                        model.dimensions.padding * (col + 3),
+                                row * model.dimensions.rectangleHeight +
+                                        model.dimensions.padding * (row + 1),
+                                BrickHardness.ONE,
+                                BrickType.RECTANGLE
+
+                            )
+                        ++model.numBricks
+                    }
                 }
+//                when (row) {
+//                    0, 1, 3, 7 ,8 -> model.addBonusHere(row, BonusType.SMALLER_PADDLE)
+//                    2, 3,0,1 -> model.addBonusHere(row, BonusType.BIGGER_PADDLE)
+//                    4, 5 -> model.addBonusHere(row, BonusType.BULLETS)
+//                    4, 56, 7 -> model.addBonusHere(row, BonusType.PLUS_BALL)
+//                    8, 9 -> model.addBonusHere(row, BonusType.PLUS_LIVE)
+//                }
+            }
+            val rand = Random()
+            var rn: Int
+            for (i in 0..2) {
+                rn = rand.nextInt(model.numBricks)
+                model.addBonusHere(rn, BonusType.SMALLER_PADDLE)
             }
         }
 
