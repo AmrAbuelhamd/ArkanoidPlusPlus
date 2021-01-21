@@ -5,6 +5,7 @@ import android.graphics.*
 import android.os.SystemClock
 import androidx.core.content.res.ResourcesCompat
 import com.blogspot.soyamr.arkanoidplusplus.R
+import com.blogspot.soyamr.arkanoidplusplus.Repository
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.Dimensions
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.IGameSurface
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.game_elements.*
@@ -26,7 +27,7 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
     private val paddle: Paddle
     val bricks = arrayOfNulls<Brick>(800)
     var numBricks = 0
-
+    private val playSFX = Repository(context).SettingsGetSound()
     var lives: MutableList<ScreenElement> = ArrayList()
 
     //shooting system variables
@@ -39,7 +40,7 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
     override val dimensions: Dimensions =
         Dimensions(gameSurface.getScreenWidth(), gameSurface.getScreenHeight())
     val gameBitmaps = GameBitmaps(context, dimensions)
-    private val gameSounds = SoundManger(context)
+    private val gameSounds = SoundManger(context, playSFX)
     val paint = Paint()
 
     val nextLevelText = "NEXT LEVEL"
@@ -54,6 +55,7 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
     var hasShield = false
 
     init {
+
         paddle = Paddle(
             this,
             gameBitmaps.paddleImg,
