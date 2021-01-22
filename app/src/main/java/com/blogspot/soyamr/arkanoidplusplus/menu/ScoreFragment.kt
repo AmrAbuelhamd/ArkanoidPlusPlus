@@ -43,7 +43,7 @@ class ScoreFragment : Fragment() {
 
     // hardcode
     var scores = listOf(
-        ScoreInfo("NO INTERNET", false, 420, R.drawable.avatar21)
+        ScoreInfo("NO INTERNET", false, 0, R.drawable.avatar21)
     )
 
 

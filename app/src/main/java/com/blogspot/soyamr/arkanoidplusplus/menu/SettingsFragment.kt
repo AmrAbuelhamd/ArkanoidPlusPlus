@@ -40,7 +40,7 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
+        repository = Repository(requireContext())
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
         saveButton = view.findViewById(R.id.buttonSave)
         goBackButton = view.findViewById(R.id.buttonGoBack3)
