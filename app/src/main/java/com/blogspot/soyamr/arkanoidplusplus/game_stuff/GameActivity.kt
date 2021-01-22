@@ -18,7 +18,11 @@ import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.Level
 import com.blogspot.soyamr.arkanoidplusplus.menu.MainActivity
 import com.blogspot.soyamr.arkanoidplusplus.net.UserData
 import com.blogspot.soyamr.arkanoidplusplus.R
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.GlobalBehavior
 import com.google.firebase.database.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class GameActivity : Activity() {
@@ -162,12 +166,15 @@ class GameActivity : Activity() {
     }
 
     fun playBonusLevelMusic() {
-        if (isMusicOn) {
-            mediaPlayer?.stop()
-            mediaPlayer?.release()
-            mediaPlayer = MediaPlayer.create(applicationContext, R.raw.for_bonus_level);
-            mediaPlayer?.start()
+        GlobalScope.launch(Dispatchers.Main){
+            if (isMusicOn) {
+                mediaPlayer?.stop()
+                mediaPlayer?.release()
+                mediaPlayer = MediaPlayer.create(applicationContext, R.raw.for_bonus_level);
+                mediaPlayer?.start()
+            }
         }
+
     }
 
 }
