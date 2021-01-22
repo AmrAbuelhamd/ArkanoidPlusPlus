@@ -20,6 +20,11 @@
             android:enabled="true"
             android:exported="false" />
 
+        <service
+            android:name=".notifications.ExitNotification"
+            android:enabled="true"
+            android:exported="false" />
+
 
         <receiver android:name=".notifications.NotificationEventReceiver" />
         <receiver android:name=".notifications.NotificationServiceStarterReceiver">

@@ -31,7 +31,7 @@ class NotificationEventReceiver : WakefulBroadcastReceiver() {
     companion object {
         private const val ACTION_START_NOTIFICATION_SERVICE = "ACTION_START_NOTIFICATION_SERVICE"
         private const val ACTION_DELETE_NOTIFICATION = "ACTION_DELETE_NOTIFICATION"
-        private const val NOTIFICATIONS_INTERVAL_IN_HOURS = 5
+        private const val NOTIFICATIONS_INTERVAL_IN_HOURS = 1
         fun setupAlarm(context: Context) {
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             val alarmIntent = getStartPendingIntent(context)
@@ -46,7 +46,7 @@ class NotificationEventReceiver : WakefulBroadcastReceiver() {
         private fun getTriggerAt(now: Date): Long {
             val calendar = Calendar.getInstance()
             calendar.time = now
-            //calendar.add(Calendar.HOUR, NOTIFICATIONS_INTERVAL_IN_HOURS);
+            calendar.add(Calendar.HOUR, NOTIFICATIONS_INTERVAL_IN_HOURS);
             return calendar.timeInMillis
         }
 

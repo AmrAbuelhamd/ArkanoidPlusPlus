@@ -1,23 +1,26 @@
 package com.blogspot.soyamr.arkanoidplusplus.menu
 
-import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import androidx.core.app.NotificationCompat
 import androidx.fragment.app.FragmentActivity
 import com.blogspot.soyamr.arkanoidplusplus.R
+import com.blogspot.soyamr.arkanoidplusplus.Repository
+import com.blogspot.soyamr.arkanoidplusplus.notifications.ExitNotification
 import com.blogspot.soyamr.arkanoidplusplus.notifications.NotificationEventReceiver
-import com.blogspot.soyamr.arkanoidplusplus.notifications.NotificationIntentService
 
 
 class MainActivity : FragmentActivity() {
+
+    // repository
+    private lateinit var repository: Repository
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         NotificationEventReceiver.setupAlarm(applicationContext)
+        repository = Repository(this)
+        setContentView(R.layout.activity_main)
 
-        NotificationIntentService.createIntentStartNotificationService(this)
+
     }
 
 /*    fun onSendNotificationsButtonClick(view: View?) {
@@ -26,6 +29,12 @@ class MainActivity : FragmentActivity() {
     }*/
 
     override fun onBackPressed() {
-
+        if (repository.SettingsGetExitNotification())
+        {
+            startService(Intent(this, ExitNotification::class.java))
+            repository.SettingsSetExitNotification(false)
+        }
+        //repository.SettingsSetExitNotification(true)
+        finish()
     }
 }
