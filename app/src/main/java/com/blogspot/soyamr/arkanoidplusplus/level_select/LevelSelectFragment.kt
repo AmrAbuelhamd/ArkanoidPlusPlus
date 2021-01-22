@@ -80,7 +80,7 @@ class LevelSelectFragment : Fragment() {
                     val userInfo: UserData? = dataSnapshot.child("users").child(username).getValue(UserData::class.java)
                     for (i in 0 until userInfo!!.levels)
                     {
-                        if (i < 5 || ((i == 5) && userInfo.score > 4000))
+                        if (i < 5 || ((i == 5) && userInfo.score > 2000))
                             buttons[i].visibility = View.VISIBLE
                     }
                 }
