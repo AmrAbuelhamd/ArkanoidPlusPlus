@@ -1,128 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/settingsFrameLay"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/main_menu_animation_background">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.blogspot.soyamr.arkanoidplusplus.menu.SettingsViewModel" />
+    </data>
+
+    <FrameLayout
+        android:id="@+id/settingsFrameLay"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/main_menu_animation_background">
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="64dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonSave"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-                android:layout_width="150dp"
-                android:layout_height="75dp"
-                android:layout_marginRight="16dp"
-                android:text="@string/button_save"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                android:theme="@style/FormButton" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonGoBack3"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-                android:layout_width="150dp"
-                android:layout_height="75dp"
-                android:layout_marginLeft="16dp"
-                android:text="@string/button_go_main_menu"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                android:theme="@style/FormButton" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <Switch
-                android:id="@+id/switchMusic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="64dp"
-                android:layout_marginRight="64dp"
-                android:fontFamily="@font/aldrich"
-                android:text="@string/music"
-                android:textSize="18sp" />
-
-            <Switch
-                android:id="@+id/switchSound"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="64dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginRight="64dp"
-                android:fontFamily="@font/aldrich"
-                android:text="@string/sounds"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
-                android:fontFamily="@font/aldrich"
-                android:text="@string/platform_control"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <RadioGroup
-                android:id="@+id/radioGroupPlatformControl"
+            <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginRight="32dp">
+                android:layout_marginBottom="64dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-                <RadioButton
-                    android:id="@+id/radioButtonSettings1"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonSave"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="150dp"
+                    android:layout_height="75dp"
+                    android:layout_marginRight="16dp"
+                    android:text="@string/button_save"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:theme="@style/FormButton" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonGoBack3"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="150dp"
+                    android:layout_height="75dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="@string/button_go_main_menu"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:theme="@style/FormButton" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Switch
+                    android:id="@+id/switchMusic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="64dp"
+                    android:layout_marginRight="64dp"
+                    android:checked="@={viewModel.musicON}"
                     android:fontFamily="@font/aldrich"
-                    android:text="@string/settings_radio_button_option1" />
+                    android:text="@string/music"
+                    android:textSize="18sp" />
 
-                <RadioButton
-                    android:id="@+id/radioButtonSettings2"
+                <Switch
+                    android:id="@+id/switchSound"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="64dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginRight="64dp"
+                    android:checked="@={viewModel.soundON}"
                     android:fontFamily="@font/aldrich"
-                    android:text="@string/settings_radio_button_option2" />
-            </RadioGroup>
+                    android:text="@string/sounds"
+                    android:textSize="18sp" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="48dp"
+                    android:fontFamily="@font/aldrich"
+                    android:text="@string/platform_control"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/textViewSettings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/aldrich"
-            android:text="@string/settings"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <RadioGroup
+                    android:id="@+id/radioGroupPlatformControl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginRight="32dp"
+                    android:checkedButton="@{viewModel.touchON?@id/radioButtonSettings1:@id/radioButtonSettings2}">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <RadioButton
+                        android:id="@+id/radioButtonSettings1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/aldrich"
+                        android:text="@string/settings_radio_button_option1" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonSettings2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/aldrich"
+                        android:text="@string/settings_radio_button_option2" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/aldrich"
+                android:text="@string/settings"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</FrameLayout>
+    </FrameLayout>
+</layout>

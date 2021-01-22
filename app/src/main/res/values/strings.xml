@@ -37,5 +37,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_congratulations">CongratulationsActivity</string>
+    <string name="congratulation_text">You won. If you see this then the game was interesting for ya. And we are happy to understand it! Now your name on the scoreboard will be gold, make other gamers jealous :)</string>
+    <string name="prasing_text">Lidia is the best. For HITS with love. \n\nDaniil and Amr, 2021.</string>
+    <string name="congs">CONGRATULATIONS</string>
+    <string name="russian_humor">конец прикола</string>
 
 </resources>

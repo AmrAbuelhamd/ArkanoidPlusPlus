@@ -11,17 +11,21 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.blogspot.soyamr.arkanoidplusplus.R
 import com.blogspot.soyamr.arkanoidplusplus.recycle_icons.Icon
+import java.lang.Exception
 
 class ScoreAdapter: RecyclerView.Adapter<ScoreAdapter.ScoreViewHolder>() {
 
     private val scoreInfoList: MutableList<ScoreInfo> = ArrayList()
 
     fun setAllScore(scores: List<ScoreInfo>){
-        scoreInfoList.addAll(scores)
+        clearAllScore()
+        try {
+            scoreInfoList.addAll(scores)
+        }catch (e:Exception){}
         notifyDataSetChanged()
     }
 
-    fun clearAllScore(){
+    private fun clearAllScore(){
         scoreInfoList.clear()
         notifyDataSetChanged()
     }

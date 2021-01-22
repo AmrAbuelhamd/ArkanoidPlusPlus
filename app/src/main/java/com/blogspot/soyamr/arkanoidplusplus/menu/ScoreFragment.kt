@@ -1,40 +1,35 @@
 package com.blogspot.soyamr.arkanoidplusplus.menu
 
-import android.content.ContentValues.TAG
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blogspot.soyamr.arkanoidplusplus.R
-import com.blogspot.soyamr.arkanoidplusplus.Repository
-import com.blogspot.soyamr.arkanoidplusplus.net.UserData
+import com.blogspot.soyamr.arkanoidplusplus.databinding.FragmentScoreBinding
 import com.blogspot.soyamr.arkanoidplusplus.recycle_score.ScoreAdapter
 import com.blogspot.soyamr.arkanoidplusplus.recycle_score.ScoreInfo
-import com.google.firebase.database.*
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ScoreFragment : Fragment() {
 
-    // repository
-    private lateinit var repository: Repository
+    private val viewModel: ScoreViewModel by viewModels()
 
-    var goBackButton: Button?=null
+
+    var goBackButton: Button? = null
 
     private lateinit var scoreRecyclerView: RecyclerView
     private lateinit var scoreAdapter: ScoreAdapter
 
-
-    // firebase
-    private lateinit var myRef: DatabaseReference
-    private lateinit var usersData: MutableList<UserData>
 
     // animated background
     var animationDrawable: AnimationDrawable? = null
@@ -49,47 +44,36 @@ class ScoreFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        repository = Repository(requireContext())
-        usersData = mutableListOf()
-        myRef = FirebaseDatabase.getInstance().reference
-        myRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                usersData.clear()
-                scoreAdapter.clearAllScore()
-                val users = dataSnapshot.child("users").children
-                for(user in users){
-                    val userInfo: UserData? = user.getValue(UserData::class.java)
-                    usersData.add(userInfo!!)
-                }
-                usersData.sortBy { obj -> obj.score }
-                usersData.reverse()
 
-                if (usersData.size > 150)
-                    usersData = usersData.subList(0,150)
-
-                //for (DataSnapshot scoreSnapshot : dataSnapshot.getChildren)
-                //val users: UserData? = dataSnapshot.getValue(UserData::class.java)
-                scores = repository.convertUsersDataToScores(usersData)
-                scoreAdapter.setAllScore(scores)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException())
-            }
-        })
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setUpViewModelCalls()
+    }
+
+    private fun setUpViewModelCalls() {
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+        viewModel.usersDataa.observe(viewLifecycleOwner, { score ->
+            scoreAdapter.setAllScore(score)
+        })
+
+    }
+
+    lateinit var binding: FragmentScoreBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_score, container, false)
-
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_score, container, false)
+        val view = binding.root
         // declare animation and frameLayout
-        frameLayout=view.findViewById(R.id.scoreFrameLay)
-        animationDrawable= frameLayout!!.background as AnimationDrawable?
+        frameLayout = view.findViewById(R.id.scoreFrameLay)
+        animationDrawable = frameLayout!!.background as AnimationDrawable?
         // add time changes
         animationDrawable!!.setEnterFadeDuration(5000)
         animationDrawable!!.setExitFadeDuration(2000)
@@ -98,10 +82,9 @@ class ScoreFragment : Fragment() {
 
         goBackButton = view.findViewById(R.id.buttonGoBack)
 
-        goBackButton!!.setOnClickListener{
+        goBackButton!!.setOnClickListener {
             findNavController().navigate(R.id.action_scoreFragment_to_mainFragment)
         }
-
 
 
         // recycler init
@@ -115,7 +98,7 @@ class ScoreFragment : Fragment() {
 
 
         //view.findViewById<TextView>(R.id.currScoreTextView).apply {
-       //     text = "${requireActivity().intent.getIntExtra(ScoreActivity.SCORE, 0)}"
+        //     text = "${requireActivity().intent.getIntExtra(ScoreActivity.SCORE, 0)}"
         //}
 
         return view

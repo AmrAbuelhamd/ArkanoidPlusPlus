@@ -10,15 +10,12 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.Display
-import android.view.View
 import android.view.ViewGroup
 import com.blogspot.soyamr.arkanoidplusplus.CongratulationsActivity
 import com.blogspot.soyamr.arkanoidplusplus.Repository
-import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.Level
 import com.blogspot.soyamr.arkanoidplusplus.menu.MainActivity
 import com.blogspot.soyamr.arkanoidplusplus.net.UserData
 import com.blogspot.soyamr.arkanoidplusplus.R
-import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.GlobalBehavior
 import com.google.firebase.database.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -54,13 +51,13 @@ class GameActivity : Activity() {
 
         repository = Repository(this)
 
-        isMusicOn = repository.SettingsGetMusic()
+        isMusicOn = repository.settingsGetMusic()
         val height = getHeight(this)
         val width = getWidth(this)
         firstTime = true;
 
 
-        gameSurface = GameSurface(this, height, width, repository.ReturnLevel(levelNumber))
+        gameSurface = GameSurface(this, height, width, repository.getLevel(levelNumber))
         gameSurface.layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
@@ -136,7 +133,7 @@ class GameActivity : Activity() {
                     val userInfo: UserData? =
                         dataSnapshot.child("users").child(username).getValue(UserData::class.java)
                     if (score == -1 && levelNum == -1) {
-                        repository.APIChangeOrAddUser(
+                        repository.apiChangeOrAddUser(
                             userInfo!!.nickname,
                             userInfo.score,
                             false,
@@ -145,9 +142,9 @@ class GameActivity : Activity() {
                         )
                     } else if (levelNum == userInfo!!.levels) {
                         if (levelNum == 6)
-                            repository.APIChangeOrAddUser(userInfo.nickname, userInfo.score + score, false, userInfo.icon, levelNum + 1)
+                            repository.apiChangeOrAddUser(userInfo.nickname, userInfo.score + score, false, userInfo.icon, levelNum + 1)
                         else
-                            repository.APIChangeOrAddUser(userInfo.nickname, userInfo.score + score, userInfo.alive, userInfo.icon, levelNum + 1)
+                            repository.apiChangeOrAddUser(userInfo.nickname, userInfo.score + score, userInfo.alive, userInfo.icon, levelNum + 1)
                     }
                 }
 
