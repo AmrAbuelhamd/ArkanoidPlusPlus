@@ -59,15 +59,21 @@ class MainActivity : FragmentActivity() {
         try {
             if (isMusicOn)
                 mediaPlayer?.pause();
-        } catch (i: Exception) {
+        } catch (E: Exception) {
 
         }
     }
 
     override fun onResume() {
         super.onResume()
-        if (isMusicOn)
-            mediaPlayer?.start();
+        try {
+            if (isMusicOn)
+                mediaPlayer?.start();
+        }
+        catch(E:Exception){
+
+        }
+
     }
 
     override fun onDestroy() {
@@ -88,8 +94,14 @@ class MainActivity : FragmentActivity() {
     }
 
     fun stopMusic() {
-        mediaPlayer?.stop()
-        mediaPlayer?.release()
+        try {
+            mediaPlayer?.stop()
+            mediaPlayer?.release()
+        }
+        catch (E:Exception){
+
+        }
+
     }
 
     fun startMusic() {
