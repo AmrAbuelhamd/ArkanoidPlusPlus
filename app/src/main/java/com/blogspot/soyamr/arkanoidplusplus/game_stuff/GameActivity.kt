@@ -4,16 +4,16 @@ import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
-import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.Display
+import android.view.View
 import android.view.ViewGroup
 import com.blogspot.soyamr.arkanoidplusplus.CongratulationsActivity
-import com.blogspot.soyamr.arkanoidplusplus.R
 import com.blogspot.soyamr.arkanoidplusplus.Repository
+import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.Level
 import com.blogspot.soyamr.arkanoidplusplus.menu.MainActivity
 import com.blogspot.soyamr.arkanoidplusplus.net.UserData
 import com.google.firebase.database.*
@@ -24,7 +24,6 @@ class GameActivity : Activity() {
     override fun onBackPressed() {
 
     }
-
     // repository
     private lateinit var repository: Repository
 
@@ -142,21 +141,9 @@ class GameActivity : Activity() {
                         )
                     } else if (levelNum == userInfo!!.levels) {
                         if (levelNum == 6)
-                            repository.APIChangeOrAddUser(
-                                userInfo.nickname,
-                                userInfo.score + score,
-                                userInfo.alive,
-                                userInfo.icon,
-                                levelNum
-                            )
+                            repository.APIChangeOrAddUser(userInfo.nickname, userInfo.score + score, false, userInfo.icon, levelNum + 1)
                         else
-                            repository.APIChangeOrAddUser(
-                                userInfo.nickname,
-                                userInfo.score + score,
-                                userInfo.alive,
-                                userInfo.icon,
-                                levelNum + 1
-                            )
+                            repository.APIChangeOrAddUser(userInfo.nickname, userInfo.score + score, userInfo.alive, userInfo.icon, levelNum + 1)
                     }
                 }
 

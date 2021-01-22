@@ -34,14 +34,14 @@ class NotificationEventReceiver : BroadcastReceiver() {
     companion object {
         private const val ACTION_START_NOTIFICATION_SERVICE = "ACTION_START_NOTIFICATION_SERVICE"
         private const val ACTION_DELETE_NOTIFICATION = "ACTION_DELETE_NOTIFICATION"
-        private const val NOTIFICATIONS_INTERVAL_IN_HOURS = 1
+        private const val NOTIFICATIONS_INTERVAL_IN_HOURS = 5
         fun setupAlarm(context: Context) {
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             val alarmIntent = getStartPendingIntent(context)
             alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
                 getTriggerAt(Date()),
-                NOTIFICATIONS_INTERVAL_IN_HOURS * 100000L,
+                NOTIFICATIONS_INTERVAL_IN_HOURS * AlarmManager.INTERVAL_HOUR,
                 alarmIntent
             )
         }
@@ -49,7 +49,7 @@ class NotificationEventReceiver : BroadcastReceiver() {
         private fun getTriggerAt(now: Date): Long {
             val calendar = Calendar.getInstance()
             calendar.time = now
-            calendar.add(Calendar.MINUTE, NOTIFICATIONS_INTERVAL_IN_HOURS);
+            calendar.add(Calendar.HOUR, NOTIFICATIONS_INTERVAL_IN_HOURS);
             return calendar.timeInMillis
         }
 
