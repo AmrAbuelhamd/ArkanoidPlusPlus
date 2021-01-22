@@ -46,15 +46,15 @@ class CongratulationsActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-            if (isMusicOn) {
-                mediaPlayer?.start();
-            }
+        if (isMusicOn) {
+            mediaPlayer?.start();
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-            if (isMusicOn) {
-                mediaPlayer?.release();
-            }
+        if (isMusicOn) {
+            mediaPlayer?.release();
+        }
     }
 }

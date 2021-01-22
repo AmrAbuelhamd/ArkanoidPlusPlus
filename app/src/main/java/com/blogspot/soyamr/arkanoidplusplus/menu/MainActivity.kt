@@ -3,32 +3,52 @@ package com.blogspot.soyamr.arkanoidplusplus.menu
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.fragment.app.FragmentActivity
-import com.blogspot.soyamr.arkanoidplusplus.CongratulationsActivity
 import com.blogspot.soyamr.arkanoidplusplus.R
 import com.blogspot.soyamr.arkanoidplusplus.Repository
+import com.blogspot.soyamr.arkanoidplusplus.databinding.ActivityMainBinding
 import com.blogspot.soyamr.arkanoidplusplus.notifications.ExitNotification
 import com.blogspot.soyamr.arkanoidplusplus.notifications.NotificationEventReceiver
-import java.lang.Exception
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : FragmentActivity() {
 
-    // repository
-    private lateinit var repository: Repository
-    private var isMusicOn: Boolean = false
+    private val viewModel: MainActivityViewModel by viewModels()
+
+    lateinit var binding: ActivityMainBinding
+
+    private var isMusicOn = false
+    private var isExiting = false
+
     var mediaPlayer: MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         NotificationEventReceiver.setupAlarm(applicationContext)
 
-        val intent = Intent(this, CongratulationsActivity::class.java)
-        startActivity(intent)
-        repository = Repository(this)
-        isMusicOn = repository.settingsGetMusic()
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-        setContentView(R.layout.activity_main)
+        binding.lifecycleOwner = this
+
+
+        viewModel.isMusicOn.observe(this, {
+            if (it) {
+                mediaPlayer = MediaPlayer.create(applicationContext, R.raw.for_credits);
+                isMusicOn = true
+            }
+        })
+
+        viewModel.isExiting.observe(this, {
+            if (it) {
+                isExiting = true
+            }
+        })
+
 
         if (isMusicOn)
             mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.for_main_menu);
@@ -39,8 +59,7 @@ class MainActivity : FragmentActivity() {
         try {
             if (isMusicOn)
                 mediaPlayer?.pause();
-        }
-        catch (i:Exception){
+        } catch (i: Exception) {
 
         }
     }
@@ -56,11 +75,11 @@ class MainActivity : FragmentActivity() {
         if (isMusicOn)
             mediaPlayer?.release();
     }
+
     override fun onBackPressed() {
-        if (repository.settingsGetExitNotification())
-        {
+        if (isExiting) {
             startService(Intent(this, ExitNotification::class.java))
-            repository.settingsSetExitNotification(false)
+            viewModel.settingsSetExitNotification(false)
         }
         //repository.SettingsSetExitNotification(true)
 
@@ -72,6 +91,7 @@ class MainActivity : FragmentActivity() {
         mediaPlayer?.stop()
         mediaPlayer?.release()
     }
+
     fun startMusic() {
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.for_main_menu);
         mediaPlayer?.start()
