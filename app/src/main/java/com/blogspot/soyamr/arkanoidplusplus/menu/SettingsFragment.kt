@@ -1,6 +1,5 @@
 package com.blogspot.soyamr.arkanoidplusplus.menu
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.blogspot.soyamr.arkanoidplusplus.R
 import com.blogspot.soyamr.arkanoidplusplus.Repository
-import com.google.firebase.database.core.Repo
 
 
 class SettingsFragment : Fragment() {
@@ -42,7 +40,6 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        repository = Repository(requireContext())
 
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
         saveButton = view.findViewById(R.id.buttonSave)
