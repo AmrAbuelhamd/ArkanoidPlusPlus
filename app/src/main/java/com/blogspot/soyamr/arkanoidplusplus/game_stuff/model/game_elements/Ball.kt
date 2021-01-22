@@ -252,8 +252,8 @@ class Ball(
         } else if (ballRect.centerX() < (paddle.left + part) ||
             ballRect.centerX() > (paddle.right - part + 1)
         ) {
-            yVelocity = yDir * 1200
-            xVelocity = xDir * 600
+            yVelocity = yDir * 600
+            xVelocity = xDir * 1200
         } else if (ballRect.centerX() in (paddle.left + part + 1) until (paddle.right - part)) {
             yVelocity = yDir * yVelocityDefault
             xVelocity = xDir * xVelocityDefault
