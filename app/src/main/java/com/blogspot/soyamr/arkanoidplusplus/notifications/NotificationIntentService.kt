@@ -53,7 +53,7 @@ class NotificationIntentService : IntentService(NotificationIntentService::class
     }
 
     companion object {
-        private const val NOTIFICATION_ID = 1
+        const val NOTIFICATION_ID = 1
         private const val ACTION_START = "ACTION_START"
         private const val ACTION_DELETE = "ACTION_DELETE"
         fun createIntentStartNotificationService(context: Context?): Intent {
