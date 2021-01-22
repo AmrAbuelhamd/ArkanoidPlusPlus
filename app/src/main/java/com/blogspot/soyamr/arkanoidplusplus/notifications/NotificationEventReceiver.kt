@@ -2,14 +2,16 @@ package com.blogspot.soyamr.arkanoidplusplus.notifications
 
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.legacy.content.WakefulBroadcastReceiver
+import androidx.legacy.content.WakefulBroadcastReceiver.startWakefulService
 import java.util.*
 
 
-class NotificationEventReceiver : WakefulBroadcastReceiver() {
+class NotificationEventReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val action = intent.action
         var serviceIntent: Intent? = null
@@ -24,6 +26,7 @@ class NotificationEventReceiver : WakefulBroadcastReceiver() {
             serviceIntent = NotificationIntentService.createIntentDeleteNotification(context)
         }
         if (serviceIntent != null) {
+
             startWakefulService(context, serviceIntent)
         }
     }
@@ -38,7 +41,7 @@ class NotificationEventReceiver : WakefulBroadcastReceiver() {
             alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
                 getTriggerAt(Date()),
-                NOTIFICATIONS_INTERVAL_IN_HOURS * AlarmManager.INTERVAL_HOUR,
+                NOTIFICATIONS_INTERVAL_IN_HOURS * 100000L,
                 alarmIntent
             )
         }
@@ -46,7 +49,7 @@ class NotificationEventReceiver : WakefulBroadcastReceiver() {
         private fun getTriggerAt(now: Date): Long {
             val calendar = Calendar.getInstance()
             calendar.time = now
-            calendar.add(Calendar.HOUR, NOTIFICATIONS_INTERVAL_IN_HOURS);
+            calendar.add(Calendar.MINUTE, NOTIFICATIONS_INTERVAL_IN_HOURS);
             return calendar.timeInMillis
         }
 

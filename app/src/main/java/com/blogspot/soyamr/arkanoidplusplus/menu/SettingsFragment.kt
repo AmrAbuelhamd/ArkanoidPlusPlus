@@ -96,6 +96,7 @@ class SettingsFragment : Fragment() {
             repository.SettingsSetMusic(musicON)
             repository.SettingsSetSound(soundON)
             repository.SettingsSetTouch(touchON)
+            Toast.makeText(requireContext(), "Saved", Toast.LENGTH_SHORT).show()
         }
 
         goBackButton!!.setOnClickListener{

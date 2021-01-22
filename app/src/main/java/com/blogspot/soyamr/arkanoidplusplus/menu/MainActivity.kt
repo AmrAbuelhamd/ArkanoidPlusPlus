@@ -34,7 +34,7 @@ class MainActivity : FragmentActivity() {
             startService(Intent(this, ExitNotification::class.java))
             repository.SettingsSetExitNotification(false)
         }
-        //repository.SettingsSetExitNotification(true)
+        repository.SettingsSetExitNotification(true)
         finish()
     }
 }
