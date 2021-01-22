@@ -19,8 +19,6 @@ class MainActivity : FragmentActivity() {
         NotificationEventReceiver.setupAlarm(applicationContext)
         repository = Repository(this)
         setContentView(R.layout.activity_main)
-
-
     }
 
 /*    fun onSendNotificationsButtonClick(view: View?) {
