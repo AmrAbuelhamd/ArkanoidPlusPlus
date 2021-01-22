@@ -7,7 +7,7 @@ import android.util.Log
 import com.blogspot.soyamr.arkanoidplusplus.R
 import java.io.IOException
 
-class SoundManger(private val context: Context) {
+class SoundManger(private val context: Context, val playSFX: Boolean) {
     // For sound FX
     private val soundPool = SoundPool(10, AudioManager.STREAM_MUSIC, 0)
     private var beep1ID = -1
@@ -30,25 +30,37 @@ class SoundManger(private val context: Context) {
         }
     }
 
-    fun ballCollideWithPaddle(){
-        soundPool.play(beep1ID, 1F, 1F, 0, 0, 1F);
+    fun ballCollideWithPaddle() {
+        if (playSFX)
+            soundPool.play(beep1ID, 1F, 1F, 0, 0, 1F);
     }
-    fun ballCollideWithLeftWall(){
-        soundPool.play(beep3ID, 1F, 1F, 0, 0, 1F);
+
+    fun ballCollideWithLeftWall() {
+        if (playSFX)
+            soundPool.play(beep3ID, 1F, 1F, 0, 0, 1F);
     }
-    fun ballCollideWithRightWall(){
-        soundPool.play(beep3ID, 1F, 1F, 0, 0, 1F);
+
+    fun ballCollideWithRightWall() {
+        if (playSFX)
+            soundPool.play(beep3ID, 1F, 1F, 0, 0, 1F);
     }
-    fun ballCollideWithBottomGround(){
-        soundPool.play(loseLifeID, 1F, 1F, 0, 0, 1F);
+
+    fun ballCollideWithBottomGround() {
+        if (playSFX)
+            soundPool.play(loseLifeID, 1F, 1F, 0, 0, 1F);
     }
-    fun ballCollideWithTopRoof(){
-        soundPool.play(beep2ID, 1F, 1F, 0, 0, 1F);
+
+    fun ballCollideWithTopRoof() {
+        if (playSFX)
+            soundPool.play(beep2ID, 1F, 1F, 0, 0, 1F);
     }
-    fun ballCollideWithBrick(){
-        soundPool.play(explodeID, 1f, 1f, 0, 0, 1f)
+
+    fun ballCollideWithBrick() {
+        if (playSFX)
+            soundPool.play(explodeID, 1f, 1f, 0, 0, 1f)
     }
-    fun release(){
+
+    fun release() {
         soundPool.release()
     }
 }

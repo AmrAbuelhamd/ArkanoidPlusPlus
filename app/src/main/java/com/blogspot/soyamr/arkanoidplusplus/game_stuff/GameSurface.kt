@@ -11,6 +11,7 @@ import android.hardware.SensorManager
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import com.blogspot.soyamr.arkanoidplusplus.Repository
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.ILevel
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.IModel
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.Model
@@ -40,6 +41,9 @@ class GameSurface(
     private val accelerometer: Sensor?
 
     init {
+        controlMode =
+            if (Repository(context).SettingsGetTouch()) PaddleControlMode.TOUCH
+            else PaddleControlMode.GYROSCOPE
         // Make Game Surface focusable so it can handle events.
         this.isFocusable = true
 
@@ -120,7 +124,7 @@ class GameSurface(
     }
 
     override fun hereIsUserScores(score: Int, levelNum: Int) {
-        gameActivity.saveUserScores(score,levelNum)
+        gameActivity.saveUserScores(score, levelNum)
     }
 
     @SuppressLint("ClickableViewAccessibility")

@@ -3,7 +3,6 @@ package com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.game_elements
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Rect
-import android.util.Log
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.Model
 
 
@@ -23,7 +22,10 @@ class Paddle(private val model: Model, image: Bitmap, x: Int, y: Int) :
     val imgNormal = object : ImgState {
         override var ctr: Int = 0
         override fun getImg(): Bitmap {
-            return model.gameBitmaps.paddleImg
+            return if (!model.canShoot)
+                model.gameBitmaps.paddleImg
+            else
+                model.gameBitmaps.paddleImgShoot
         }
     }
     val imgBig = object : ImgState {
@@ -34,7 +36,10 @@ class Paddle(private val model: Model, image: Bitmap, x: Int, y: Int) :
                 ctr = 0;
                 imgState = imgNormal
             }
-            return model.gameBitmaps.paddleImgBig
+            return if (!model.canShoot)
+                model.gameBitmaps.paddleImgBig
+            else
+                model.gameBitmaps.paddleImgBigShoot
         }
     }
     val imgSmall = object : ImgState {
@@ -45,7 +50,10 @@ class Paddle(private val model: Model, image: Bitmap, x: Int, y: Int) :
                 ctr = 0;
                 imgState = imgNormal
             }
-            return model.gameBitmaps.paddleImgSmall
+            return if (!model.canShoot)
+                model.gameBitmaps.paddleImgSmall
+            else
+                model.gameBitmaps.paddleImgSmallShoot
         }
     }
 

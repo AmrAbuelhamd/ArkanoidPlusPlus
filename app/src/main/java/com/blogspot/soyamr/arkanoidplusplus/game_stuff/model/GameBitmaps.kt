@@ -5,15 +5,24 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import com.blogspot.soyamr.arkanoidplusplus.R
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.Dimensions
-import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.game_elements.Brick
 
 class GameBitmaps(private val context: Context, private val dimensions: Dimensions) {
 
-    var paddleImg: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.paddle_blu)
+    var paddleImg: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.paddle_blu)
     var paddleImgSmall: Bitmap =
         BitmapFactory.decodeResource(context.resources, R.drawable.paddle_blu_small)
     var paddleImgBig: Bitmap =
         BitmapFactory.decodeResource(context.resources, R.drawable.paddle_blu_big)
+
+
+    var paddleImgShoot: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.paddle_blu_shoot)
+    var paddleImgSmallShoot: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.paddle_blu_small_shoot)
+    var paddleImgBigShoot: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.paddle_blu_big_shoot)
+
 
     var ball: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.ball_blue)
 
@@ -31,6 +40,7 @@ class GameBitmaps(private val context: Context, private val dimensions: Dimensio
         BitmapFactory.decodeResource(context.resources, R.drawable.element_blue_polygon_glossy)
     var brickPolygonYellow: Bitmap =
         BitmapFactory.decodeResource(context.resources, R.drawable.element_yellow_polygon_glossy)
+
     //square
     var brickSquarePurple: Bitmap =
         BitmapFactory.decodeResource(context.resources, R.drawable.element_purple_square_glossy)
@@ -43,7 +53,8 @@ class GameBitmaps(private val context: Context, private val dimensions: Dimensio
     var brickSquareBlue: Bitmap =
         BitmapFactory.decodeResource(context.resources, R.drawable.element_blue_square_glossy)
     var brickSquareYellow: Bitmap =
-        BitmapFactory.decodeResource(context.resources, R.drawable.element_yellow_square_glossy) 
+        BitmapFactory.decodeResource(context.resources, R.drawable.element_yellow_square_glossy)
+
     //rectangle
     var brickRectanglePurple: Bitmap =
         BitmapFactory.decodeResource(context.resources, R.drawable.element_purple_rectangle_glossy)
@@ -66,6 +77,19 @@ class GameBitmaps(private val context: Context, private val dimensions: Dimensio
         BitmapFactory.decodeResource(context.resources, R.drawable.particle_cartoon_star)
     var bonusImg: Bitmap =
         BitmapFactory.decodeResource(context.resources, R.drawable.element_green_square)
+
+    var bonusImgPlusLife: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.bonus_life)
+    var bonusImgPlusBall: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.bonus_plus_ball)
+    var bonusImgSmallPaddle: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.bonus_smaller_paddle)
+    var bonusImgBigPaddle: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.bonus_bigger_paddle)
+    var bonusImgCanShoot: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.bonus_bullets)
+    var bonusImgShield: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.bonus_shield)
 
     var greenBullet = arrayOf(
         BitmapFactory.decodeResource(context.resources, R.drawable.g1_0),
@@ -461,6 +485,36 @@ class GameBitmaps(private val context: Context, private val dimensions: Dimensio
             paddleImg,
             dimensions.paddleWidth,
             dimensions.paddleHeight,
+            false
+        )
+        paddleImgSmall = Bitmap.createScaledBitmap(
+            paddleImgSmall,
+            dimensions.paddleWidthSmall,
+            dimensions.paddleHeightSmall,
+            false
+        )
+        paddleImgBig = Bitmap.createScaledBitmap(
+            paddleImgBig,
+            dimensions.paddleWidthBig,
+            dimensions.paddleHeightBig,
+            false
+        )
+        paddleImgShoot = Bitmap.createScaledBitmap(
+            paddleImgShoot,
+            dimensions.paddleWidth,
+            dimensions.paddleHeight * 2,
+            false
+        )
+        paddleImgSmallShoot = Bitmap.createScaledBitmap(
+            paddleImgSmallShoot,
+            dimensions.paddleWidthSmall,
+            dimensions.paddleHeightSmall * 2,
+            false
+        )
+        paddleImgBigShoot = Bitmap.createScaledBitmap(
+            paddleImgBigShoot,
+            dimensions.paddleWidthBig,
+            dimensions.paddleHeightBig * 2,
             false
         )
 
