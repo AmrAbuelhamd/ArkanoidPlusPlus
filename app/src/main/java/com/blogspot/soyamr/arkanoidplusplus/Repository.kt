@@ -24,6 +24,16 @@ object Repository {
         return this
     }
 
+    fun SettingsSetExitNotification(exit:Boolean){
+        mEditor.putBoolean("exitNotification", exit);
+        mEditor.commit()
+    }
+
+    fun SettingsGetExitNotification() : Boolean {
+        return mPreferences.getBoolean("exitNotification", true)
+    }
+
+
     fun SettingsSetSound(sound:Boolean){
         mEditor.putBoolean("sound", sound);
         mEditor.commit()
