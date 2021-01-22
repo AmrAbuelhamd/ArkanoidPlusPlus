@@ -316,7 +316,7 @@ enum class Level : ILevel {
                             BrickHardness.ONE,
                             BrickType.RECTANGLE
                         );
-                        model.addBonusHere(row, BonusType.BULLETS)
+                        model.addBonusHere(model.numBricks - 1, BonusType.BULLETS)
                     }
                 }
             }
@@ -346,7 +346,7 @@ enum class Level : ILevel {
                             BrickHardness.ONE,
                             BrickType.POLYGON
                         )
-                        model.addBonusHere(row, BonusType.PLUS_BALL)
+                        model.addBonusHere(model.numBricks - 1, BonusType.PLUS_BALL)
                     }
                 }
             }
