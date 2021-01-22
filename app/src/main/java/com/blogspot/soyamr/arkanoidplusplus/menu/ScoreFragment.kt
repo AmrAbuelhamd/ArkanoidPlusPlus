@@ -64,8 +64,8 @@ class ScoreFragment : Fragment() {
                 usersData.sortBy { obj -> obj.score }
                 usersData.reverse()
 
-                if (usersData.size > 200)
-                    usersData = usersData.subList(0,200)
+                if (usersData.size > 150)
+                    usersData = usersData.subList(0,150)
 
                 //for (DataSnapshot scoreSnapshot : dataSnapshot.getChildren)
                 //val users: UserData? = dataSnapshot.getValue(UserData::class.java)
