@@ -88,7 +88,7 @@ object Repository {
     }
 
     private fun convertUserDataToScore(user: UserData) : ScoreInfo {
-        return ScoreInfo(user.nickname, user.levels == 6, user.score, ReturnIconID(user.icon))
+        return ScoreInfo(user.nickname, user.levels == 7, user.score, ReturnIconID(user.icon))
     }
 
     fun ReturnIconID(number: Int) : Int{

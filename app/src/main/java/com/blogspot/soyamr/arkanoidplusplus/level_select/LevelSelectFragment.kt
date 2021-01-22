@@ -68,8 +68,6 @@ class LevelSelectFragment : Fragment() {
         buttonLevel5 = view.findViewById(R.id.buttonLevel5)
         buttonLevel6 = view.findViewById(R.id.buttonLevel6)
 
-
-
         var buttons = listOf(buttonLevel1, buttonLevel2, buttonLevel3, buttonLevel4, buttonLevel5, buttonLevel6)
         textView.text = username
 
@@ -82,7 +80,8 @@ class LevelSelectFragment : Fragment() {
                     val userInfo: UserData? = dataSnapshot.child("users").child(username).getValue(UserData::class.java)
                     for (i in 0 until userInfo!!.levels)
                     {
-                        buttons[i].visibility = View.VISIBLE
+                        if (i < 5 || ((i == 6) && userInfo.score > 15000))
+                            buttons[i].visibility = View.VISIBLE
                     }
                 }
 
