@@ -26,6 +26,7 @@ class MainActivity : FragmentActivity() {
         notificationEventReceiver.setupAlarm(applicationContext)
     }*/
 
+
     override fun onBackPressed() {
         if (repository.SettingsGetExitNotification())
         {
