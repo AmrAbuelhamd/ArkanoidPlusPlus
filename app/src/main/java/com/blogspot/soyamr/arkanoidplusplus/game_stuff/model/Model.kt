@@ -372,7 +372,8 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
         }
 
         //draw the bonus falling down
-        bonusesIndexes.forEach {
+        val bonusArray = bonusesIndexes.toIntArray()
+        bonusArray.forEach {
             if (bonusesTracker[it] == true) {
                 bonuses[it]?.draw(canvas)
             }
@@ -498,6 +499,9 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
             } else if (touchedNextLevelButton(x.toInt(), y.toInt())) {
                 gameSurface.hereIsUserScores(calcScore(), currentLevel.levelNum)
                 currentLevel.setNextLevel(this)
+                if(currentLevel == Level.BONUS){
+                    gameSurface.playMusicForBonusLevel()
+                }
                 currentLevel.initiateLevel(this)
             }
         } else if (hasWon == false) {

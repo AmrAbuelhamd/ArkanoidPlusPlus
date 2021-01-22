@@ -17,7 +17,7 @@ class Dimensions(screenWidth: Int, screenHeight: Int) {
     private val _ballWidth = 30;
     private val _ballHeight = 30;
 
-    private val _paddleWidth = 500//140;
+    private val _paddleWidth = 180//140;
     private val _paddleHeight = 30;
 
     private val _paddleWidthBig = 280;

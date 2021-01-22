@@ -39,11 +39,23 @@ enum class Level : ILevel {
                             BrickType.RECTANGLE
                         );
                     }
-
-
                 }
             }
-            println("Bricksss ${model.numBricks}")
+            var rn: Int
+            var rnBonus: Int
+            val rand = Random()
+            for (i in 0..3) {
+                rn = rand.nextInt(model.numBricks)
+                rnBonus = rand.nextInt(5)
+                when (rnBonus) {
+                    0 -> model.addBonusHere(rn, BonusType.SMALLER_PADDLE)
+                    1 -> model.addBonusHere(rn, BonusType.BIGGER_PADDLE)
+                    2 -> model.addBonusHere(rn, BonusType.BULLETS)
+                    3 -> model.addBonusHere(rn, BonusType.PLUS_BALL)
+                    4 -> model.addBonusHere(rn, BonusType.PLUS_LIVE)
+                }
+            }
+//            println("Bricksss ${model.numBricks}")
         }
 
         override fun setNextLevel(model: Model) {
@@ -76,16 +88,19 @@ enum class Level : ILevel {
                 j = 0
                 i++
             }
-            //add random bonus
-            val rand = Random()
             var rn: Int
-            for (ctr in 0..3) {
+            var rnBonus: Int
+            val rand = Random()
+            for (i in 0..4) {
                 rn = rand.nextInt(model.numBricks)
-                model.addBonusHere(rn, BonusType.BIGGER_PADDLE)
-            }
-            for (ctr in 0..0) {
-                rn = rand.nextInt(model.numBricks)
-                model.addBonusHere(rn, BonusType.SMALLER_PADDLE)
+                rnBonus = rand.nextInt(5)
+                when (rnBonus) {
+                    0 -> model.addBonusHere(rn, BonusType.SMALLER_PADDLE)
+                    1 -> model.addBonusHere(rn, BonusType.BIGGER_PADDLE)
+                    2 -> model.addBonusHere(rn, BonusType.BULLETS)
+                    3 -> model.addBonusHere(rn, BonusType.PLUS_BALL)
+                    4 -> model.addBonusHere(rn, BonusType.PLUS_LIVE)
+                }
             }
         }
 
@@ -170,23 +185,19 @@ enum class Level : ILevel {
                 BrickHardness.TWO, BrickType.SQUARE
             );
 
-//                when (row) {
-//                    0, 1, 3, 7 ,8 -> model.addBonusHere(row, BonusType.SMALLER_PADDLE)
-//                    2, 3,0,1 -> model.addBonusHere(row, BonusType.BIGGER_PADDLE)
-//                    4, 5 -> model.addBonusHere(row, BonusType.BULLETS)
-//                    4, 56, 7 -> model.addBonusHere(row, BonusType.PLUS_BALL)
-//                    8, 9 -> model.addBonusHere(row, BonusType.PLUS_LIVE)
-//                }
-
-            val rand = Random()
             var rn: Int
-            for (i in 0..2) {
+            var rnBonus: Int
+            val rand = Random()
+            for (i in 0..5) {
                 rn = rand.nextInt(model.numBricks)
-                model.addBonusHere(rn, BonusType.SMALLER_PADDLE)
-            }
-            for (i in 0..2) {
-                rn = rand.nextInt(model.numBricks)
-                model.addBonusHere(rn, BonusType.BIGGER_PADDLE)
+                rnBonus = rand.nextInt(5)
+                when (rnBonus) {
+                    0 -> model.addBonusHere(rn, BonusType.SMALLER_PADDLE)
+                    1 -> model.addBonusHere(rn, BonusType.BIGGER_PADDLE)
+                    2 -> model.addBonusHere(rn, BonusType.BULLETS)
+                    3 -> model.addBonusHere(rn, BonusType.PLUS_BALL)
+                    4 -> model.addBonusHere(rn, BonusType.PLUS_LIVE)
+                }
             }
 
             println(
@@ -215,7 +226,7 @@ enum class Level : ILevel {
                             BrickHardness.FIVE,
                             BrickType.SQUARE
                         );
-                        model.addBonusHere(model.numBricks - 1, BonusType.PLUS_BALL)
+//                        model.addBonusHere(model.numBricks - 1, BonusType.PLUS_BALL)
                     } else if (row == 5) {
                         model.addBrick(
                             col, row, model.dimensions.squareWidth,
@@ -244,7 +255,7 @@ enum class Level : ILevel {
                             BrickHardness.THREE,
                             BrickType.POLYGON
                         );
-                        model.addBonusHere(model.numBricks - 1, BonusType.PLUS_BALL)
+//                        model.addBonusHere(model.numBricks - 1, BonusType.PLUS_BALL)
                     } else if (row == 5) {
                         model.addBrick(
                             col, row, model.dimensions.polygonWidth,
@@ -277,6 +288,21 @@ enum class Level : ILevel {
                 ++model.unBreakableBricks
             }
             println("Bricksss ${model.numBricks}")
+
+            var rn: Int
+            var rnBonus: Int
+            val rand = Random()
+            for (i in 0..6) {
+                rn = rand.nextInt(model.numBricks)
+                rnBonus = rand.nextInt(5)
+                when (rnBonus) {
+                    0 -> model.addBonusHere(rn, BonusType.SMALLER_PADDLE)
+                    1 -> model.addBonusHere(rn, BonusType.BIGGER_PADDLE)
+                    2 -> model.addBonusHere(rn, BonusType.BULLETS)
+                    3 -> model.addBonusHere(rn, BonusType.PLUS_BALL)
+                    4 -> model.addBonusHere(rn, BonusType.PLUS_LIVE)
+                }
+            }
 
         }
 
@@ -316,7 +342,7 @@ enum class Level : ILevel {
                             BrickHardness.ONE,
                             BrickType.RECTANGLE
                         );
-                        model.addBonusHere(model.numBricks - 1, BonusType.BULLETS)
+//                        model.addBonusHere(model.numBricks - 1, BonusType.BULLETS)
                     }
                 }
             }
@@ -331,7 +357,7 @@ enum class Level : ILevel {
                             BrickHardness.THREE,
                             BrickType.POLYGON
                         );
-                        model.addBonusHere(model.numBricks - 1, BonusType.PLUS_BALL)
+//                        model.addBonusHere(model.numBricks - 1, BonusType.PLUS_BALL)
                     } else if (row == 5) {
                         model.addBrick(
                             col, row, model.dimensions.polygonWidth,
@@ -346,11 +372,26 @@ enum class Level : ILevel {
                             BrickHardness.ONE,
                             BrickType.POLYGON
                         )
-                        model.addBonusHere(model.numBricks - 1, BonusType.PLUS_BALL)
+//                        model.addBonusHere(model.numBricks - 1, BonusType.PLUS_BALL)
                     }
                 }
             }
             println("Bricksss ${model.numBricks}")
+
+            var rn: Int
+            var rnBonus: Int
+            val rand = Random()
+            for (i in 0..7) {
+                rn = rand.nextInt(model.numBricks)
+                rnBonus = rand.nextInt(5)
+                when (rnBonus) {
+                    0 -> model.addBonusHere(rn, BonusType.SMALLER_PADDLE)
+                    1 -> model.addBonusHere(rn, BonusType.BIGGER_PADDLE)
+                    2 -> model.addBonusHere(rn, BonusType.BULLETS)
+                    3 -> model.addBonusHere(rn, BonusType.PLUS_BALL)
+                    4 -> model.addBonusHere(rn, BonusType.PLUS_LIVE)
+                }
+            }
         }
 
         override fun setNextLevel(model: Model) {

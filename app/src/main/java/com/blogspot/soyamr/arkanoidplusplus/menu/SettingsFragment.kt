@@ -96,6 +96,11 @@ class SettingsFragment : Fragment() {
             repository.SettingsSetMusic(musicON)
             repository.SettingsSetSound(soundON)
             repository.SettingsSetTouch(touchON)
+            if(!musicON){
+                (activity as MainActivity).stopMusic()
+            }else{
+                (activity as MainActivity).startMusic()
+            }
             Toast.makeText(requireContext(), "Saved", Toast.LENGTH_SHORT).show()
         }
 

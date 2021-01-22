@@ -6,4 +6,5 @@ interface IGameSurface {
     fun showMainMenu()
     fun hereIsUserScores(score: Int, levelNum: Int)
     fun showPrizeScreen()
+    fun playMusicForBonusLevel()
 }

@@ -131,6 +131,10 @@ class GameSurface(
         gameActivity.showPrizeScreen()
     }
 
+    override fun playMusicForBonusLevel() {
+        gameActivity.playBonusLevelMusic()
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(motionEvent: MotionEvent): Boolean {
         model.setPaused(false)

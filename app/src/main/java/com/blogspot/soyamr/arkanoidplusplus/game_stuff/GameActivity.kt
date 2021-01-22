@@ -4,16 +4,16 @@ import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.Display
-import android.view.View
 import android.view.ViewGroup
 import com.blogspot.soyamr.arkanoidplusplus.CongratulationsActivity
+import com.blogspot.soyamr.arkanoidplusplus.R
 import com.blogspot.soyamr.arkanoidplusplus.Repository
-import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.Level
 import com.blogspot.soyamr.arkanoidplusplus.menu.MainActivity
 import com.blogspot.soyamr.arkanoidplusplus.net.UserData
 import com.google.firebase.database.*
@@ -24,6 +24,7 @@ class GameActivity : Activity() {
     override fun onBackPressed() {
 
     }
+
     // repository
     private lateinit var repository: Repository
 
@@ -38,6 +39,10 @@ class GameActivity : Activity() {
 
     lateinit var gameSurface: GameSurface
     var firstTime: Boolean = true
+    var mediaPlayer: MediaPlayer? = null
+
+    private var isMusicOn: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -46,6 +51,7 @@ class GameActivity : Activity() {
 
         repository = Repository(this)
 
+        isMusicOn = repository.SettingsGetMusic()
         val height = getHeight(this)
         val width = getWidth(this)
         firstTime = true;
@@ -57,6 +63,8 @@ class GameActivity : Activity() {
             ViewGroup.LayoutParams.MATCH_PARENT
         )
         setContentView(gameSurface)
+        if (isMusicOn)
+            mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.for_level);
     }
 
     private fun getWidth(context: Context): Int {
@@ -92,8 +100,22 @@ class GameActivity : Activity() {
     override fun onPause() {
         super.onPause()
         gameSurface.pause()
+        if (isMusicOn)
+            mediaPlayer?.pause();
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        if (isMusicOn)
+            mediaPlayer?.start();
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (isMusicOn)
+            mediaPlayer?.release();
+    }
 
     fun showMainMenu() {
         val intent = Intent(this, MainActivity::class.java)
@@ -110,15 +132,31 @@ class GameActivity : Activity() {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val userInfo: UserData? =
                         dataSnapshot.child("users").child(username).getValue(UserData::class.java)
-                    if (score == -1 && levelNum == -1)
-                    {
-                        repository.APIChangeOrAddUser(userInfo!!.nickname, userInfo.score, false, userInfo.icon, userInfo.levels)
-                    }
-                    else if (levelNum == userInfo!!.levels) {
+                    if (score == -1 && levelNum == -1) {
+                        repository.APIChangeOrAddUser(
+                            userInfo!!.nickname,
+                            userInfo.score,
+                            false,
+                            userInfo.icon,
+                            userInfo.levels
+                        )
+                    } else if (levelNum == userInfo!!.levels) {
                         if (levelNum == 6)
-                            repository.APIChangeOrAddUser(userInfo.nickname, userInfo.score + score, userInfo.alive, userInfo.icon, levelNum)
+                            repository.APIChangeOrAddUser(
+                                userInfo.nickname,
+                                userInfo.score + score,
+                                userInfo.alive,
+                                userInfo.icon,
+                                levelNum
+                            )
                         else
-                            repository.APIChangeOrAddUser(userInfo.nickname, userInfo.score + score, userInfo.alive, userInfo.icon, levelNum + 1)
+                            repository.APIChangeOrAddUser(
+                                userInfo.nickname,
+                                userInfo.score + score,
+                                userInfo.alive,
+                                userInfo.icon,
+                                levelNum + 1
+                            )
                     }
                 }
 
@@ -134,6 +172,15 @@ class GameActivity : Activity() {
         val intent = Intent(this, CongratulationsActivity::class.java)
         finish()
         startActivity(intent)
+    }
+
+    fun playBonusLevelMusic() {
+        if (isMusicOn) {
+            mediaPlayer?.stop()
+            mediaPlayer?.release()
+            mediaPlayer = MediaPlayer.create(applicationContext, R.raw.for_bonus_level);
+            mediaPlayer?.start()
+        }
     }
 
 }
