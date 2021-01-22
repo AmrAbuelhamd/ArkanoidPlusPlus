@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -16,6 +17,7 @@ import com.blogspot.soyamr.arkanoidplusplus.Repository
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.Level
 import com.blogspot.soyamr.arkanoidplusplus.menu.MainActivity
 import com.blogspot.soyamr.arkanoidplusplus.net.UserData
+import com.blogspot.soyamr.arkanoidplusplus.R
 import com.google.firebase.database.*
 
 
