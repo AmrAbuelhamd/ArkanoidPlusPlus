@@ -448,7 +448,7 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
     }
 
     private fun showPrize() {
-        gameSurface.showMainMenu()//fixme
+        gameSurface.showPrizeScreen()
     }
 
     fun addBonusHere(rn: Int, bonus: BonusType) {
@@ -546,5 +546,26 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
         val delta = endTime - startTime
         val deltaInSeconds = (delta / 1000).toInt()
         return (numBricks * 1000) / deltaInSeconds
+    }
+
+    fun addBrick(
+        col: Int,
+        row: Int,
+        width: Int,
+        height: Int,
+        brickHardness: BrickHardness,
+        brickType: BrickType
+    ) {
+        bricks[numBricks] =
+            Brick(
+                this,
+                col * width +
+                        dimensions.padding * (col + 3),
+                row * height +
+                        dimensions.padding * (row + 1),
+                brickHardness,
+                brickType
+            )
+        ++numBricks
     }
 }

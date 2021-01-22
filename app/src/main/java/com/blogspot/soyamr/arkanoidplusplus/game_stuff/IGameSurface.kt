@@ -5,4 +5,5 @@ interface IGameSurface {
     fun getScreenHeight(): Int
     fun showMainMenu()
     fun hereIsUserScores(score: Int, levelNum: Int)
+    fun showPrizeScreen()
 }

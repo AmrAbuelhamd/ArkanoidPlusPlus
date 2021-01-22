@@ -127,6 +127,10 @@ class GameSurface(
         gameActivity.saveUserScores(score, levelNum)
     }
 
+    override fun showPrizeScreen() {
+        gameActivity.showPrizeScreen()
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(motionEvent: MotionEvent): Boolean {
         model.setPaused(false)

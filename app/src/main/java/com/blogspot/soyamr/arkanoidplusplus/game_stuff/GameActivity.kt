@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.Display
 import android.view.View
 import android.view.ViewGroup
+import com.blogspot.soyamr.arkanoidplusplus.CongratulationsActivity
 import com.blogspot.soyamr.arkanoidplusplus.Repository
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.Level
 import com.blogspot.soyamr.arkanoidplusplus.menu.MainActivity
@@ -124,6 +125,12 @@ class GameActivity : Activity() {
                 }
             })
         }
+    }
+
+    fun showPrizeScreen() {
+        val intent = Intent(this, CongratulationsActivity::class.java)
+        finish()
+        startActivity(intent)
     }
 
 }

@@ -9,7 +9,7 @@ abstract class GameObject(
     protected val image: Bitmap,
     protected var rowCount: Int,
     protected var colCount: Int,
-    protected var x: Int,
+    var x: Int,
     var y: Int
 ) : GlobalBehavior {
     var isAlive = true

@@ -18,6 +18,8 @@ class Bullet(
     private val _rect = Rect()
     private val bulletRect: Rect
         get() {
+            if(ctr==-1)
+                ++ctr
             _rect.set(x, y, x + images[ctr].width, y + images[ctr].height)
             return _rect
         }
