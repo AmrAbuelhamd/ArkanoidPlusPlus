@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.blogspot.soyamr.arkanoidplusplus.R
 
 
-class IconsAdapter(onIconIListener: OnIconIListener) : RecyclerView.Adapter<IconsAdapter.IconsViewHolder>() {
+class IconsAdapter(onIconIListener: OnIconIListener) :
+    RecyclerView.Adapter<IconsAdapter.IconsViewHolder>() {
 
     private val iconsList: MutableList<Icon> = ArrayList()
     private val onIconIListener: OnIconIListener = onIconIListener
@@ -18,16 +18,13 @@ class IconsAdapter(onIconIListener: OnIconIListener) : RecyclerView.Adapter<Icon
     class IconsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image: ImageView = itemView.findViewById(R.id.icon)
         fun bind(icon: Icon, onIconIListener: OnIconIListener) {
-            if (icon.activated)
-            {
+            if (icon.activated) {
                 image.setBackgroundColor(Color.DKGRAY)
-            }
-            else
-            {
+            } else {
                 image.setBackgroundColor(Color.BLACK)
             }
 
-            image.setOnClickListener{
+            image.setOnClickListener {
                 onIconIListener.onIconClick(adapterPosition)
             }
 
@@ -36,14 +33,17 @@ class IconsAdapter(onIconIListener: OnIconIListener) : RecyclerView.Adapter<Icon
     }
 
 
-
-    fun setAllIcons(icons: List<Icon>){
-        iconsList.addAll(icons)
+    fun setAllIcons(icons: MutableList<Icon>?) {
+        try {
+            if (icons != null)
+                iconsList.addAll(icons)
+        } catch (e: Exception) {
+        }
         notifyDataSetChanged()
     }
 
-    fun changeChosenIcon(prev: Int?, curr: Int){
-        if (prev != null){
+    fun changeChosenIcon(prev: Int?, curr: Int) {
+        if (prev != null) {
             iconsList[prev].activated = false
             notifyItemChanged(prev)
         }
@@ -62,7 +62,7 @@ class IconsAdapter(onIconIListener: OnIconIListener) : RecyclerView.Adapter<Icon
     }
 
     override fun onBindViewHolder(holder: IconsViewHolder, position: Int) {
-        holder.bind(iconsList[position],  onIconIListener);
+        holder.bind(iconsList[position], onIconIListener);
     }
 
 }

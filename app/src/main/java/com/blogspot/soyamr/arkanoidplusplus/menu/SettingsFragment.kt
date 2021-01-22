@@ -60,7 +60,6 @@ class SettingsFragment : Fragment() {
                 }
             }
         })
-
     }
 
     var touchON: Boolean = true

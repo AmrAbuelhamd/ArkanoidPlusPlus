@@ -5,7 +5,9 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import com.blogspot.soyamr.arkanoidplusplus.R
 import com.blogspot.soyamr.arkanoidplusplus.Repository
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginAndLevelSelectActivity : FragmentActivity() {
 
     private lateinit var repository: Repository
