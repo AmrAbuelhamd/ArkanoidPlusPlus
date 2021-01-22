@@ -138,6 +138,8 @@ class GameSurface(
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(motionEvent: MotionEvent): Boolean {
         model.setPaused(false)
+        model.userTouched(motionEvent.x, motionEvent.y)
+
         if (controlMode == PaddleControlMode.TOUCH) {
             when (motionEvent.action and MotionEvent.ACTION_MASK) {
                 MotionEvent.ACTION_DOWN -> {
@@ -146,7 +148,6 @@ class GameSurface(
                     } else {
                         model.setMovementState(State.LEFT)
                     }
-                    model.userTouched(motionEvent.x, motionEvent.y)
                 }
                 MotionEvent.ACTION_UP -> model.setMovementState(State.STOPPED)
             }

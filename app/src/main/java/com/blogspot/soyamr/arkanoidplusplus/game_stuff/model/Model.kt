@@ -74,6 +74,9 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
         paint.getTextBounds(prizeText, 0, prizeText.length, prizeTextBounds);
         paint.getTextBounds(nextLevelText, 0, nextLevelText.length, nextLevelTextBounds);
 
+        if(currentLevel==Level.BONUS){
+            gameSurface.playMusicForBonusLevel()
+        }
     }
 
     val nextLevelButtonX = dimensions.screenWidth / 2 - nextLevelTextBounds.centerX()
