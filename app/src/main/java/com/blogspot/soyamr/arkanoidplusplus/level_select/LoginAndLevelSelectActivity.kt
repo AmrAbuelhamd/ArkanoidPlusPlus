@@ -1,13 +1,10 @@
 package com.blogspot.soyamr.arkanoidplusplus.level_select
 
-import android.app.Activity
-import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import com.blogspot.soyamr.arkanoidplusplus.R
 import com.blogspot.soyamr.arkanoidplusplus.Repository
-import com.blogspot.soyamr.arkanoidplusplus.game_stuff.GameActivity
 
 class LoginAndLevelSelectActivity : FragmentActivity() {
 
@@ -19,7 +16,7 @@ class LoginAndLevelSelectActivity : FragmentActivity() {
         setContentView(R.layout.activity_level_select)
         //startActivity(Intent(this, GameActivity::class.java))
         repository = Repository(this)
-        isMusicOn = repository.SettingsGetMusic()
+        isMusicOn = repository.settingsGetMusic()
         if (isMusicOn)
             mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.for_level_selector);
     }

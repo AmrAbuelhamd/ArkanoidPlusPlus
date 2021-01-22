@@ -6,62 +6,61 @@ import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.Level
 import com.blogspot.soyamr.arkanoidplusplus.net.UserData
 import com.blogspot.soyamr.arkanoidplusplus.recycle_icons.Icon
 import com.blogspot.soyamr.arkanoidplusplus.recycle_score.ScoreInfo
-import com.google.firebase.database.*
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object Repository {
-    private var context: Context? = null
+@Singleton
+class Repository @Inject constructor(@ApplicationContext val context: Context) {
 
     private lateinit var myRef: DatabaseReference
 
-    private lateinit var mPreferences: SharedPreferences
+    private var mPreferences: SharedPreferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
     private lateinit var mEditor: SharedPreferences.Editor
 
-    operator fun invoke(gotContext: Context): Repository {
-        context = gotContext
-        mPreferences = context!!.getSharedPreferences("settings", Context.MODE_PRIVATE)
+    init {
         mEditor = mPreferences.edit()
         myRef = FirebaseDatabase.getInstance().reference
-        return this
     }
 
-    fun SettingsSetExitNotification(exit:Boolean){
+    fun settingsSetExitNotification(exit: Boolean) {
         mEditor.putBoolean("exitNotification", exit);
         mEditor.commit()
     }
 
-    fun SettingsGetExitNotification() : Boolean {
+    fun settingsGetExitNotification(): Boolean {
         return mPreferences.getBoolean("exitNotification", true)
     }
 
 
-    fun SettingsSetSound(sound:Boolean){
+    fun settingsSetSound(sound: Boolean) {
         mEditor.putBoolean("sound", sound);
         mEditor.commit()
     }
 
-    fun SettingsSetMusic(music:Boolean){
+    fun settingsSetMusic(music: Boolean) {
         mEditor.putBoolean("music", music);
         mEditor.commit()
     }
 
-    fun SettingsSetTouch(touch:Boolean){
+    fun settingsSetTouch(touch: Boolean) {
         mEditor.putBoolean("touch", touch);
         mEditor.commit()
     }
 
-    fun SettingsGetSound() : Boolean {
+    fun settingsGetSound(): Boolean {
         return mPreferences.getBoolean("sound", true)
     }
 
-    fun SettingsGetMusic() : Boolean {
+    fun settingsGetMusic(): Boolean {
         return mPreferences.getBoolean("music", true)
     }
 
-    fun SettingsGetTouch() : Boolean {
+    fun settingsGetTouch(): Boolean {
         return mPreferences.getBoolean("touch", true)
     }
-
-
 
 
     var Icons = listOf(
@@ -74,12 +73,12 @@ object Repository {
         Icon(R.drawable.avatar19), Icon(R.drawable.avatar20), Icon(R.drawable.avatar21)
     )
 
-    fun APIChangeOrAddUser(nickname: String, score: Int, alive: Boolean, icon: Int, levels: Int){
+    fun apiChangeOrAddUser(nickname: String, score: Int, alive: Boolean, icon: Int, levels: Int) {
         val user = UserData(nickname, score, alive, icon, levels)
         myRef.child("users").child(nickname).setValue(user)
     }
 
-    public fun convertUsersDataToScores(users: List<UserData>) : List<ScoreInfo>{
+    public fun convertUsersDataToScores(users: List<UserData>): List<ScoreInfo> {
         var scores: MutableList<ScoreInfo> = mutableListOf<ScoreInfo>()
         for (i in 0 until users.count()) {
             scores.add(convertUserDataToScore(users[i]))
@@ -87,11 +86,11 @@ object Repository {
         return scores.toList()
     }
 
-    private fun convertUserDataToScore(user: UserData) : ScoreInfo {
-        return ScoreInfo(user.nickname, user.levels == 7, user.score, ReturnIconID(user.icon))
+    private fun convertUserDataToScore(user: UserData): ScoreInfo {
+        return ScoreInfo(user.nickname, user.levels == 7, user.score, getIconID(user.icon))
     }
 
-    fun ReturnIconID(number: Int) : Int{
+    fun getIconID(number: Int): Int {
         when (number) {
             1 -> return R.drawable.avatar1
             2 -> return R.drawable.avatar2
@@ -117,7 +116,7 @@ object Repository {
         }
     }
 
-    fun ReturnLevel(number: Int) : Level {
+    fun getLevel(number: Int): Level {
         return when (number) {
             1 -> Level.FIRST
             2 -> Level.SECOND
@@ -133,7 +132,6 @@ object Repository {
         mEditor.putString("token", "empty")
         mEditor.commit()
     }*/
-
 
 
 }

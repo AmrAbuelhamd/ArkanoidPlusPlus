@@ -51,9 +51,9 @@ class SettingsFragment : Fragment() {
         radioButtonGyroscope = view.findViewById(R.id.radioButtonSettings2)
         radioGroupPlatformControl = view.findViewById(R.id.radioGroupPlatformControl)
 
-        musicON = repository.SettingsGetMusic()
-        soundON = repository.SettingsGetSound()
-        touchON = repository.SettingsGetTouch()
+        musicON = repository.settingsGetMusic()
+        soundON = repository.settingsGetSound()
+        touchON = repository.settingsGetTouch()
 
         switchMusic!!.isChecked = musicON
         switchSound!!.isChecked = soundON
@@ -90,9 +90,9 @@ class SettingsFragment : Fragment() {
         })
 
         saveButton!!.setOnClickListener{
-            repository.SettingsSetMusic(musicON)
-            repository.SettingsSetSound(soundON)
-            repository.SettingsSetTouch(touchON)
+            repository.settingsSetMusic(musicON)
+            repository.settingsSetSound(soundON)
+            repository.settingsSetTouch(touchON)
             if(!musicON){
                 (activity as MainActivity).stopMusic()
             }else{

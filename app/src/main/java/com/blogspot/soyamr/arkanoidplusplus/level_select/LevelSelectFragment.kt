@@ -2,7 +2,6 @@ package com.blogspot.soyamr.arkanoidplusplus.level_select
 
 import android.content.ContentValues
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -17,7 +16,6 @@ import com.blogspot.soyamr.arkanoidplusplus.Repository
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.GameActivity
 import com.blogspot.soyamr.arkanoidplusplus.net.UserData
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.fragment_level_select.view.*
 
 
 class LevelSelectFragment : Fragment() {
@@ -73,7 +71,7 @@ class LevelSelectFragment : Fragment() {
 
         if (iconID != -1)
         {
-            imageView.setImageResource(repository.ReturnIconID(iconID!!))
+            imageView.setImageResource(repository.getIconID(iconID!!))
             myRef = FirebaseDatabase.getInstance().reference
             myRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {

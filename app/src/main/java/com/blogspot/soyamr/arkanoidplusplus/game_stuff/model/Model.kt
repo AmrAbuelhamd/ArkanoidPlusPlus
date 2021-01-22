@@ -27,7 +27,7 @@ class Model(context: Context, val gameSurface: IGameSurface, var currentLevel: I
     private val paddle: Paddle
     val bricks = arrayOfNulls<Brick>(800)
     var numBricks = 0
-    private val playSFX = Repository(context).SettingsGetSound()
+    private val playSFX = Repository(context).settingsGetSound()
     var lives: MutableList<ScreenElement> = ArrayList()
 
     //shooting system variables

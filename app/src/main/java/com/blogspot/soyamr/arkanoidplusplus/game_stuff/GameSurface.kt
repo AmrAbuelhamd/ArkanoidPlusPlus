@@ -42,7 +42,7 @@ class GameSurface(
 
     init {
         controlMode =
-            if (Repository(context).SettingsGetTouch()) PaddleControlMode.TOUCH
+            if (Repository(context).settingsGetTouch()) PaddleControlMode.TOUCH
             else PaddleControlMode.GYROSCOPE
         // Make Game Surface focusable so it can handle events.
         this.isFocusable = true
