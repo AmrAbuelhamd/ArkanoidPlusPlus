@@ -61,6 +61,8 @@ class ScoreFragment : Fragment() {
                     val userInfo: UserData? = user.getValue(UserData::class.java)
                     usersData.add(userInfo!!)
                 }
+                usersData.sortBy { obj -> obj.score }
+                usersData.reverse()
                 //for (DataSnapshot scoreSnapshot : dataSnapshot.getChildren)
                 //val users: UserData? = dataSnapshot.getValue(UserData::class.java)
                 scores = repository.convertUsersDataToScores(usersData)
