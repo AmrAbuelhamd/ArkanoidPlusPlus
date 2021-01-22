@@ -6,12 +6,9 @@ import android.content.Intent
 import java.util.*
 
 
-class NotificationServiceStarterReceiver(notificationEventReceiver: NotificationEventReceiver) : BroadcastReceiver() {
-
-
-    var notificationEventReceiver: NotificationEventReceiver = notificationEventReceiver
+class NotificationServiceStarterReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        notificationEventReceiver.setupAlarm(context!!)
+        NotificationEventReceiver.setupAlarm(context!!)
     }
 }
