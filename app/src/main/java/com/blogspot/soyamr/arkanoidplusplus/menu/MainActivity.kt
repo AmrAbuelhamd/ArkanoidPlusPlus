@@ -8,6 +8,7 @@ import com.blogspot.soyamr.arkanoidplusplus.R
 import com.blogspot.soyamr.arkanoidplusplus.Repository
 import com.blogspot.soyamr.arkanoidplusplus.notifications.ExitNotification
 import com.blogspot.soyamr.arkanoidplusplus.notifications.NotificationEventReceiver
+import java.lang.Exception
 
 
 class MainActivity : FragmentActivity() {
@@ -31,8 +32,13 @@ class MainActivity : FragmentActivity() {
 
     override fun onPause() {
         super.onPause()
-        if (isMusicOn)
-            mediaPlayer?.pause();
+        try {
+            if (isMusicOn)
+                mediaPlayer?.pause();
+        }
+        catch (i:Exception){
+
+        }
     }
 
     override fun onResume() {
@@ -53,6 +59,8 @@ class MainActivity : FragmentActivity() {
             repository.SettingsSetExitNotification(false)
         }
         //repository.SettingsSetExitNotification(true)
+
+        stopMusic()
         finish()
     }
 

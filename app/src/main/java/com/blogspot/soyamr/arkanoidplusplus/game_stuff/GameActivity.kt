@@ -23,9 +23,7 @@ import com.google.firebase.database.*
 
 class GameActivity : Activity() {
 
-    override fun onBackPressed() {
 
-    }
     // repository
     private lateinit var repository: Repository
 
