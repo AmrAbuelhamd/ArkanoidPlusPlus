@@ -12,7 +12,7 @@ class CongratulationsActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_congratulations)
-
+        repository = Repository(this)
         isMusicOn = repository.SettingsGetMusic()
 
         if (isMusicOn)

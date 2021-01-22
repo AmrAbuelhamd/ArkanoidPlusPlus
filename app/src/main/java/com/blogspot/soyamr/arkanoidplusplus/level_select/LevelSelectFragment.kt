@@ -123,6 +123,7 @@ class LevelSelectFragment : Fragment() {
         buttonLevel6.setOnClickListener{
             intent.putExtra("level",6)
             startActivity(intent)
+            requireActivity().finish()
         }
 
         return view
