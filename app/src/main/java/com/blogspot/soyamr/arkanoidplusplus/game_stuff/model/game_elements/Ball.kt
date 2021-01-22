@@ -47,14 +47,6 @@ class Ball(
     var xVelocity = 600;
     var yVelocity = -1200;
 
-    init {
-//        for (col in 0 until colCount) {
-//            topToBottoms[col] = createSubImageAt(ROW_TOP_TO_BOTTOM, col)
-//            rightToLefts[col] = createSubImageAt(ROW_RIGHT_TO_LEFT, col)
-//            leftToRights[col] = createSubImageAt(ROW_LEFT_TO_RIGHT, col)
-//            bottomToTops[col] = createSubImageAt(ROW_BOTTOM_TO_TOP, col)
-//        }
-    }
 
     private fun getMoveBitmaps(): Array<Bitmap?>? {
         return when (rowUsing) {
@@ -73,11 +65,6 @@ class Ball(
 
 
     override fun update(fps: Int) {
-//        ++colUsing
-//        if (colUsing >= colCount) {
-//            colUsing = 0
-//        }
-
         x += (xVelocity / fps)
         y += (yVelocity / fps)
 
@@ -96,25 +83,6 @@ class Ball(
             reverseYVelocity()
             model.playSoundTop()
         }
-
-        // rowUsing
-//        if (xVelocity > 0) {
-//            rowUsing = if (yVelocity > 0 && abs(xVelocity) < abs(yVelocity)) {
-//                ROW_TOP_TO_BOTTOM
-//            } else if (yVelocity < 0 && abs(xVelocity) < abs(yVelocity)) {
-//                ROW_BOTTOM_TO_TOP
-//            } else {
-//                ROW_LEFT_TO_RIGHT
-//            }
-//        } else {
-//            rowUsing = if (yVelocity > 0 && abs(xVelocity) < abs(yVelocity)) {
-//                ROW_TOP_TO_BOTTOM
-//            } else if (yVelocity < 0 && abs(xVelocity) < abs(yVelocity)) {
-//                ROW_BOTTOM_TO_TOP
-//            } else {
-//                ROW_RIGHT_TO_LEFT
-//            }
-//        }
     }
 
     override fun draw(canvas: Canvas) {
