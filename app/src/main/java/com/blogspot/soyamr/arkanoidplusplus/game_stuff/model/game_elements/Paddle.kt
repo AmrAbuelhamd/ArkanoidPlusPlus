@@ -61,7 +61,7 @@ class Paddle(private val model: Model, image: Bitmap, x: Int, y: Int) :
 
     var paddleState: IState = State.STOPPED
 
-    val paddleSpeed = 650
+    val paddleSpeed = 815//650
 
     override fun update(fps: Int) {
         paddleState.update(this, fps)

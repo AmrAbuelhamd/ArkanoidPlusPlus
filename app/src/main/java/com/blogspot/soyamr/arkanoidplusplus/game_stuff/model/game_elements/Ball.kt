@@ -42,10 +42,10 @@ class Ball(
     private var bottomToTops: Array<Bitmap?> = arrayOfNulls(colCount)
 
 
-    private val xVelocityDefault = 400;
-    private val yVelocityDefault = 800;
-    var xVelocity = 400;
-    var yVelocity = -800;
+    private val xVelocityDefault = 600;//400
+    private val yVelocityDefault = 1200;
+    var xVelocity = 600;
+    var yVelocity = -1200;
 
     init {
 //        for (col in 0 until colCount) {
@@ -248,12 +248,12 @@ class Ball(
         val yDir = if (yVelocity < 0) -1 else 1
         if (ballRect.centerX() in (a + 1) until b) {
             xVelocity = 0;
-            yVelocity = 800
+            yVelocity = 1200
         } else if (ballRect.centerX() < (paddle.left + part) ||
             ballRect.centerX() > (paddle.right - part + 1)
         ) {
-            yVelocity = yDir * 400
-            xVelocity = xDir * 800
+            yVelocity = yDir * 1200
+            xVelocity = xDir * 600
         } else if (ballRect.centerX() in (paddle.left + part + 1) until (paddle.right - part)) {
             yVelocity = yDir * yVelocityDefault
             xVelocity = xDir * xVelocityDefault
