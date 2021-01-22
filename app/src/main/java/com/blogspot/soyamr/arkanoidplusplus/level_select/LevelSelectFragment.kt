@@ -103,26 +103,32 @@ class LevelSelectFragment : Fragment() {
         buttonLevel1.setOnClickListener{
             intent.putExtra("level",1)
             startActivity(intent)
+            requireActivity().finish()
         }
         buttonLevel2.setOnClickListener{
             intent.putExtra("level",2)
             startActivity(intent)
+            requireActivity().finish()
         }
         buttonLevel3.setOnClickListener{
             intent.putExtra("level",3)
             startActivity(intent)
+            requireActivity().finish()
         }
         buttonLevel4.setOnClickListener{
             intent.putExtra("level",4)
             startActivity(intent)
+            requireActivity().finish()
         }
         buttonLevel5.setOnClickListener{
             intent.putExtra("level",5)
             startActivity(intent)
+            requireActivity().finish()
         }
         buttonLevel6.setOnClickListener{
             intent.putExtra("level",6)
             startActivity(intent)
+            requireActivity().finish()
         }
 
         return view
