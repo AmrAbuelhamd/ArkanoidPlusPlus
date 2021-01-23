@@ -41,5 +41,21 @@
     <string name="prasing_text">Lidia is the best. For HITS with love. \n\nDaniil and Amr, 2021.</string>
     <string name="congs">CONGRATULATIONS</string>
     <string name="russian_humor">конец прикола</string>
+    <string name="lets_start">LET THE JOURNEY BEGIN!</string>
+    <string name="choose">CHOOSE YOUR FACE</string>
+    <string name="letsgoo">LET\'S GO!</string>
+    <string name="name">ENTER NAME</string>
+    <string name="deadmsge">Looks like you don\'t have Internet connection.\n\nYou still can play but your progress will not be saved and your score will not get on the scoreboard!</string>
+    <string name="try_again">TRY AGAIN</string>
+    <string name="let_s_go">LET\'S GO!</string>
+    <string name="no_internet_n">NO INTERNET\n :(</string>
+    <string name="dead2">Those who lost cannot start over using their old names.\n\nYou can find your score on scoreboard.</string>
+    <string name="return_">GO BACK</string>
+    <string name="you_are_dead">YOU ARE DEAD</string>
+    <string name="your_score">YOUR SCORE:</string>
+    <string name="blogpost">BLOGPOST!</string>
+    <string name="story">There are good news and bad news.\n\nCOVID-19 has won. Humanity on Earth is close to extinction.\n\n But it\'s too early to despair, soldier! The union of governments found 5 planets where human beings can survive.\n\nYou have to go overboard and clear all the trash near our new potential planets.\n\nGood luck!\n\n\n\n\nThere are 5(?) levels you should go through. On each one you will have 3 lives. If you lose all lives - you are dead. Try to get as much score as you can!</string>
+    <string name="i_m_ready">I\'M READY!</string>
+    <string name="welcome_warrior">WELCOME, WARRIOR!</string>
 
 </resources>
