@@ -2,6 +2,8 @@ package com.blogspot.soyamr.arkanoidplusplus
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import com.blogspot.soyamr.arkanoidplusplus.game_stuff.model.Level
 import com.blogspot.soyamr.arkanoidplusplus.net.UserData
 import com.blogspot.soyamr.arkanoidplusplus.recycle_icons.Icon
@@ -17,7 +19,8 @@ class Repository @Inject constructor(@ApplicationContext val context: Context) {
 
     private lateinit var myRef: DatabaseReference
 
-    private var mPreferences: SharedPreferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+    private var mPreferences: SharedPreferences =
+        context.getSharedPreferences("settings", Context.MODE_PRIVATE)
     private lateinit var mEditor: SharedPreferences.Editor
 
     init {
@@ -32,6 +35,32 @@ class Repository @Inject constructor(@ApplicationContext val context: Context) {
 
     fun settingsGetExitNotification(): Boolean {
         return mPreferences.getBoolean("exitNotification", true)
+    }
+
+     fun isOnline(): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+//        if (connectivityManager != null) {
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        if (capabilities != null) {
+            when {
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+//                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                    return true
+                }
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+//                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                    return true
+                }
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
+//                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                    return true
+                }
+            }
+        }
+//        }
+        return false
     }
 
 

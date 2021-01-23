@@ -1,66 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/sel_background1"
-    tools:context=".level_select.LoginFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+        <variable
+            name="viewModel"
+            type="com.blogspot.soyamr.arkanoidplusplus.level_select.LogInViewModel" />
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/sel_background1"
+        tools:context=".level_select.LoginFragment">
 
-        <Button
-            android:id="@+id/buttonLetsGo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="85dp"
-            android:background="@drawable/custom_button"
-            android:fontFamily="@font/aldrich"
-            android:text="LET'S GO!"
-            android:textColor="@color/button_text_gray"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textViewPlayerDead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="64dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/aldrich"
-            android:text="ENTER NAME"
-            android:textColor="@color/white"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <Button
+                android:id="@+id/buttonLetsGo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="85dp"
+                android:background="@drawable/custom_button"
+                android:fontFamily="@font/aldrich"
+                android:text="LET'S GO!"
+                android:textColor="@color/button_text_gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        <EditText
-            android:id="@+id/editTextUsername"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/white"
-            android:drawableTint="@color/white"
-            android:ems="10"
-            android:foregroundTint="@color/white"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/purple_200"
-            android:textColorHighlight="@color/white"
-            android:textColorHint="@color/purple_200"
-            android:textColorLink="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/buttonLetsGo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewPlayerDead" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/textViewPlayerDead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="64dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/aldrich"
+                android:text="ENTER NAME"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+            <EditText
+                android:id="@+id/editTextUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/white"
+                android:drawableTint="@color/white"
+                android:ems="10"
+                android:foregroundTint="@color/white"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/purple_200"
+                android:textColorHighlight="@color/white"
+                android:textColorHint="@color/purple_200"
+                android:textColorLink="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/buttonLetsGo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewPlayerDead" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+</layout>
