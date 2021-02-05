@@ -6,11 +6,11 @@ A traditional arkanoid game.
 
 * Users can sign up and sign in to retrieve their info, and continue playing from where they left the level.
 
-* Users data is stored in real time firebase. 
+* Users data is stored in a real-time firebase. 
 
-* Scoreboard shows scores of users.
+* The scoreboard shows the scores of users.
 
-* The game has six differnt types of bonuses that user can catch with paddle (bigger/smaller paddle, ability to shoot, plus life, plus 3 balls, sheild).
+* The game has six different types of bonuses that users can catch with the paddle (bigger/smaller paddle, ability to shoot, plus life, plus 3 balls, shield).
 
 * There're seven levels of hardness for the brick, each of which has different color.
 
@@ -31,7 +31,7 @@ A traditional arkanoid game.
 
 ## Highlights
 
-this is a product of team work with Daniil Krivelov, while he worked on creating the ui design and firebase i created the game engin and the levels, we both were working on the repo, fortunately enough through the development process we didn't have any conflicts.
+This is a product of teamwork with Daniil Krivelov, while he worked on creating the UI design and firebase I created the game engine and the levels, we both were working on the repo, fortunately enough through the development process, we didn't have any conflicts.
 
 ## Credits
-* The App idea was part of Mobile subject which led by _Lidia Ivanova_ at the first semester of second year of the university.
+* The App idea was part of a Mobile subject led by _Lidia Ivanova_ in the first semester of the second year of the university.
