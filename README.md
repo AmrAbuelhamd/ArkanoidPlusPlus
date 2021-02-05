@@ -1,31 +1,27 @@
-# Not Forgot Again
+# Arkanoid-plus-plus
 
-A note Taking Application.
+A traditional arkanoid game.
 
 ## Features
 
-* Users can sign up and sign in
+* Users can sign up and sign in to retrieve their info, and continue playing from where they left the level.
 
-* Signed in users are logged in automatically.
+* Users data is stored in real time firebase. 
 
-* Users can take notes online or offline.
+* Scoreboard shows scores of users.
 
-* if internet is available, then notes are saved directly to API, if no internet is available then notes are saved locally, and will be saved to API when the internet is available.
+* The game has six differnt types of bonuses that user can catch with paddle (bigger/smaller paddle, ability to shoot, plus life, plus 3 balls, sheild).
 
-* User can edit notes online and offline.
-
-* User can swipe to delete
-
-* User can pull to refresh note list
+* There're seven levels of hardness for the brick, each of which has different color.
 
 **for the full demo video [click here for youtube video](https://youtu.be/p4Spg26joco)**
+
 
 ## Screenshots
 
 <img src="https://github.com/AmrAbuelhamd/ArkanoidPlusPlus/blob/master/screenshots/1.png" width=200 height=400/><img src="https://github.com/AmrAbuelhamd/ArkanoidPlusPlus/blob/master/screenshots/2.png" width=200 height=400/>
 <img src="https://github.com/AmrAbuelhamd/ArkanoidPlusPlus/blob/master/screenshots/3.png" width=200 height=400/>
 <img src="https://github.com/AmrAbuelhamd/ArkanoidPlusPlus/blob/master/screenshots/4.png" width=200 height=400/>
-<img src="https://github.com/AmrAbuelhamd/ArkanoidPlusPlus/blob/master/screenshots/5.png" width=200 height=400/>
 
 
 ## Installation
@@ -33,15 +29,9 @@ A note Taking Application.
 [link to the apk file](https://github.com/AmrAbuelhamd/ArkanoidPlusPlus/blob/master/app/release/app-release.apk)
 
 
-## tech used
+## Highlights
 
-*	Used Kotlin and all the possible new android SDK components such **nav graph** and other UI components.
-
-*	Used **Room persistence library** for cashing user data in case there’s no internet.
-
-*	Followed **MVVM** app architecture.
-
-*	Used **Dependency injection (Hilt library)** and **Retrofit 2** library for REST API calls along with **Interceptor** for user token string.
+this is a product of team work with Daniil Krivelov, while he worked on creating the ui design and firebase i created the game engin and the levels, we both were working on the repo, fortunately enough through the development process we didn't have any conflicts.
 
 ## Credits
-* The App idea and design was part of Mobile subject which led by _Lidia Ivanova_ at the first semester of second year of the university.
+* The App idea was part of Mobile subject which led by _Lidia Ivanova_ at the first semester of second year of the university.
