@@ -18,19 +18,19 @@ A note Taking Application.
 
 * User can pull to refresh note list
 
-**for the full demo video [click here for youtube video](https://youtu.be/v7HaQTSI7wE)**
+**for the full demo video [click here for youtube video](https://youtu.be/p4Spg26joco)**
 
 ## Screenshots
 
-<img src="https://github.com/AmrAbuelhamd/NotForgotAgain/blob/master/screenshots/1.jpg" width=200 height=400/><img src="https://github.com/AmrAbuelhamd/NotForgotAgain/blob/master/screenshots/2.jpg" width=200 height=400/>
-<img src="https://github.com/AmrAbuelhamd/NotForgotAgain/blob/master/screenshots/3.jpg" width=200 height=400/>
-<img src="https://github.com/AmrAbuelhamd/NotForgotAgain/blob/master/screenshots/4.jpg" width=200 height=400/>
-<img src="https://github.com/AmrAbuelhamd/NotForgotAgain/blob/master/screenshots/5.jpg" width=200 height=400/>
+<img src="https://github.com/AmrAbuelhamd/ArkanoidPlusPlus/blob/master/screenshots/1.jpg" width=200 height=400/><img src="https://github.com/AmrAbuelhamd/ArkanoidPlusPlus/blob/master/screenshots/2.jpg" width=200 height=400/>
+<img src="https://github.com/AmrAbuelhamd/ArkanoidPlusPlus/blob/master/screenshots/3.jpg" width=200 height=400/>
+<img src="https://github.com/AmrAbuelhamd/ArkanoidPlusPlus/blob/master/screenshots/4.jpg" width=200 height=400/>
+<img src="https://github.com/AmrAbuelhamd/ArkanoidPlusPlus/blob/master/screenshots/5.jpg" width=200 height=400/>
 
 
 ## Installation
 
-[link to the apk file](https://github.com/AmrAbuelhamd/NotForgotAgain/blob/master/app/release/app-release.apk)
+[link to the apk file](https://github.com/AmrAbuelhamd/ArkanoidPlusPlus/blob/master/app/release/app-release.apk)
 
 
 ## tech used
